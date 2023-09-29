@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import ProjectListItemWrapper from './ProjectListItemWrapper';
 import projectsData from '@/public/static/projectsData';
 
-const horizontalLine = (
+const HorizontalLine = () => (
   <div className='w-full'>
     <svg width={'100%'} height={2}>
       <motion.line
@@ -25,7 +25,7 @@ const horizontalLine = (
   </div>
 );
 
-const verticalLine = (
+const VerticalLine = () => (
   <svg width={2} height={'100%'}>
     <motion.line
       initial={{ pathLength: 0 }}
@@ -44,13 +44,13 @@ const verticalLine = (
   </svg>
 );
 
-const verticalLines = (
+const VerticalLines = () => (
   <>
     <div className='absolute h-full left-[calc((100vw-60px)/2-250px)] lg:left-[calc((100vw-60px)/2-490px)]'>
-      {verticalLine}
+      <VerticalLine />
     </div>
     <div className='absolute h-full right-[calc((100vw-60px)/2-250px)] lg:right-[calc((100vw-60px)/2-490px)]'>
-      {verticalLine}
+      <VerticalLine />
     </div>
   </>
 );
@@ -66,15 +66,15 @@ export default function ProjectListWrapper() {
       >
         PROJECTS.
       </motion.div>
-      {horizontalLine}
+      <HorizontalLine />
       <div className='flex lg:flex-row flex-col m-8'>
         {projectsData.map((data, idx) => (
           <ProjectListItemWrapper key={idx} data={data} />
         ))}
       </div>
-      {horizontalLine}
+      <HorizontalLine />
 
-      {verticalLines}
+      <VerticalLines />
 
       {/* gradient boxes */}
       {/* top box */}
