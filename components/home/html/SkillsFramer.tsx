@@ -92,10 +92,10 @@ function Belt({
 
   return (
     <motion.div
-      className='flex flex-col h-[120px]'
+      className='flex flex-col h-[126px] bg-white'
       variants={{
         on: {
-          opacity: 1,
+          opacity: 0.7,
         },
         off: {
           opacity: 0,
@@ -115,7 +115,7 @@ export default function SkillsFramer() {
   return (
     <div
       className='fixed w-screen h-screen flex flex-col justify-center
-      text-[4rem] opacity-70 overflow-x-hidden'
+      text-[4rem] overflow-x-hidden gap-2'
     >
       <Belt skills={mainSkillsData} baseVelocity={3} />
       <Belt skills={subSkillsData} baseVelocity={-3} />
