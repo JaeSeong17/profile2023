@@ -145,9 +145,9 @@ export default function ContactFramer() {
       <svg className='w-[1px] h-[280px]'>
         <defs>
           <linearGradient id='vertical' x1='0%' y1='0%' x2='0%' y2='100%'>
-            <stop offset='0%' stop-color='white' stopOpacity={0} />
-            <stop offset='30%' stop-color='white' stopOpacity={1} />
-            <stop offset='100%' stop-color='white' stopOpacity={0} />
+            <stop offset='0%' stopColor='white' stopOpacity={0} />
+            <stop offset='30%' stopColor='white' stopOpacity={1} />
+            <stop offset='100%' stopColor='white' stopOpacity={0} />
           </linearGradient>
         </defs>
 
@@ -168,8 +168,8 @@ export default function ContactFramer() {
         <svg className='w-[300px] md:w-[550px] h-[2px]'>
           <defs>
             <linearGradient id='horizontal' x1='0%' y1='0%' x2='100%' y2='0%'>
-              <stop offset='60%' stop-color='white' stopOpacity={1} />
-              <stop offset='100%' stop-color='white' stopOpacity={0} />
+              <stop offset='60%' stopColor='white' stopOpacity={1} />
+              <stop offset='100%' stopColor='white' stopOpacity={0} />
             </linearGradient>
           </defs>
 
