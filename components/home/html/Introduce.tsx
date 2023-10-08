@@ -1,8 +1,10 @@
+'use client';
+
 import { introduceData } from '@/public/static/homeData';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
 
-export default function IntroduceFramer() {
+export default function Introduce() {
   const { scrollY } = useScroll();
   const [hookedYPostion, setHookedYPosition] = useState(0);
   useMotionValueEvent(scrollY, 'change', (latest) => {

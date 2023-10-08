@@ -1,6 +1,7 @@
+'use client';
+
 import { mainSkillsData, subSkillsData } from '@/public/static/homeData';
 import {
-  MotionValue,
   motion,
   useAnimationFrame,
   useMotionValue,
@@ -111,7 +112,7 @@ function Belt({
   );
 }
 
-export default function SkillsFramer() {
+export default function Skills() {
   return (
     <div
       className='fixed w-screen h-screen flex flex-col justify-center

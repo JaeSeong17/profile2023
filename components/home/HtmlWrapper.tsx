@@ -1,17 +1,17 @@
-import TitleFramer from './html/TitleFramer';
-import IntroduceFramer from './html/IntroduceFramer';
-import SkillsFramer from './html/SkillsFramer';
-import DescriptionsFramer from './html/DescriptionsFramer';
-import ContactFramer from './html/ContactFramer';
+import Title from './html/Title';
+import Introduce from './html/Introduce';
+import Skills from './html/Skills';
+import Descriptions from './html/Descriptions';
+import Contact from './html/Contact';
 
 export default function HtmlWrapper() {
   return (
     <div className='h-[25000px]'>
-      <TitleFramer />
-      <IntroduceFramer />
-      <SkillsFramer />
-      <DescriptionsFramer />
-      <ContactFramer />
+      <Title />
+      <Introduce />
+      <Skills />
+      <Descriptions />
+      <Contact />
     </div>
   );
 }

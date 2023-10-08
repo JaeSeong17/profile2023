@@ -1,9 +1,7 @@
+'use client';
+
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {
-  faGithub,
-  faGithubSquare,
-  faSquareGithub,
-} from '@fortawesome/free-brands-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faCode, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -125,7 +123,7 @@ function ContactItem({
   );
 }
 
-export default function ContactFramer() {
+export default function Contact() {
   const { scrollY } = useScroll();
   const [hookedYPosition, setHookedYPosition] = useState(0);
   useMotionValueEvent(scrollY, 'change', (latest) => {

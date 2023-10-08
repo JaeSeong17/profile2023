@@ -1,3 +1,5 @@
+'use client';
+
 import projectsData from '@/public/static/projectsData';
 import {
   Variants,
@@ -26,7 +28,7 @@ const fadeVariants: Variants = {
   },
 };
 
-export default function DescriptionsFramer() {
+export default function Descriptions() {
   const { scrollY } = useScroll();
   const [hookedYPosition, setHookedYPosition] = useState(0);
   useMotionValueEvent(scrollY, 'change', (latest) => {

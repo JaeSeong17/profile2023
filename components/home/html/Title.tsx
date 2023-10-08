@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Variants,
   motion,
@@ -57,7 +59,7 @@ const lineVariants: Variants = {
   },
 };
 
-export default function TitleFramer() {
+export default function Title() {
   const { scrollY } = useScroll();
   const [hookedYPostion, setHookedYPosition] = useState(0);
   useMotionValueEvent(scrollY, 'change', (latest) => {
