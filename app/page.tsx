@@ -1,11 +1,9 @@
-'use client';
-
-import Title from '@/components/main/TitlePanel';
+import HomeWrapper from '@/components/home/HomeWrapper';
 
 export default function Home() {
   return (
-    <div style={{ height: 10000 }}>
-      <Title />
+    <div>
+      <HomeWrapper />
     </div>
   );
 }
