@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Variants, motion } from 'framer-motion';
 
 const comeUpVariants: Variants = {
@@ -35,17 +35,24 @@ const fadeVarinats: Variants = {
 };
 
 export default function Home() {
-  const titleRef = useRef<HTMLDivElement>(null);
+  const [mobileScreen, setMobileScreen] = useState(window.innerWidth < 640);
+  useEffect(() => {
+    const handleResize = () => {
+      setMobileScreen(window.innerWidth < 640);
+    };
+    console.log(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div
       className='overflow-hidden 
     text-3xl text-white bg-neutral-900 p-[40px]'
     >
-      <div
-        ref={titleRef}
-        className='flex flex-wrap items-center justify-center min-h-[calc(100vh-80px)] gap-16'
-      >
+      <div className='flex flex-wrap items-center justify-center min-h-[calc(100vh-80px)] gap-16'>
         <div className='relative overflow-hidden max-w-[523px] max-h-[700px]'>
           <motion.div
             initial={'animOff'}
@@ -83,28 +90,70 @@ export default function Home() {
             },
           }}
         >
-          <div
-            className='
+          {mobileScreen ? (
+            <div
+              className='
+              self-center
+              relative w-[310px] h-[290px]
+            text-[4.6rem]
+            leading-[5.2rem] font-bold
+            '
+            >
+              <div className='absolute left-0 top-0'>
+                <div className='overflow-hidden'>
+                  <motion.div variants={comeUpVariants}>CLOSEST</motion.div>
+                </div>
+                <div className='overflow-hidden'>
+                  <motion.div variants={comeUpVariants}>TO THE</motion.div>
+                </div>
+                <div className='overflow-hidden'>
+                  <motion.div variants={comeUpVariants}>USER,</motion.div>
+                </div>
+              </div>
+              <div className='overflow-hidden rotate-90 absolute right-[-70px] bottom-[60px] flex flex-col items-end'>
+                <div className='overflow-hidden'>
+                  <motion.div variants={comeUpVariants}>IMPLEMENT</motion.div>
+                </div>
+                <div className='overflow-hidden'>
+                  <motion.div variants={comeUpVariants}>ATTRACTIVE</motion.div>
+                </div>
+                <div className='overflow-hidden'>
+                  <motion.div variants={comeUpVariants}>VISION</motion.div>
+                </div>
+              </div>
+              <div className='overflow-hidden absolute left-0 bottom-0'>
+                <div className='overflow-hidden'>
+                  <motion.div variants={comeUpVariants}>WITH</motion.div>
+                </div>
+                <div className='overflow-hidden'>
+                  <motion.div variants={comeUpVariants}>CODE.</motion.div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div
+              className='
             text-[4rem] md:text-[5rem]
             leading-[5.4rem] md:leading-[6.4rem] font-bold
             '
-          >
-            <div className='overflow-hidden'>
-              <motion.div variants={comeUpVariants}>
-                Closest To The User,
-              </motion.div>
+            >
+              <div className='overflow-hidden'>
+                <motion.div variants={comeUpVariants}>
+                  Closest To The User,
+                </motion.div>
+              </div>
+              <div className='overflow-hidden'>
+                <motion.div variants={comeUpVariants}>
+                  Implement Attractive
+                </motion.div>
+              </div>
+              <div className='overflow-hidden'>
+                <motion.div variants={comeUpVariants}>
+                  Vision With Code.
+                </motion.div>
+              </div>
             </div>
-            <div className='overflow-hidden'>
-              <motion.div variants={comeUpVariants}>
-                Implement Attractive
-              </motion.div>
-            </div>
-            <div className='overflow-hidden'>
-              <motion.div variants={comeUpVariants}>
-                Vision With Code.
-              </motion.div>
-            </div>
-          </div>
+          )}
 
           <svg className='w-full h-[2px] overflow-hidden'>
             <defs>
