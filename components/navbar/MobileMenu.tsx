@@ -6,8 +6,10 @@ import { usePathname } from 'next/navigation';
 
 export default function MobileMenu({
   links,
+  direction,
 }: {
   links: Array<{ href: string; label: string }>;
+  direction: 'vertical' | 'horizontal';
 }) {
   const path = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -27,13 +29,12 @@ export default function MobileMenu({
   }, [path]);
 
   return (
-    <motion.div
-      className='sm:hidden'
-      initial={false}
-      animate={isOpen ? 'open' : 'closed'}
-    >
-      <MenuToggleButton toggle={() => setIsOpen(!isOpen)} />
-      <MenuList isOpen={isOpen} links={links} />
+    <motion.div initial={false} animate={isOpen ? 'open' : 'closed'}>
+      <MenuToggleButton
+        toggle={() => setIsOpen(!isOpen)}
+        direction={direction}
+      />
+      <MenuList isOpen={isOpen} links={links} direction={direction} />
     </motion.div>
   );
 }

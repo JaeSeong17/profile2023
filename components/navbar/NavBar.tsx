@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import PCMenu from './PCMenu';
 import MobileMenu from './MobileMenu';
@@ -15,6 +15,15 @@ const links = [
 export default function NavBar() {
   const { scrollY } = useScroll();
   const [hookedYPostion, setHookedYPosition] = useState(0);
+  const [screenMode, setScreenMode] = useState<
+    'MobileVertical' | 'MobileHorizontal' | 'PC'
+  >(
+    window.innerWidth < 640
+      ? 'MobileVertical'
+      : window.innerHeight < 600
+      ? 'MobileHorizontal'
+      : 'PC'
+  );
 
   // useScroll이 react의 리렌더링를 트리거 시키지 못함
   // 스크롤값을 실시간 업데이트 하기 위해 useMotionValueEvent를 사용
@@ -22,10 +31,26 @@ export default function NavBar() {
     setHookedYPosition(latest);
   });
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenMode(
+        window.innerWidth < 640
+          ? 'MobileVertical'
+          : window.innerHeight < 600
+          ? 'MobileHorizontal'
+          : 'PC'
+      );
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <nav
       className='z-[100] fixed bg-white top-0 
-        h-[60px] w-screen [writing-mode: horizontal-tb] 
+        h-[60px] w-screen [writing-mode:horizontal-tb] 
         px-4 sm:py-4
         sm:h-screen sm:w-[60px] sm:[writing-mode:vertical-lr]
         text-4xl font-bold sm:text-5xl
@@ -36,6 +61,9 @@ export default function NavBar() {
           <motion.div
             initial={{ rotate: 0 }}
             animate={{ rotate: hookedYPostion * 0.2 }}
+            transition={{
+              ease: 'linear',
+            }}
           >
             <Image
               src='/icons/Gear-black.png'
@@ -50,8 +78,13 @@ export default function NavBar() {
         </div>
       </Link>
 
-      <PCMenu links={links} />
-      <MobileMenu links={links} />
+      {screenMode === 'PC' && <PCMenu links={links} />}
+      {screenMode === 'MobileVertical' && (
+        <MobileMenu links={links} direction='vertical' />
+      )}
+      {screenMode === 'MobileHorizontal' && (
+        <MobileMenu links={links} direction='horizontal' />
+      )}
     </nav>
   );
 }

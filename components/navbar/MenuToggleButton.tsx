@@ -11,9 +11,20 @@ const Path = (props: any) => (
   />
 );
 
-export const MenuToggleButton = ({ toggle }: { toggle: () => void }) => (
+export const MenuToggleButton = ({
+  toggle,
+  direction,
+}: {
+  toggle: () => void;
+  direction: 'vertical' | 'horizontal';
+}) => (
   <button onClick={toggle}>
-    <svg width='40' height='40' viewBox='0 0 28 18'>
+    <svg
+      className={`${direction === 'horizontal' && 'rotate-90'}`}
+      width='40'
+      height='40'
+      viewBox='0 0 28 18'
+    >
       <Path
         variants={{
           closed: { d: 'M 2 2.5 L 20 2.5' },

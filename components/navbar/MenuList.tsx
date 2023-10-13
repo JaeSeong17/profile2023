@@ -13,14 +13,21 @@ const itemVariants: Variants = {
 export const MenuList = ({
   isOpen,
   links,
+  direction,
 }: {
   isOpen: boolean;
   links: Array<{ href: string; label: string }>;
+  direction: 'vertical' | 'horizontal';
 }) => {
   return (
     <>
       <motion.ul
-        className='fixed z-[90] top-[59px] left-0 right-0 w-screen bg-white flex flex-col items-end justify-even gap-8 p-8'
+        className={`
+          fixed z-[10] bg-white
+          flex flex-col items-end justify-even gap-8 p-8
+          ${direction === 'vertical' ? 'top-[59px] w-screen' : ' top-0'}
+          ${direction === 'horizontal' ? 'left-[59px] h-screen' : ' left-0'}
+        `}
         variants={{
           open: {
             clipPath: 'inset(0% 0% 0% 0%)',
@@ -33,7 +40,10 @@ export const MenuList = ({
             },
           },
           closed: {
-            clipPath: 'inset(0% 0% 100% 0%)',
+            clipPath:
+              direction === 'vertical'
+                ? 'inset(0% 0% 100% 0%)'
+                : 'inset(0% 100% 0% 0%)',
             transition: {
               type: 'spring',
               bounce: 0,
@@ -54,13 +64,27 @@ export const MenuList = ({
         ))}
       </motion.ul>
       <motion.div
-        className='fixed z-[-10] top-[60px] left-0 w-screen h-screen bg-neutral-900 opacity-0'
+        className={`
+          fixed z-[-10]
+          ${direction === 'vertical' ? 'top-[60px]' : 'top-0'}
+          ${direction === 'horizontal' ? 'left-[60px]' : 'left-0'}
+          w-screen h-screen bg-neutral-900 opacity-0
+        `}
         variants={{
           open: {
             opacity: 0.8,
+            visibility: 'visible',
+            transition: {
+              duration: 0.5,
+            },
           },
           closed: {
             opacity: 0,
+            visibility: 'hidden',
+            transition: {
+              durtaion: 0.5,
+              visibility: { delay: 0.5 },
+            },
           },
         }}
       />
