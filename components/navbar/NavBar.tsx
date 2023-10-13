@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import PCMenu from './PCMenu';
 import MobileMenu from './MobileMenu';
+import useScreenModeStore from '@/lib/modules/screenMode';
 
 const links = [
   { href: '/profile', label: 'Profile' },
@@ -15,37 +16,13 @@ const links = [
 export default function NavBar() {
   const { scrollY } = useScroll();
   const [hookedYPostion, setHookedYPosition] = useState(0);
-  const [screenMode, setScreenMode] = useState<
-    'MobileVertical' | 'MobileHorizontal' | 'PC'
-  >(
-    window.innerWidth < 640
-      ? 'MobileVertical'
-      : window.innerHeight < 600
-      ? 'MobileHorizontal'
-      : 'PC'
-  );
+  const screenMode = useScreenModeStore((state) => state.screenMode);
 
   // useScroll이 react의 리렌더링를 트리거 시키지 못함
   // 스크롤값을 실시간 업데이트 하기 위해 useMotionValueEvent를 사용
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setHookedYPosition(latest);
   });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenMode(
-        window.innerWidth < 640
-          ? 'MobileVertical'
-          : window.innerHeight < 600
-          ? 'MobileHorizontal'
-          : 'PC'
-      );
-    };
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <nav

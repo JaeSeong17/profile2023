@@ -1,5 +1,6 @@
 'use client';
 
+import useScreenModeStore from '@/lib/modules/screenMode';
 import {
   Variants,
   motion,
@@ -65,61 +66,50 @@ export default function Title() {
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setHookedYPosition(latest);
   });
+  const screenMode = useScreenModeStore((state) => state.screenMode);
 
   return (
-    <div
+    <motion.div
       className='
-      fixed w-screen sm:w-[calc(100vw-60px-8px)] h-screen px-[30px]
-      text-white overflow-hidden  
-    '
+          fixed w-screen sm:w-[calc(100vw-60px)] h-[calc(100vh-60px)] sm:h-screen 
+          text-white overflow-hidden   
+          flex flex-col justify-between
+        '
+      initial='textOff'
+      animate={hookedYPostion < 2000 ? 'titleOn' : 'titleOff'}
     >
-      <motion.div
-        initial='textOff'
-        animate={hookedYPostion < 2000 ? 'titleOn' : 'titleOff'}
+      <div
+        className={`text-4xl overflow-hidden mx-[20px] my-[20px]
+        ${screenMode !== 'MobileHorizontal' && 'sm:mx-[40px]'}
+        `}
       >
-        <div className='absolute top-[2%] sm:top-[4%] text-4xl overflow-hidden '>
-          <motion.div
-            className='flex items-center'
-            variants={verticalTextVariants}
-          >
-            Dev Portfolio
-          </motion.div>
-        </div>
+        <motion.div
+          className='flex items-center'
+          variants={verticalTextVariants}
+        >
+          Dev Portfolio
+        </motion.div>
+      </div>
 
-        <div className='absolute top-[2%] sm:top-[4%] right-[15px] sm:right-[40px] text-5xl leading-[4rem] sm:text-6xl sm:leading-[5rem] overflow-hidden [writing-mode:vertical-lr] '>
-          <motion.div variants={horizontalTextVariants}>
-            2023 New Journey
-          </motion.div>
-        </div>
+      <div
+        className={`
+        absolute top-[2%] sm:top-[4%] 
+        
+        overflow-hidden [writing-mode:vertical-lr] 
+        ${
+          screenMode === 'MobileHorizontal'
+            ? 'text-4xl right-[60px]'
+            : 'text-5xl leading-[4rem] sm:text-6xl sm:leading-[5rem] right-[15px] sm:right-[40px]'
+        }
+        `}
+      >
+        <motion.div variants={horizontalTextVariants}>
+          2023 New Journey
+        </motion.div>
+      </div>
 
-        <div className='absolute bottom-[10%] md:bottom-[4%]'>
-          <div className='overflow-hidden text-4xl md:text-[5rem] md:leading-[7rem] md:absolute md:bottom-[80%]'>
-            <motion.div variants={verticalTextVariants}>
-              Front-end Developer
-            </motion.div>
-          </div>
-          <div className='overflow-hidden text-[4rem] md:text-[10rem]'>
-            <motion.div variants={verticalTextVariants}>
-              An Jae-seong
-            </motion.div>
-          </div>
-        </div>
-
-        <div className='absolute h-full top-0 right-[60px]  sm:right-[100px]  '>
-          <svg width={4} height={'100%'}>
-            <motion.line
-              variants={lineVariants}
-              stroke='white'
-              strokeWidth={4}
-              x1='0'
-              y1='0'
-              x2='0'
-              y2='1000'
-            />
-          </svg>
-        </div>
-
-        <div className='absolute w-[110vw] bottom-[24%] left-0'>
+      <div className=''>
+        <div className='w-screen'>
           <svg width={'100%'} height={4}>
             <motion.line
               variants={lineVariants}
@@ -132,7 +122,53 @@ export default function Title() {
             />
           </svg>
         </div>
-      </motion.div>
-    </div>
+        <div
+          className={`mx-[20px] my-[20px]
+        ${screenMode !== 'MobileHorizontal' && 'sm:mx-[40px]'}
+        `}
+        >
+          <div
+            className={`overflow-hidden
+          ${
+            screenMode === 'MobileHorizontal'
+              ? 'text-4xl'
+              : 'text-4xl md:text-[5rem] md:leading-[7rem]'
+          }
+          `}
+          >
+            <motion.div variants={verticalTextVariants}>
+              Front-end Developer
+            </motion.div>
+          </div>
+          <div
+            className={`overflow-hidden
+          ${
+            screenMode === 'MobileHorizontal'
+              ? 'text-[4rem]'
+              : 'text-[4rem] md:text-[10rem]'
+          }
+          `}
+          >
+            <motion.div variants={verticalTextVariants}>
+              An Jae-seong
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      <div className='absolute h-full top-0 right-[60px]  sm:right-[100px]  '>
+        <svg width={4} height={'100%'}>
+          <motion.line
+            variants={lineVariants}
+            stroke='white'
+            strokeWidth={4}
+            x1='0'
+            y1='0'
+            x2='0'
+            y2='1000'
+          />
+        </svg>
+      </div>
+    </motion.div>
   );
 }
