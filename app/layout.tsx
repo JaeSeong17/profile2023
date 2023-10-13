@@ -1,7 +1,7 @@
 import './globals.css';
 import { Noto_Sans_KR } from 'next/font/google';
-import StyledComponentsRegistry from '../lib/registry';
 import NavBar from '@/components/navbar/NavBar';
+import ScreenModeSetter from '@/components/home/ScreenModeSetter';
 
 const inter = Noto_Sans_KR({
   subsets: ['latin'],
@@ -22,15 +22,13 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <StyledComponentsRegistry>
-          <div>
-            <NavBar />
-            <div className='overflow-x-hidden sm:ml-[60px] mt-[60px] sm:mt-0'>
-              {/* <FramerTransitionRegistry>{children}</FramerTransitionRegistry> */}
-              {children}
-            </div>
+        <div>
+          <NavBar />
+          <ScreenModeSetter />
+          <div className='overflow-x-hidden sm:ml-[60px] mt-[60px] sm:mt-0'>
+            {children}
           </div>
-        </StyledComponentsRegistry>
+        </div>
       </body>
     </html>
   );

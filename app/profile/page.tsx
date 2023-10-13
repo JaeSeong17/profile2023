@@ -7,6 +7,7 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { useEffect, useState } from 'react';
 import { Variants, motion } from 'framer-motion';
+import useScreenModeStore from '@/lib/modules/screenMode';
 
 const comeUpVariants: Variants = {
   animOn: {
@@ -35,17 +36,7 @@ const fadeVarinats: Variants = {
 };
 
 export default function Home() {
-  const [mobileScreen, setMobileScreen] = useState(window.innerWidth < 640);
-  useEffect(() => {
-    const handleResize = () => {
-      setMobileScreen(window.innerWidth < 640);
-    };
-    console.log(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const screenMode = useScreenModeStore((state) => state.screenMode);
 
   return (
     <div
@@ -90,7 +81,7 @@ export default function Home() {
             },
           }}
         >
-          {mobileScreen ? (
+          {screenMode === 'MobileVertical' ? (
             <div
               className='
               self-center
