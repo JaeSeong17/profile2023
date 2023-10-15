@@ -2,8 +2,8 @@
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { motion } from 'framer-motion';
-import ProfileTitle from '@/components/profile/profileTitle';
-import HorizontalLine from '@/components/profile/horizontalLine';
+import ProfileTitle from '@/components/profile/ProfileTitle';
+import HorizontalLine from '@/components/profile/HorizontalLine';
 import ProfileImage from '@/components/profile/ProfileImage';
 import ProfileDesc from '@/components/profile/ProfileDesc';
 

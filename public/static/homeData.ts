@@ -69,3 +69,33 @@ export const subSkillsData = [
     label: 'Python',
   },
 ];
+
+export const descriptionsData = [
+  {
+    label: 'studywith',
+    title: 'StudyWith - 개인 프로젝트',
+    contents: [
+      '- 개발 스터디 플랫폼 프로젝트',
+      '- , Redux/toolkit, Redux-Saga, Three.js, GSAP',
+      '- 프론트엔드 전반적인 개발 경험',
+    ],
+  },
+  {
+    label: 'blogthree',
+    title: 'BlogThree - 개인 프로젝트',
+    contents: [
+      '- 개인 블로그 개발 프로젝트',
+      '- React, Redux/toolkit, Redux-Saga, Three.js, GSAP',
+      '- 프론트엔드 전반적인 개발 경험',
+    ],
+  },
+  {
+    label: 'petmily',
+    title: 'Petmily - SJSU SW program',
+    contents: [
+      '- 반려동물 기호 맞춤 사료 추천 서비스',
+      '- Flutter, Figma',
+      '- 어플리케이션 프론트 엔드 담당',
+    ],
+  },
+];
