@@ -1,7 +1,7 @@
 import './globals.css';
 import { Noto_Sans_KR } from 'next/font/google';
 import NavBar from '@/components/navbar/NavBar';
-import ScreenModeSetter from '@/components/home/ScreenModeSetter';
+import ScreenModeSetter from '@/components/ScreenModeSetter';
 
 const inter = Noto_Sans_KR({
   subsets: ['latin'],
