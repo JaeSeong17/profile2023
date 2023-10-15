@@ -20,7 +20,7 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function SecondScene() {
+export default function TunnelScene() {
   const endPoint = -300;
   const tunnelLightColor = '#0077ff';
   const tubePath = new CatmullRomCurve3([
@@ -80,9 +80,8 @@ export default function SecondScene() {
     ScrollTrigger.create({
       animation: tl,
       start: '1000 0',
-      end: '+=6500',
+      end: '+=9000',
       scrub: 2,
-      markers: true,
     });
   }, [tunnelRef]);
 

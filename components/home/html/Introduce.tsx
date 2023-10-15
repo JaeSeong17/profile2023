@@ -1,5 +1,6 @@
 'use client';
 
+import useScreenModeStore from '@/lib/modules/screenMode';
 import { introduceData } from '@/public/static/homeData';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
@@ -10,13 +11,19 @@ export default function Introduce() {
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setHookedYPosition(latest);
   });
+  const screenMode = useScreenModeStore((state) => state.screenMode);
 
   return (
     <motion.div
-      className='
-      fixed w-screen sm:w-[calc(100vw-60px)] h-[calc(100vh-60px)] sm:h-screen text-white
-      flex flex-col items-center justify-center p-[30px] gap-[20px]
-    '
+      className={`
+        fixed w-screen sm:w-[calc(100vw-60px)] h-[calc(100vh-60px)] sm:h-screen text-white
+        flex items-center justify-center p-[30px] gap-[20px] 
+        ${
+          screenMode === 'MobileHorizontal'
+            ? 'justify-items-stretch'
+            : 'flex-col'
+        }
+      `}
       variants={{
         textOn: {
           transition: {
@@ -39,11 +46,18 @@ export default function Introduce() {
           key={idx}
           className={`w-full max-w-[1200px] flex
           ${
-            idx === 0
-              ? 'justify-start'
-              : idx === 1
-              ? 'justify-center'
-              : 'justify-end'
+            idx === 0 &&
+            (screenMode === 'MobileHorizontal' ? 'self-start' : 'justify-start')
+          }
+          ${
+            idx === 1 &&
+            (screenMode === 'MobileHorizontal'
+              ? 'self-center'
+              : 'justify-center')
+          }
+          ${
+            idx === 2 &&
+            (screenMode === 'MobileHorizontal' ? 'self-end' : 'justify-end')
           }
         `}
           variants={{
@@ -61,8 +75,21 @@ export default function Introduce() {
             max-w-[400px] md:min-h-[200px] shadow-[0_0_40px_-12px] shadow-white
           '
           >
-            <div className='text-4xl md:text-5xl mb-[16px]'>{data.title}</div>
-            <div className='text-2xl md:text-3xl'>{data.content}</div>
+            <div
+              className={`
+              text-4xl mb-[16px] 
+              ${screenMode !== 'MobileHorizontal' && 'md:text-5xl'}
+            `}
+            >
+              {data.title}
+            </div>
+            <div
+              className={`text-2xl ${
+                screenMode !== 'MobileHorizontal' && 'md:text-3xl'
+              }`}
+            >
+              {data.content}
+            </div>
           </div>
         </motion.div>
       ))}

@@ -1,11 +1,10 @@
-import { Backdrop, Environment, useMask } from '@react-three/drei';
+import { Backdrop, Text, useMask } from '@react-three/drei';
 import GLTFDoor from './GLTFDoor';
-import DoorCamera from './DoorCamera';
 
-export default function FirstScene() {
+export default function DoorScene() {
   const stencil = useMask(1);
   return (
-    <group>
+    <>
       <ambientLight intensity={0.5} />
       <directionalLight
         castShadow
@@ -22,16 +21,21 @@ export default function FirstScene() {
       >
         <meshLambertMaterial color='#1a1a1a' {...stencil} />
       </Backdrop>
-      <Environment preset='city' />
       <GLTFDoor />
-      {/* <IndoorShader /> */}
+      <Text
+        position={[0.8, 0.58, 0.01]}
+        rotation={[0, 0, Math.PI / 2]}
+        fontSize={0.2}
+        color={'white'}
+      >
+        Scroll To Enter
+      </Text>
       <pointLight
         color={'white'}
         position={[3, 0, 5]}
         distance={10}
         intensity={2}
       />
-      <DoorCamera />
-    </group>
+    </>
   );
 }

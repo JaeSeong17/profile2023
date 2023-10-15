@@ -49,7 +49,7 @@ export default function Loading({ progress }: { progress: number }) {
       animate([
         [progressTextRef.current, { y: '100%' }, { delay: 0.5 }],
         [progressBarRef.current, { y: '100%' }],
-        [wrapperRef.current, { opacity: 0 }, { at: '+1', duration: 1 }],
+        [wrapperRef.current, { opacity: 0 }, { at: '+0.5', duration: 1 }],
       ]).then(
         () =>
           ((wrapperRef.current as unknown as HTMLDivElement).style.visibility =

@@ -57,7 +57,13 @@ const VerticalLines = () => (
 
 export default function ProjectListWrapper() {
   return (
-    <div className='relative bg-neutral-900 min-h-screen flex flex-col items-center justify-center overflow-hidden'>
+    <div
+      className='
+      relative bg-neutral-900 min-h-screen 
+      flex flex-col items-center justify-center overflow-hidden
+      py-[30px] sm:py-0
+    '
+    >
       <motion.div
         className='z-[2] text-6xl text-white mb-4'
         initial={{ opacity: 0 }}

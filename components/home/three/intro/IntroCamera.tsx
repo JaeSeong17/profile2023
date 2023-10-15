@@ -6,14 +6,14 @@ import { Matrix4, Quaternion, Vector3 } from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function DoorCamera() {
+export default function IntroCamera() {
   const camera = useThree(({ camera }) => {
     camera.lookAt(0, 0.5, 0.5);
     return camera;
   });
   const cameraEnterState = {
-    position: new Vector3(10, 0.5, 1),
-    target: new Vector3(0, 0.5, 1),
+    position: new Vector3(10, 0.55, 1),
+    target: new Vector3(0, 0.55, 1),
   };
 
   useIsomorphicLayoutEffect(() => {
@@ -68,8 +68,8 @@ export default function DoorCamera() {
 
     ScrollTrigger.create({
       animation: tl,
-      start: '500 0',
-      end: '+=7000',
+      start: '1000 0',
+      end: '+=9000',
       scrub: 2,
     });
   }, [camera]);

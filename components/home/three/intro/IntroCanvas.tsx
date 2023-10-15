@@ -1,26 +1,29 @@
-import { OrbitControls } from '@react-three/drei';
+'use client';
+
+import { Environment, OrbitControls, useProgress } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useRef } from 'react';
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import FirstScene from './FirstScene';
-import SecondScene from './SecondScene';
+import DoorScene from './DoorScene';
+import TunnelScene from './TunnelScene';
 import DoorMask from './DoorMask';
+import IntroCamera from './IntroCamera';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function DoorCanvas() {
+export default function IntroCanvas() {
   const canvasRef = useRef<HTMLDivElement>(null);
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.to(canvasRef.current, {
+      const fade = gsap.to(canvasRef.current, {
         opacity: 0,
         ease: 'power2',
       });
       ScrollTrigger.create({
-        animation: tl,
-        start: '7000 0',
+        animation: fade,
+        start: '9500 0',
         end: '+=1000',
         scrub: 2,
       });
@@ -29,21 +32,20 @@ export default function DoorCanvas() {
   }, [canvasRef.current]);
 
   return (
-    <div
-      ref={canvasRef}
-      style={{ width: '100%', height: '100vh', position: 'fixed', zIndex: 1 }}
-    >
+    <div className='w-full h-screen fixed z-[-1]' ref={canvasRef}>
       <Canvas
-        className='canvas'
         shadows
         raycaster={{ params: { Line: { threshold: 0.15 } } }}
         camera={{ position: [20, 10, 10], fov: 20, up: [0, 0, 1] }}
       >
         <color attach='background' args={['#141414']} />
         <fog attach='fog' args={['#141414', 25, 100]} />
+        <Environment preset='city' />
         <DoorMask />
-        <FirstScene />
-        <SecondScene />
+        <DoorScene />
+        <TunnelScene />
+
+        <IntroCamera />
         {/* <OrbitControls /> */}
       </Canvas>
     </div>

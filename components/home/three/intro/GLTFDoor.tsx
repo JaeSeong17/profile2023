@@ -1,7 +1,7 @@
-import React, { RefObject, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { gsap, Power1 } from 'gsap';
+import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useAnimations } from '@react-three/drei';
 import { AnimationAction, Group, LoopOnce } from 'three';
@@ -20,28 +20,21 @@ export default function GLTFDoor({ ...props }) {
     (actions['Cube.002Action'] as AnimationAction).clampWhenFinished = true;
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
-        start: '500 0',
+        start: '1200 0',
         scrub: 5,
         // markers: true,
-        // onUpdate: ({ progress }) => {
-        //   (actions['Cube.002Action'] as AnimationAction).time =
-        //     gsap.utils.clamp(0, 1, Power1.easeInOut(progress));
-        // },
         onEnter: () => {
           (actions['Cube.002Action'] as AnimationAction).paused = false;
           (actions['Cube.002Action'] as AnimationAction).timeScale = 1;
           (actions['Cube.002Action'] as AnimationAction).play();
         },
-        onEnterBack: () => {
-          console.log('back');
+        onLeaveBack: () => {
           (actions['Cube.002Action'] as AnimationAction).paused = false;
           (actions['Cube.002Action'] as AnimationAction).timeScale = -1;
           (actions['Cube.002Action'] as AnimationAction).play();
         },
       });
     });
-    // actions['Cube.002Action'].play();
-    // actions['Cube.002Action'].paused = true;
 
     return () => ctx.revert();
   }, [actions]);
