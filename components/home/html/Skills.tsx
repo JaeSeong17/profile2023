@@ -1,11 +1,11 @@
 'use client';
 
+import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import { mainSkillsData, subSkillsData } from '@/public/static/homeData';
 import {
   motion,
   useAnimationFrame,
   useMotionValue,
-  useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
@@ -13,7 +13,7 @@ import {
   wrap,
 } from 'framer-motion';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 function BeltItems({
   skills,
@@ -85,11 +85,9 @@ function Belt({
   skills: Array<{ name: string; label: string }>;
   baseVelocity: number;
 }) {
-  const { scrollY } = useScroll();
-  const [hookedYPostion, setHookedYPosition] = useState(0);
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setHookedYPosition(latest);
-  });
+  const scrollPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
 
   return (
     <motion.div
@@ -104,7 +102,7 @@ function Belt({
       }}
       initial={'off'}
       animate={
-        hookedYPostion >= 10500 && hookedYPostion <= 13500 ? 'on' : 'off'
+        scrollPosition >= 10500 && scrollPosition <= 13500 ? 'on' : 'off'
       }
     >
       <BeltItems skills={skills} baseVelocity={baseVelocity} />

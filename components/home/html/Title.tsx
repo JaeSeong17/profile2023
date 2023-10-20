@@ -1,13 +1,14 @@
 'use client';
 
 import useScreenModeStore from '@/lib/modules/screenMode';
+import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import {
   Variants,
   motion,
   useMotionValueEvent,
   useScroll,
 } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const verticalTextVariants: Variants = {
   titleOff: {
@@ -61,12 +62,10 @@ const lineVariants: Variants = {
 };
 
 export default function Title() {
-  const { scrollY } = useScroll();
-  const [hookedYPostion, setHookedYPosition] = useState(0);
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setHookedYPosition(latest);
-  });
   const screenMode = useScreenModeStore((state) => state.screenMode);
+  const scrollPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
 
   return (
     <motion.div
@@ -76,7 +75,7 @@ export default function Title() {
           flex flex-col justify-between
         '
       initial='textOff'
-      animate={hookedYPostion < 2000 ? 'titleOn' : 'titleOff'}
+      animate={scrollPosition < 2000 ? 'titleOn' : 'titleOff'}
     >
       <div
         className={`text-4xl overflow-hidden mx-[20px] my-[20px]

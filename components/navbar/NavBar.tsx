@@ -3,10 +3,16 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+} from 'framer-motion';
 import PCMenu from './PCMenu';
 import MobileMenu from './MobileMenu';
 import useScreenModeStore from '@/lib/modules/screenMode';
+import useScrollPositionStore from '@/lib/modules/scrollPosition';
 
 const links = [
   { href: '/profile', label: 'Profile' },
@@ -14,15 +20,10 @@ const links = [
 ];
 
 export default function NavBar() {
-  const { scrollY } = useScroll();
-  const [hookedYPostion, setHookedYPosition] = useState(0);
   const screenMode = useScreenModeStore((state) => state.screenMode);
-
-  // useScroll이 react의 리렌더링를 트리거 시키지 못함
-  // 스크롤값을 실시간 업데이트 하기 위해 useMotionValueEvent를 사용
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setHookedYPosition(latest);
-  });
+  const scrollPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
 
   return (
     <nav
@@ -37,7 +38,7 @@ export default function NavBar() {
         <div className='flex items-center'>
           <motion.div
             initial={{ rotate: 0 }}
-            animate={{ rotate: hookedYPostion * 0.2 }}
+            animate={{ rotate: scrollPosition * 0.2 }}
             transition={{
               ease: 'linear',
             }}

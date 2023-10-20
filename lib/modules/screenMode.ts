@@ -1,15 +1,15 @@
 import { create } from 'zustand';
 
 interface ScreenModeState {
-  screenMode: 'MobileVertical' | 'MobileHorizontal' | 'PC';
+  screenMode: 'initial' | 'MobileVertical' | 'MobileHorizontal' | 'PC';
   setScreenMode: (
     currMode: 'MobileVertical' | 'MobileHorizontal' | 'PC'
   ) => void;
 }
 
 const useScreenModeStore = create<ScreenModeState>((set) => ({
-  screenMode: 'PC',
-  setScreenMode: (currMode) => set((state) => ({ screenMode: currMode })),
+  screenMode: 'initial',
+  setScreenMode: (currMode) => set({ screenMode: currMode }),
 }));
 
 export default useScreenModeStore;

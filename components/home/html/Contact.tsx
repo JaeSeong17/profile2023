@@ -1,17 +1,12 @@
 'use client';
 
+import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faCode, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  Variants,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from 'framer-motion';
+import { Variants, motion } from 'framer-motion';
 import Link from 'next/link';
-import { useState } from 'react';
 
 const fadeVariants: Variants = {
   fadeOn: {
@@ -124,12 +119,9 @@ function ContactItem({
 }
 
 export default function Contact() {
-  const { scrollY } = useScroll();
-  const [hookedYPosition, setHookedYPosition] = useState(0);
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setHookedYPosition(latest);
-  });
-
+  const scorllPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
   const start = 23000;
 
   return (
@@ -137,7 +129,7 @@ export default function Contact() {
       className='fixed w-screen h-screen bg-neutral-900/80
         flex items-center justify-center text-white p-[30px]'
       initial={'fadeOff'}
-      animate={hookedYPosition >= start ? 'fadeOn' : 'fadeOff'}
+      animate={scorllPosition >= start ? 'fadeOn' : 'fadeOff'}
       variants={fadeVariants}
     >
       <svg className='w-[1px] h-[280px]'>

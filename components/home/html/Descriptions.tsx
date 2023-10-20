@@ -1,14 +1,9 @@
 'use client';
 
+import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import projectsData from '@/public/static/projectsData';
-import {
-  Variants,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from 'framer-motion';
+import { Variants, motion } from 'framer-motion';
 import Link from 'next/link';
-import { useState } from 'react';
 
 const fadeVariants: Variants = {
   fadeOn: {
@@ -29,11 +24,9 @@ const fadeVariants: Variants = {
 };
 
 export default function Descriptions() {
-  const { scrollY } = useScroll();
-  const [hookedYPosition, setHookedYPosition] = useState(0);
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setHookedYPosition(latest);
-  });
+  const scrollPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
   const start = 15000;
   const interval = 4000;
   const length = 3000;
@@ -51,8 +44,8 @@ export default function Descriptions() {
           '
           initial={'fadeOff'}
           animate={
-            hookedYPosition >= start + interval * idx &&
-            hookedYPosition <= start + interval * idx + length
+            scrollPosition >= start + interval * idx &&
+            scrollPosition <= start + interval * idx + length
               ? 'fadeOn'
               : 'fadeOff'
           }
@@ -73,9 +66,9 @@ export default function Descriptions() {
                 initial={{ pathLength: 0, rotate: -90 }}
                 animate={{
                   pathLength:
-                    hookedYPosition < start + interval * idx
+                    scrollPosition < start + interval * idx
                       ? 0
-                      : ((hookedYPosition - (start + interval * idx)) /
+                      : ((scrollPosition - (start + interval * idx)) /
                           interval) *
                         1.4,
                 }}

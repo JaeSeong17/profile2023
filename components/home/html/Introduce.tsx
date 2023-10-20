@@ -1,17 +1,15 @@
 'use client';
 
 import useScreenModeStore from '@/lib/modules/screenMode';
+import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import { introduceData } from '@/public/static/homeData';
-import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Introduce() {
-  const { scrollY } = useScroll();
-  const [hookedYPostion, setHookedYPosition] = useState(0);
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setHookedYPosition(latest);
-  });
   const screenMode = useScreenModeStore((state) => state.screenMode);
+  const scrollPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
 
   return (
     <motion.div
@@ -38,7 +36,7 @@ export default function Introduce() {
       }}
       initial='textOff'
       animate={
-        hookedYPostion >= 6000 && hookedYPostion <= 9000 ? 'textOn' : 'textOff'
+        scrollPosition >= 6000 && scrollPosition <= 9000 ? 'textOn' : 'textOff'
       }
     >
       {introduceData.map((data, idx) => (
