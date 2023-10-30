@@ -1,6 +1,6 @@
 'use client';
 
-import { Environment, OrbitControls, useProgress } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useRef } from 'react';
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
@@ -10,6 +10,7 @@ import DoorScene from './DoorScene';
 import TunnelScene from './TunnelScene';
 import DoorMask from './DoorMask';
 import IntroCamera from './IntroCamera';
+import IntroCameraFramer from './IntroCameraFramer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,7 +46,8 @@ export default function IntroCanvas() {
         <DoorScene />
         <TunnelScene />
 
-        <IntroCamera />
+        {/* <IntroCamera /> */}
+        <IntroCameraFramer />
         {/* <OrbitControls /> */}
       </Canvas>
     </div>

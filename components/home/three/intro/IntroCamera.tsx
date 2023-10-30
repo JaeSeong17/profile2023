@@ -63,8 +63,6 @@ export default function IntroCamera() {
         duration: 15,
         ease: 'power2.in',
       });
-    // .pause();
-    // .pause();
 
     ScrollTrigger.create({
       animation: tl,
