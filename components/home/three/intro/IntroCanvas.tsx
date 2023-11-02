@@ -16,6 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function IntroCanvas() {
   const canvasRef = useRef<HTMLDivElement>(null);
+
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const fade = gsap.to(canvasRef.current, {
@@ -24,7 +25,7 @@ export default function IntroCanvas() {
       });
       ScrollTrigger.create({
         animation: fade,
-        start: '9500 0',
+        start: '9000 0',
         end: '+=1000',
         scrub: 2,
       });
@@ -40,7 +41,7 @@ export default function IntroCanvas() {
         camera={{ position: [20, 10, 10], fov: 20, up: [0, 0, 1] }}
       >
         <color attach='background' args={['#141414']} />
-        <fog attach='fog' args={['#141414', 25, 100]} />
+        <fog attach='fog' args={['#141414', 15, 50]} />
         <Environment preset='city' />
         <DoorMask />
         <DoorScene />

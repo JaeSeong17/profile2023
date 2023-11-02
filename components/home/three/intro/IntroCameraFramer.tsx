@@ -78,7 +78,7 @@ export default function IntroCamera() {
 
   useFrame(() => {
     if (targetRef.current) {
-      camera.lookAt(targetRef.current?.position);
+      camera.lookAt(targetRef.current.position);
     }
   });
 

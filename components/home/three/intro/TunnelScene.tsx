@@ -1,3 +1,4 @@
+import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import {
   Instance,
   Instances,
@@ -13,7 +14,6 @@ import {
   Group,
   Mesh,
   MeshStandardMaterial,
-  PointLight,
   TubeGeometry,
   Vector3,
 } from 'three';
@@ -22,23 +22,33 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function TunnelScene() {
   const endPoint = -300;
+  const tunnelUnitLength = 80;
   const tunnelLightColor = '#0077ff';
   const tubePath = new CatmullRomCurve3([
-    new Vector3(0, 0, 0),
-    new Vector3(endPoint, 0, 0),
+    new Vector3(-1, 0, 0),
+    new Vector3(-1 * tunnelUnitLength - 1, 0, 0),
   ]);
-  const segments = 100;
-  const tubeRadius = 4;
-  const radialSegments = 16;
+  const segments = 15;
+  const tubeRadius = 2.6;
+  const radialSegments = 8;
 
   const tubeRef = useRef<Mesh<TubeGeometry>>(null);
   const tunnelRef = useRef<Group>(null);
   const [boxGeometries, setBoxGeometries] = useState<Array<Mesh>>([]);
   const [scales, setScales] = useState<Array<number>>([]);
+  const [defaultPositions, setDefaultPositions] = useState<
+    Array<Array<number>>
+  >([]);
   const [positions, setPositions] = useState<Array<Array<number>>>([]);
   const [rotations, setRotations] = useState<Array<number>>([]);
 
   const stencil = useMask(1, true);
+
+  const scrollPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
+  const lotationStart = 6500;
+  const lotationEnd = 11000;
 
   useEffect(() => {
     if (!tubeRef.current) return;
@@ -56,12 +66,16 @@ export default function TunnelScene() {
         vertices[i * 3 + 1],
         vertices[i * 3 + 2]
       );
-      const size = Math.random() * 1 + 1;
+      const size = Math.random() * 1 + 1.4;
       box.scale.set(size, size, size);
       const rotation = (Math.random() - 0.5) * Math.PI * 4;
       box.rotation.set(rotation, rotation, rotation);
       setBoxGeometries((prevState) => [...prevState, box]);
       setScales((prevState) => [...prevState, size]);
+      setDefaultPositions((prevState) => [
+        ...prevState,
+        [vertices[i * 3], vertices[i * 3 + 1], vertices[i * 3 + 2]],
+      ]);
       setPositions((prevState) => [
         ...prevState,
         [vertices[i * 3], vertices[i * 3 + 1], vertices[i * 3 + 2]],
@@ -79,11 +93,37 @@ export default function TunnelScene() {
 
     ScrollTrigger.create({
       animation: tl,
-      start: '1000 0',
-      end: '+=9000',
+      start: '3000 0',
+      end: '+=7000',
       scrub: 2,
     });
   }, [tunnelRef]);
+
+  useEffect(() => {
+    let progress = 0;
+    if (scrollPosition < lotationStart) {
+      progress = 0;
+    } else if (scrollPosition > lotationEnd) {
+      progress = Math.abs(endPoint) / tunnelUnitLength;
+    } else {
+      progress =
+        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
+          Math.abs(endPoint)) /
+        tunnelUnitLength;
+    }
+    console.log(progress);
+
+    positions.forEach((position, idx) => {
+      position[0] =
+        defaultPositions[idx][0] +
+        (Math.floor(progress / 1) +
+          (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
+            ? 1
+            : 0)) *
+          -1 *
+          tunnelUnitLength;
+    });
+  }, [scrollPosition]);
 
   return (
     <>

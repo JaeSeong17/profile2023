@@ -20,8 +20,8 @@ export default function GLTFDoor({ ...props }) {
     (actions['Cube.002Action'] as AnimationAction).clampWhenFinished = true;
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
-        start: '1200 0',
-        scrub: 5,
+        start: '2000 0',
+        scrub: 4,
         // markers: true,
         onEnter: () => {
           (actions['Cube.002Action'] as AnimationAction).paused = false;

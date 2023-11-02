@@ -4,10 +4,9 @@ import {
   Grid,
   Instance,
   Instances,
-  MeshReflectorMaterial,
 } from '@react-three/drei';
-import { useEffect, useState } from 'react';
-import { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
+import {  useState } from 'react';
+import { MeshStandardMaterial } from 'three';
 
 export default function InfiniteField() {
   const [positions, setPositions] = useState<Array<Array<number>>>([]);
