@@ -2,7 +2,7 @@
 import { Environment, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import FlareLight from './FlareLight';
-import InfiniteField from './InfiniteField';
+import FieldBoxes from './FieldBoxes';
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
 import { useRef } from 'react';
 import { gsap } from 'gsap';
@@ -46,7 +46,7 @@ export default function FieldCanvas() {
         raycaster={{ params: { Line: { threshold: 0.15 } } }}
         camera={{ position: [-100, 0, 300], fov: 20, up: [0, 0, 1] }}
       >
-        <fog attach='fog' args={['#00bffe', 200, 500]} />
+        <fog attach='fog' args={['#00bffe', 200, 350]} />
         <color attach='background' args={['#00bffe']} />
         <ambientLight intensity={0.5} />
         <directionalLight
@@ -62,7 +62,7 @@ export default function FieldCanvas() {
         </directionalLight>
         <Environment preset='city' />
         <FlareLight position={[800, 0, 30]} color={'white'} />
-        <InfiniteField />
+        <FieldBoxes />
         <BoxesWrapper />
 
         <FieldCamera />

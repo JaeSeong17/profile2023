@@ -2,13 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-} from 'framer-motion';
+import { motion } from 'framer-motion';
 import PCMenu from './PCMenu';
 import MobileMenu from './MobileMenu';
 import useScreenModeStore from '@/lib/modules/screenMode';

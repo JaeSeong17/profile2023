@@ -8,7 +8,9 @@ export default function CanvasWrapper() {
   return (
     <div>
       <IntroCanvas />
-      <Suspense fallback={null}>{/* <FieldCanvas /> */}</Suspense>
+      <Suspense fallback={null}>
+        <FieldCanvas />
+      </Suspense>
     </div>
   );
 }

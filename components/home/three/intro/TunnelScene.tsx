@@ -28,7 +28,7 @@ export default function TunnelScene() {
     new Vector3(-1, 0, 0),
     new Vector3(-1 * tunnelUnitLength - 1, 0, 0),
   ]);
-  const segments = 15;
+  const segments = 14;
   const tubeRadius = 2.6;
   const radialSegments = 8;
 
@@ -49,6 +49,7 @@ export default function TunnelScene() {
   );
   const lotationStart = 6500;
   const lotationEnd = 11000;
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (!tubeRef.current) return;
@@ -100,29 +101,33 @@ export default function TunnelScene() {
   }, [tunnelRef]);
 
   useEffect(() => {
-    let progress = 0;
-    if (scrollPosition < lotationStart) {
-      progress = 0;
-    } else if (scrollPosition > lotationEnd) {
-      progress = Math.abs(endPoint) / tunnelUnitLength;
+    if (defaultPositions.length === 0) return;
+
+    if (scrollPosition <= lotationStart) {
+      setProgress(0);
+    } else if (scrollPosition >= lotationEnd) {
+      setProgress(Math.abs(endPoint) / tunnelUnitLength);
     } else {
-      progress =
+      setProgress(
         (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
           Math.abs(endPoint)) /
-        tunnelUnitLength;
+          tunnelUnitLength
+      );
     }
-    console.log(progress);
 
-    positions.forEach((position, idx) => {
-      position[0] =
-        defaultPositions[idx][0] +
-        (Math.floor(progress / 1) +
-          (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
-            ? 1
-            : 0)) *
-          -1 *
-          tunnelUnitLength;
-    });
+    setPositions(
+      defaultPositions.map((defaultPosition, idx) => [
+        defaultPosition[0] +
+          (Math.floor(progress / 1) +
+            (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
+              ? 1
+              : 0)) *
+            -1 *
+            tunnelUnitLength,
+        defaultPosition[1],
+        defaultPosition[2],
+      ])
+    );
   }, [scrollPosition]);
 
   return (
@@ -142,7 +147,6 @@ export default function TunnelScene() {
         >
           <boxGeometry />
           {boxGeometries.map((box, index) => {
-            // return <primitive key={index} object={box} />;
             return (
               <Instance
                 key={index}
