@@ -44,12 +44,12 @@ export default function TunnelScene() {
 
   const stencil = useMask(1, true);
 
-  // const scrollPosition = useScrollPositionStore(
-  //   (state) => state.scrollPosition
-  // );
-  // const lotationStart = 6500;
-  // const lotationEnd = 10800;
-  // const [progress, setProgress] = useState(0);
+  const scrollPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
+  const lotationStart = 6500;
+  const lotationEnd = 10800;
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (!tubeRef.current) return;
@@ -100,19 +100,19 @@ export default function TunnelScene() {
     });
   }, [tunnelRef]);
 
-  // useEffect(() => {
-  //   if (scrollPosition <= lotationStart) {
-  //     setProgress(0);
-  //   } else if (scrollPosition >= lotationEnd) {
-  //     setProgress(Math.abs(endPoint) / tunnelUnitLength);
-  //   } else {
-  //     setProgress(
-  //       (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
-  //         Math.abs(endPoint)) /
-  //         tunnelUnitLength
-  //     );
-  //   }
-  // }, [endPoint, scrollPosition]);
+  useEffect(() => {
+    if (scrollPosition <= lotationStart) {
+      setProgress(0);
+    } else if (scrollPosition >= lotationEnd) {
+      setProgress(Math.abs(endPoint) / tunnelUnitLength);
+    } else {
+      setProgress(
+        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
+          Math.abs(endPoint)) /
+          tunnelUnitLength
+      );
+    }
+  }, [endPoint, scrollPosition]);
 
   // useEffect(() => {
   //   if (defaultPositions.length === 0) return;
