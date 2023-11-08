@@ -100,19 +100,19 @@ export default function TunnelScene() {
     });
   }, [tunnelRef]);
 
-  useEffect(() => {
-    if (scrollPosition <= lotationStart) {
-      setProgress(0);
-    } else if (scrollPosition >= lotationEnd) {
-      setProgress(Math.abs(endPoint) / tunnelUnitLength);
-    } else {
-      setProgress(
-        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
-          Math.abs(endPoint)) /
-          tunnelUnitLength
-      );
-    }
-  }, [endPoint, scrollPosition]);
+  // useEffect(() => {
+  //   if (scrollPosition <= lotationStart) {
+  //     setProgress(0);
+  //   } else if (scrollPosition >= lotationEnd) {
+  //     setProgress(Math.abs(endPoint) / tunnelUnitLength);
+  //   } else {
+  //     setProgress(
+  //       (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
+  //         Math.abs(endPoint)) /
+  //         tunnelUnitLength
+  //     );
+  //   }
+  // }, [endPoint, scrollPosition]);
 
   // useEffect(() => {
   //   if (defaultPositions.length === 0) return;
