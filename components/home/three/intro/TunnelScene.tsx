@@ -44,9 +44,9 @@ export default function TunnelScene() {
 
   const stencil = useMask(1, true);
 
-  const scrollPosition = useScrollPositionStore(
-    (state) => state.scrollPosition
-  );
+  // const scrollPosition = useScrollPositionStore(
+  //   (state) => state.scrollPosition
+  // );
   const lotationStart = 6500;
   const lotationEnd = 10800;
   const [progress, setProgress] = useState(0);
