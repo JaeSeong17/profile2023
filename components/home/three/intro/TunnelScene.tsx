@@ -1,4 +1,5 @@
 import useScrollPositionStore from '@/lib/modules/scrollPosition';
+import throttle from '@/lib/trottle';
 import {
   Instance,
   Instances,
@@ -44,11 +45,9 @@ export default function TunnelScene() {
 
   const stencil = useMask(1, true);
 
-  // const scrollPosition = useScrollPositionStore(
-  //   (state) => state.scrollPosition
-  // );
+  const [scrollPosition, setScrollPosition] = useState(0);
   const lotationStart = 6500;
-  const lotationEnd = 10800;
+  const lotationEnd = 11200;
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -100,36 +99,48 @@ export default function TunnelScene() {
     });
   }, [tunnelRef]);
 
-  // useEffect(() => {
-  //   if (scrollPosition <= lotationStart) {
-  //     setProgress(0);
-  //   } else if (scrollPosition >= lotationEnd) {
-  //     setProgress(Math.abs(endPoint) / tunnelUnitLength);
-  //   } else {
-  //     setProgress(
-  //       (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
-  //         Math.abs(endPoint)) /
-  //         tunnelUnitLength
-  //     );
-  //   }
-  // }, [endPoint, scrollPosition]);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+    const throttleHandleScroll = throttle(handleScroll, 100);
 
-  // useEffect(() => {
-  //   if (defaultPositions.length === 0) return;
-  //   setPositions(
-  //     defaultPositions.map((defaultPosition, idx) => [
-  //       defaultPosition[0] +
-  //         (Math.floor(progress / 1) +
-  //           (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
-  //             ? 1
-  //             : 0)) *
-  //           -1 *
-  //           tunnelUnitLength,
-  //       defaultPosition[1],
-  //       defaultPosition[2],
-  //     ])
-  //   );
-  // }, [defaultPositions, progress]);
+    window.addEventListener('scroll', throttleHandleScroll);
+    return () => {
+      window.removeEventListener('scroll', throttleHandleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (scrollPosition <= lotationStart) {
+      setProgress(0);
+    } else if (scrollPosition >= lotationEnd) {
+      setProgress(Math.abs(endPoint) / tunnelUnitLength);
+    } else {
+      setProgress(
+        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
+          Math.abs(endPoint)) /
+          tunnelUnitLength
+      );
+    }
+  }, [endPoint, scrollPosition]);
+
+  useEffect(() => {
+    if (defaultPositions.length === 0) return;
+    setPositions(
+      defaultPositions.map((defaultPosition, idx) => [
+        defaultPosition[0] +
+          (Math.floor(progress / 1) +
+            (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
+              ? 1
+              : 0)) *
+            -1 *
+            tunnelUnitLength,
+        defaultPosition[1],
+        defaultPosition[2],
+      ])
+    );
+  }, [defaultPositions, progress]);
 
   return (
     <>
