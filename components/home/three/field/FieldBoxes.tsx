@@ -8,15 +8,15 @@ export default function FieldBoxes() {
   const [positions, setPositions] = useState<Array<Array<number>>>([]);
   const [rotations, setRotations] = useState<Array<number>>([]);
   const [sizes, setSizes] = useState<Array<number>>([]);
-  const screenMode = useScreenModeStore((state) => state.screenMode);
+  // const screenMode = useScreenModeStore((state) => state.screenMode);
 
   useIsomorphicLayoutEffect(() => {
     let fieldWidth = 100;
     let boxesCount = 50;
-    if (screenMode === 'MobileVertical') {
-      fieldWidth = 30;
-      boxesCount = 20;
-    }
+    // if (screenMode === 'MobileVertical') {
+    //   fieldWidth = 30;
+    //   boxesCount = 20;
+    // }
 
     for (let i = 0; i < boxesCount; i++) {
       setSizes((prevState) => [...prevState, Math.random() * 12 + 2]);
@@ -32,7 +32,7 @@ export default function FieldBoxes() {
         ],
       ]);
     }
-  }, [screenMode]);
+  }, []);
 
   return (
     <group>

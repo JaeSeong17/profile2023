@@ -9,6 +9,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import FieldCamera from './FieldCamera';
 import BoxesWrapper from './BoxesWrapper';
+import CloudWrapper from './CloudWrapper';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,6 +65,7 @@ export default function FieldCanvas() {
         <FlareLight position={[800, 0, 30]} color={'white'} />
         <FieldBoxes />
         <BoxesWrapper />
+        <CloudWrapper />
 
         <FieldCamera />
       </Canvas>
