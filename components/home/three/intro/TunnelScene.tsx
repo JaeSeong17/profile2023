@@ -126,21 +126,18 @@ export default function TunnelScene() {
   }, [endPoint, scrollPosition]);
 
   useEffect(() => {
-    if (defaultPositions.length === 0) return;
-    setPositions(
-      defaultPositions.map((defaultPosition, idx) => [
-        defaultPosition[0] +
-          (Math.floor(progress / 1) +
-            (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
-              ? 1
-              : 0)) *
-            -1 *
-            tunnelUnitLength,
-        defaultPosition[1],
-        defaultPosition[2],
-      ])
-    );
-  }, [defaultPositions, progress]);
+    if (positions.length === 0) return;
+    positions.forEach((position, idx) => {
+      position[0] =
+        defaultPositions[idx][0] +
+        (Math.floor(progress / 1) +
+          (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
+            ? 1
+            : 0)) *
+          -1 *
+          tunnelUnitLength;
+    });
+  }, [defaultPositions, positions, progress]);
 
   return (
     <>
