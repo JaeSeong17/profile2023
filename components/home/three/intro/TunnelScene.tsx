@@ -45,7 +45,9 @@ export default function TunnelScene() {
 
   const stencil = useMask(1, true);
 
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const scrollPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
   const lotationStart = 6500;
   const lotationEnd = 11200;
   const [progress, setProgress] = useState(0);
@@ -100,50 +102,42 @@ export default function TunnelScene() {
   }, [tunnelRef]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollPosition(window.scrollY);
-    };
-    const throttleHandleScroll = throttle(handleScroll, 100);
+    console.log(scrollPosition);
+  }, [scrollPosition]);
 
-    window.addEventListener('scroll', throttleHandleScroll);
-    return () => {
-      window.removeEventListener('scroll', throttleHandleScroll);
-    };
-  }, []);
+  // useEffect(() => {
+  //   if (scrollPosition <= lotationStart) {
+  //     setProgress(0);
+  //   } else if (scrollPosition >= lotationEnd) {
+  //     setProgress(Math.abs(endPoint) / tunnelUnitLength);
+  //   } else {
+  //     setProgress(
+  //       (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
+  //         Math.abs(endPoint)) /
+  //         tunnelUnitLength
+  //     );
+  //   }
+  // }, [endPoint, scrollPosition]);
 
-  useEffect(() => {
-    if (scrollPosition <= lotationStart) {
-      setProgress(0);
-    } else if (scrollPosition >= lotationEnd) {
-      setProgress(Math.abs(endPoint) / tunnelUnitLength);
-    } else {
-      setProgress(
-        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
-          Math.abs(endPoint)) /
-          tunnelUnitLength
-      );
-    }
-  }, [endPoint, scrollPosition]);
-
-  useEffect(() => {
-    if (positions.length === 0) return;
-    positions.forEach((position, idx) => {
-      position[0] =
-        defaultPositions[idx][0] +
-        (Math.floor(progress / 1) +
-          (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
-            ? 1
-            : 0)) *
-          -1 *
-          tunnelUnitLength;
-    });
-  }, [defaultPositions, positions, progress]);
+  // useEffect(() => {
+  //   if (positions.length === 0) return;
+  //   positions.forEach((position, idx) => {
+  //     position[0] =
+  //       defaultPositions[idx][0] +
+  //       (Math.floor(progress / 1) +
+  //         (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
+  //           ? 1
+  //           : 0)) *
+  //         -1 *
+  //         tunnelUnitLength;
+  //   });
+  // }, [defaultPositions, positions, progress]);
 
   return (
     <>
       <group ref={tunnelRef} position={[0, 0.7, 1]}>
         <Instances
-          limit={2000}
+          limit={200}
           frustumCulled={false}
           material={
             new MeshStandardMaterial({
