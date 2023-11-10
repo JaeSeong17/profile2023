@@ -111,33 +111,33 @@ export default function TunnelScene() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (scrollPosition <= lotationStart) {
-  //     setProgress(0);
-  //   } else if (scrollPosition >= lotationEnd) {
-  //     setProgress(Math.abs(endPoint) / tunnelUnitLength);
-  //   } else {
-  //     setProgress(
-  //       (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
-  //         Math.abs(endPoint)) /
-  //         tunnelUnitLength
-  //     );
-  //   }
-  // }, [endPoint, scrollPosition]);
+  useEffect(() => {
+    if (scrollPosition <= lotationStart) {
+      setProgress(0);
+    } else if (scrollPosition >= lotationEnd) {
+      setProgress(Math.abs(endPoint) / tunnelUnitLength);
+    } else {
+      setProgress(
+        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
+          Math.abs(endPoint)) /
+          tunnelUnitLength
+      );
+    }
+  }, [endPoint, scrollPosition]);
 
-  // useEffect(() => {
-  //   if (positions.length === 0) return;
-  //   positions.forEach((position, idx) => {
-  //     position[0] =
-  //       defaultPositions[idx][0] +
-  //       (Math.floor(progress / 1) +
-  //         (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
-  //           ? 1
-  //           : 0)) *
-  //         -1 *
-  //         tunnelUnitLength;
-  //   });
-  // }, [defaultPositions, positions, progress]);
+  useEffect(() => {
+    if (positions.length === 0) return;
+    positions.forEach((position, idx) => {
+      position[0] =
+        defaultPositions[idx][0] +
+        (Math.floor(progress / 1) +
+          (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
+            ? 1
+            : 0)) *
+          -1 *
+          tunnelUnitLength;
+    });
+  }, [defaultPositions, positions, progress]);
 
   return (
     <>
