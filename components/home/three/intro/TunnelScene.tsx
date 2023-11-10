@@ -99,17 +99,17 @@ export default function TunnelScene() {
     });
   }, [tunnelRef]);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setScrollPosition(window.scrollY);
-  //   };
-  //   const throttleHandleScroll = throttle(handleScroll, 100);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+    const throttleHandleScroll = throttle(handleScroll, 100);
 
-  //   window.addEventListener('scroll', throttleHandleScroll);
-  //   return () => {
-  //     window.removeEventListener('scroll', throttleHandleScroll);
-  //   };
-  // }, []);
+    window.addEventListener('scroll', throttleHandleScroll);
+    return () => {
+      window.removeEventListener('scroll', throttleHandleScroll);
+    };
+  }, []);
 
   // useEffect(() => {
   //   if (scrollPosition <= lotationStart) {
