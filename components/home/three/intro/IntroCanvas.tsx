@@ -11,6 +11,7 @@ import TunnelScene from './TunnelScene';
 import DoorMask from './DoorMask';
 import IntroCamera from './IntroCamera';
 import IntroCameraFramer from './IntroCameraFramer';
+import TunnelSceneTest from './TunnelSceneTest';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,7 +46,8 @@ export default function IntroCanvas() {
         <Environment preset='city' />
         <DoorMask />
         <DoorScene />
-        <TunnelScene />
+        {/* <TunnelScene /> */}
+        <TunnelSceneTest />
 
         {/* <IntroCamera /> */}
         <IntroCameraFramer />
