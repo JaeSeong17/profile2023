@@ -46,9 +46,7 @@ export default function TunnelScene() {
 
   const stencil = useMask(1, true);
 
-  const scrollPosition = useScrollPositionStore(
-    (state) => state.scrollPosition
-  );
+  const [scrollPosition, setScrollPosition] = useState(0);
   const lotationStart = 6500;
   const lotationEnd = 11200;
   const [progress, setProgress] = useState(0);
@@ -108,6 +106,18 @@ export default function TunnelScene() {
       scrub: 2,
     });
   }, [tunnelRef]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+    const throttleHandleScroll = throttle(handleScroll, 100);
+
+    window.addEventListener('scroll', throttleHandleScroll);
+    return () => {
+      window.removeEventListener('scroll', throttleHandleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if (scrollPosition <= lotationStart) {
