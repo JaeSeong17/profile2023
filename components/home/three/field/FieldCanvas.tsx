@@ -17,8 +17,8 @@ export default function FieldCanvas() {
   const canvasRef = useRef<HTMLDivElement>(null);
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const fade = gsap.to(canvasRef.current, {
-        opacity: 1,
+      const fade = gsap.timeline().from(canvasRef.current, {
+        opacity: 0,
         ease: 'power2',
       });
       ScrollTrigger.create({
@@ -32,16 +32,7 @@ export default function FieldCanvas() {
   }, [canvasRef.current]);
 
   return (
-    <div
-      ref={canvasRef}
-      style={{
-        width: '100%',
-        height: '100vh',
-        position: 'fixed',
-        zIndex: -2,
-        opacity: 0,
-      }}
-    >
+    <div className='w-full h-screen fixed z-[-2]' ref={canvasRef}>
       <Canvas
         shadows
         raycaster={{ params: { Line: { threshold: 0.15 } } }}
