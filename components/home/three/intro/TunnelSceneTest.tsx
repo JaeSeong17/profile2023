@@ -110,36 +110,36 @@ export default function TunnelScene() {
     });
   }, [tunnelRef]);
 
-  useEffect(() => {
-    if (scrollPosition <= lotationStart) {
-      setProgress(0);
-    } else if (scrollPosition >= lotationEnd) {
-      setProgress(Math.abs(endPoint) / tunnelUnitLength);
-    } else {
-      setProgress(
-        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
-          Math.abs(endPoint)) /
-          tunnelUnitLength
-      );
-    }
-  }, [endPoint, scrollPosition]);
+  // useEffect(() => {
+  //   if (scrollPosition <= lotationStart) {
+  //     setProgress(0);
+  //   } else if (scrollPosition >= lotationEnd) {
+  //     setProgress(Math.abs(endPoint) / tunnelUnitLength);
+  //   } else {
+  //     setProgress(
+  //       (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
+  //         Math.abs(endPoint)) /
+  //         tunnelUnitLength
+  //     );
+  //   }
+  // }, [endPoint, scrollPosition]);
 
-  useEffect(() => {
-    if (ringPositions.length === 0) return;
-    const newRingPositions = defaultRingPositions.map(
-      (defaultRingPosition, idx) =>
-        defaultRingPosition +
-        (Math.floor(progress / 1) +
-          (progress % 1 >= (1 / segments) * idx ? 1 : 0)) *
-          -1 *
-          tunnelUnitLength
-    );
+  // useEffect(() => {
+  // if (ringPositions.length === 0) return;
+  // const newRingPositions = defaultRingPositions.map(
+  //   (defaultRingPosition, idx) =>
+  //     defaultRingPosition +
+  //     (Math.floor(progress / 1) +
+  //       (progress % 1 >= (1 / segments) * idx ? 1 : 0)) *
+  //       -1 *
+  //       tunnelUnitLength
+  // );
 
-    // ringsRef.current.forEach((ringRef, idx) => {
-    //   if (!ringRef) return;
-    //   ringRef.position.x = newRingPositions[idx];
-    // });
-  }, [progress]);
+  // ringsRef.current.forEach((ringRef, idx) => {
+  //   if (!ringRef) return;
+  //   ringRef.position.x = newRingPositions[idx];
+  // });
+  // }, [progress]);
 
   return (
     <>
