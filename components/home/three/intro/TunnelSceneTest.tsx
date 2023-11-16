@@ -135,10 +135,10 @@ export default function TunnelScene() {
           tunnelUnitLength
     );
 
-    ringsRef.current.forEach((ringRef, idx) => {
-      if (!ringRef) return;
-      ringRef.position.x = newRingPositions[idx];
-    });
+    // ringsRef.current.forEach((ringRef, idx) => {
+    //   if (!ringRef) return;
+    //   ringRef.position.x = newRingPositions[idx];
+    // });
   }, [progress]);
 
   return (
