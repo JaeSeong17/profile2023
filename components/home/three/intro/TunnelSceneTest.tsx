@@ -29,9 +29,9 @@ export default function TunnelScene() {
     new Vector3(-1, 0, 0),
     new Vector3(-1 * tunnelUnitLength - 1, 0, 0),
   ]);
-  const segments = 14;
+  const segments = 5;
   const tubeRadius = 2.6;
-  const radialSegments = 8;
+  const radialSegments = 3;
 
   const tubeRef = useRef<Mesh<TubeGeometry>>(null);
   const tunnelRef = useRef<Group>(null);
