@@ -35,6 +35,7 @@ export default function TunnelScene() {
 
   const tubeRef = useRef<Mesh<TubeGeometry>>(null);
   const tunnelRef = useRef<Group>(null);
+  const ringsRef = useRef<(Group | null)[]>([]);
   const [boxGeometries, setBoxGeometries] = useState<Mesh[][]>([]);
   const [boxScales, setBoxScales] = useState<number[]>([]);
   const [ringPositions, setRingPositions] = useState<number[]>([]);
@@ -125,16 +126,19 @@ export default function TunnelScene() {
 
   useEffect(() => {
     if (ringPositions.length === 0) return;
-    setRingPositions(
-      defaultRingPositions.map(
-        (defaultRingPosition, idx) =>
-          defaultRingPosition +
-          (Math.floor(progress / 1) +
-            (progress % 1 >= (1 / segments) * idx ? 1 : 0)) *
-            -1 *
-            tunnelUnitLength
-      )
+    const newRingPositions = defaultRingPositions.map(
+      (defaultRingPosition, idx) =>
+        defaultRingPosition +
+        (Math.floor(progress / 1) +
+          (progress % 1 >= (1 / segments) * idx ? 1 : 0)) *
+          -1 *
+          tunnelUnitLength
     );
+
+    ringsRef.current.forEach((ringRef, idx) => {
+      if (!ringRef) return;
+      ringRef.position.x = newRingPositions[idx];
+    });
   }, [progress]);
 
   return (
@@ -156,6 +160,9 @@ export default function TunnelScene() {
           {boxGeometries.map((boxes, ringIndex) => {
             return (
               <group
+                ref={(el) => {
+                  ringsRef.current[ringIndex] = el;
+                }}
                 key={ringIndex}
                 position={[ringPositions[ringIndex], 0, 0]}
               >
