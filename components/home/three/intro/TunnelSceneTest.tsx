@@ -6,6 +6,7 @@ import {
   MeshReflectorMaterial,
   useMask,
 } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
 import { gsap, ScrollTrigger } from 'gsap/all';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -29,9 +30,9 @@ export default function TunnelScene() {
     new Vector3(-1, 0, 0),
     new Vector3(-1 * tunnelUnitLength - 1, 0, 0),
   ]);
-  const segments = 5;
+  const segments = 14;
   const tubeRadius = 2.6;
-  const radialSegments = 3;
+  const radialSegments = 8;
 
   const tubeRef = useRef<Mesh<TubeGeometry>>(null);
   const tunnelRef = useRef<Group>(null);
@@ -47,9 +48,9 @@ export default function TunnelScene() {
 
   const stencil = useMask(1, true);
 
-  // const scrollPosition = useScrollPositionStore(
-  //   (state) => state.scrollPosition
-  // );
+  const scrollPosition = useScrollPositionStore(
+    (state) => state.scrollPosition
+  );
   const lotationStart = 6500;
   const lotationEnd = 11200;
   const [progress, setProgress] = useState(0);
@@ -97,49 +98,50 @@ export default function TunnelScene() {
 
   useEffect(() => {
     if (!tunnelRef.current) return;
-    const tl = gsap.timeline().to(tunnelRef.current.rotation, {
+    const rotate = gsap.timeline().to(tunnelRef.current.rotation, {
       x: Math.PI,
       ease: 'none',
     });
 
     ScrollTrigger.create({
-      animation: tl,
+      animation: rotate,
       start: '3000 0',
       end: '+=7000',
       scrub: 2,
     });
   }, [tunnelRef]);
 
-  // useEffect(() => {
-  //   if (scrollPosition <= lotationStart) {
-  //     setProgress(0);
-  //   } else if (scrollPosition >= lotationEnd) {
-  //     setProgress(Math.abs(endPoint) / tunnelUnitLength);
-  //   } else {
-  //     setProgress(
-  //       (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
-  //         Math.abs(endPoint)) /
-  //         tunnelUnitLength
-  //     );
-  //   }
-  // }, [endPoint, scrollPosition]);
+  useEffect(() => {
+    if (scrollPosition <= lotationStart) {
+      setProgress(0);
+    } else if (scrollPosition >= lotationEnd) {
+      setProgress(Math.abs(endPoint) / tunnelUnitLength);
+    } else {
+      setProgress(
+        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
+          Math.abs(endPoint)) /
+          tunnelUnitLength
+      );
+    }
+    console.log(scrollPosition);
+  }, [endPoint, scrollPosition]);
 
-  // useEffect(() => {
-  // if (ringPositions.length === 0) return;
-  // const newRingPositions = defaultRingPositions.map(
-  //   (defaultRingPosition, idx) =>
-  //     defaultRingPosition +
-  //     (Math.floor(progress / 1) +
-  //       (progress % 1 >= (1 / segments) * idx ? 1 : 0)) *
-  //       -1 *
-  //       tunnelUnitLength
-  // );
+  useEffect(() => {
+    if (ringPositions.length === 0) return;
+    const newRingPositions = defaultRingPositions.map(
+      (defaultRingPosition, idx) =>
+        defaultRingPosition +
+        (Math.floor(progress / 1) +
+          (progress % 1 >= (1 / segments) * idx ? 1 : 0)) *
+          -1 *
+          tunnelUnitLength
+    );
 
-  // ringsRef.current.forEach((ringRef, idx) => {
-  //   if (!ringRef) return;
-  //   ringRef.position.x = newRingPositions[idx];
-  // });
-  // }, [progress]);
+    ringsRef.current.forEach((ringRef, idx) => {
+      if (!ringRef) return;
+      ringRef.position.x = newRingPositions[idx];
+    });
+  }, [progress]);
 
   return (
     <>

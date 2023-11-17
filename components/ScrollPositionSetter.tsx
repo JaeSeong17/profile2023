@@ -11,7 +11,7 @@ export default function ScreenModeSetter() {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
     };
-    const throttleHandleScroll = throttle(handleScroll, 100);
+    const throttleHandleScroll = throttle(handleScroll, 500);
 
     window.addEventListener('scroll', throttleHandleScroll);
     return () => {
