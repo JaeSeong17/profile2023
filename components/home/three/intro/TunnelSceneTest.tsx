@@ -27,11 +27,11 @@ export default function TunnelScene() {
   const tunnelUnitLength = 300;
   const tunnelLightColor = '#0077ff';
   const tubePath = new CatmullRomCurve3([
-    new Vector3(-4, 0, 0),
-    new Vector3(-1 * tunnelUnitLength - 4, 0, 0),
+    new Vector3(-6, 0, 0),
+    new Vector3(-1 * tunnelUnitLength - 6, 0, 0),
   ]);
-  const segments = 30;
-  const tubeRadius = 2.6;
+  const segments = 20;
+  const tubeRadius = 3.5;
   const radialSegments = 3;
 
   const tubeRef = useRef<Mesh<TubeGeometry>>(null);
@@ -74,7 +74,7 @@ export default function TunnelScene() {
         vertices[i * 3 + 2]
       );
       // const size = Math.random() * 1 + 1.4;
-      const size = 4;
+      const size = 6;
       box.scale.set(size, size, size);
       // const rotation = (Math.random() - 0.5) * Math.PI * 4;
       // box.rotation.set(rotation, rotation, rotation);
