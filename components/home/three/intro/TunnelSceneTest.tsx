@@ -48,13 +48,6 @@ export default function TunnelScene() {
 
   const stencil = useMask(1, true);
 
-  const scrollPosition = useScrollPositionStore(
-    (state) => state.scrollPosition
-  );
-  const lotationStart = 6500;
-  const lotationEnd = 11200;
-  const [progress, setProgress] = useState(0);
-
   useEffect(() => {
     if (!tubeRef.current) return;
     const boxGeometry = new BoxGeometry();
@@ -155,17 +148,6 @@ export default function TunnelScene() {
                           ringIndex * (radialSegments + 1) + boxIndex
                         ][2],
                       ]}
-                      // rotation={[
-                      //   boxRotations[
-                      //     ringIndex * (radialSegments + 1) + boxIndex
-                      //   ],
-                      //   boxRotations[
-                      //     ringIndex * (radialSegments + 1) + boxIndex
-                      //   ],
-                      //   boxRotations[
-                      //     ringIndex * (radialSegments + 1) + boxIndex
-                      //   ],
-                      // ]}
                       rotation={[(boxIndex % 3) * (Math.PI / 6), 0, 0]}
                     />
                   );
