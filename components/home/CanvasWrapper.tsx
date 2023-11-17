@@ -7,7 +7,7 @@ export default function CanvasWrapper() {
   return (
     <div>
       <IntroCanvas />
-      <FieldCanvas />
+      {/* <FieldCanvas /> */}
     </div>
   );
 }
