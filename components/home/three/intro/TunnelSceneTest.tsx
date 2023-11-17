@@ -24,15 +24,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function TunnelScene() {
   const endPoint = -300;
-  const tunnelUnitLength = 80;
+  const tunnelUnitLength = 300;
   const tunnelLightColor = '#0077ff';
   const tubePath = new CatmullRomCurve3([
-    new Vector3(-1, 0, 0),
-    new Vector3(-1 * tunnelUnitLength - 1, 0, 0),
+    new Vector3(-4, 0, 0),
+    new Vector3(-1 * tunnelUnitLength - 4, 0, 0),
   ]);
-  const segments = 14;
+  const segments = 30;
   const tubeRadius = 2.6;
-  const radialSegments = 8;
+  const radialSegments = 3;
 
   const tubeRef = useRef<Mesh<TubeGeometry>>(null);
   const tunnelRef = useRef<Group>(null);
@@ -73,17 +73,19 @@ export default function TunnelScene() {
         vertices[i * 3 + 1],
         vertices[i * 3 + 2]
       );
-      const size = Math.random() * 1 + 1.4;
+      // const size = Math.random() * 1 + 1.4;
+      const size = 4;
       box.scale.set(size, size, size);
-      const rotation = (Math.random() - 0.5) * Math.PI * 4;
-      box.rotation.set(rotation, rotation, rotation);
+      // const rotation = (Math.random() - 0.5) * Math.PI * 4;
+      // box.rotation.set(rotation, rotation, rotation);
+
       boxGeometries1D.push(box);
       setBoxScales((prevState) => [...prevState, size]);
       setBoxPositions((prevState) => [
         ...prevState,
         [vertices[i * 3], vertices[i * 3 + 1], vertices[i * 3 + 2]],
       ]);
-      setBoxRotations((prevState) => [...prevState, rotation]);
+      // setBoxRotations((prevState) => [...prevState, rotation]);
 
       if (i % (radialSegments + 1) === 0) {
         setRingPositions((prevState) => [...prevState, vertices[i * 3]]);
@@ -111,38 +113,6 @@ export default function TunnelScene() {
     });
   }, [tunnelRef]);
 
-  useEffect(() => {
-    if (scrollPosition <= lotationStart) {
-      setProgress(0);
-    } else if (scrollPosition >= lotationEnd) {
-      setProgress(Math.abs(endPoint) / tunnelUnitLength);
-    } else {
-      setProgress(
-        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
-          Math.abs(endPoint)) /
-          tunnelUnitLength
-      );
-    }
-    console.log(scrollPosition);
-  }, [endPoint, scrollPosition]);
-
-  useEffect(() => {
-    if (ringPositions.length === 0) return;
-    const newRingPositions = defaultRingPositions.map(
-      (defaultRingPosition, idx) =>
-        defaultRingPosition +
-        (Math.floor(progress / 1) +
-          (progress % 1 >= (1 / segments) * idx ? 1 : 0)) *
-          -1 *
-          tunnelUnitLength
-    );
-
-    ringsRef.current.forEach((ringRef, idx) => {
-      if (!ringRef) return;
-      ringRef.position.x = newRingPositions[idx];
-    });
-  }, [progress]);
-
   return (
     <>
       <group ref={tunnelRef} position={[0, 0.7, 1]}>
@@ -167,6 +137,7 @@ export default function TunnelScene() {
                 }}
                 key={ringIndex}
                 position={[ringPositions[ringIndex], 0, 0]}
+                rotation={[(ringIndex % 2) * (Math.PI / 3), 0, 0]}
               >
                 {boxes.map((box, boxIndex) => {
                   return (
@@ -184,17 +155,18 @@ export default function TunnelScene() {
                           ringIndex * (radialSegments + 1) + boxIndex
                         ][2],
                       ]}
-                      rotation={[
-                        boxRotations[
-                          ringIndex * (radialSegments + 1) + boxIndex
-                        ],
-                        boxRotations[
-                          ringIndex * (radialSegments + 1) + boxIndex
-                        ],
-                        boxRotations[
-                          ringIndex * (radialSegments + 1) + boxIndex
-                        ],
-                      ]}
+                      // rotation={[
+                      //   boxRotations[
+                      //     ringIndex * (radialSegments + 1) + boxIndex
+                      //   ],
+                      //   boxRotations[
+                      //     ringIndex * (radialSegments + 1) + boxIndex
+                      //   ],
+                      //   boxRotations[
+                      //     ringIndex * (radialSegments + 1) + boxIndex
+                      //   ],
+                      // ]}
+                      rotation={[(boxIndex % 3) * (Math.PI / 6), 0, 0]}
                     />
                   );
                 })}
