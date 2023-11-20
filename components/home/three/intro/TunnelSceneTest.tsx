@@ -1,12 +1,9 @@
-import useScrollPositionStore from '@/lib/modules/scrollPosition';
-import throttle from '@/lib/trottle';
 import {
   Instance,
   Instances,
   MeshReflectorMaterial,
   useMask,
 } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
 import { gsap, ScrollTrigger } from 'gsap/all';
 import { useEffect, useRef, useState } from 'react';
 import {

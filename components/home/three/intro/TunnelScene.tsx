@@ -1,5 +1,3 @@
-import useScrollPositionStore from '@/lib/modules/scrollPosition';
-import throttle from '@/lib/trottle';
 import {
   Instance,
   Instances,
@@ -37,9 +35,9 @@ export default function TunnelScene() {
   const tunnelRef = useRef<Group>(null);
   const [boxGeometries, setBoxGeometries] = useState<Array<Mesh>>([]);
   const [scales, setScales] = useState<Array<number>>([]);
-  const [defaultPositions, setDefaultPositions] = useState<
-    Array<Array<number>>
-  >([]);
+  // const [defaultPositions, setDefaultPositions] = useState<
+  //   Array<Array<number>>
+  // >([]);
   const [positions, setPositions] = useState<Array<Array<number>>>([]);
   const [rotations, setRotations] = useState<Array<number>>([]);
 
