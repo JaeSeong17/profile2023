@@ -48,7 +48,8 @@ export default function IntroCanvas() {
         <Environment preset='city' />
         <DoorMask />
         <DoorScene />
-        {screenMode === 'PC' ? <TunnelScene /> : <TunnelSceneTest />}
+        {/* <TunnelScene /> */}
+        <TunnelSceneTest />
 
         {/* <IntroCamera /> */}
         <IntroCameraFramer />
