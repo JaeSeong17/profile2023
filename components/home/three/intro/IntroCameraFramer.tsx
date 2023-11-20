@@ -8,8 +8,6 @@ import { Matrix4, Mesh, Quaternion, Vector3 } from 'three';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function IntroCamera() {
-  // const [target, setTarget] = useState(new Vector3(0, 0.5, 0.5));
-  const { camera } = useThree();
   const initialState = {
     position: new Vector3(20, 10, 10),
     target: new Vector3(0, 0.5, 0.5),
@@ -23,6 +21,7 @@ export default function IntroCamera() {
     target: new Vector3(-300, 0.55, 1),
   };
 
+  const camera = useThree((state) => state.camera);
   const targetRef = useRef<Mesh>(null);
 
   useIsomorphicLayoutEffect(() => {

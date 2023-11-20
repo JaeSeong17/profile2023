@@ -1,8 +1,8 @@
 'use client';
 
-import { Environment, OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls, View } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { useRef } from 'react';
+import { MutableRefObject, RefObject, useRef } from 'react';
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -35,7 +35,7 @@ export default function IntroCanvas() {
   }, [canvasRef.current]);
 
   return (
-    <div className='w-full h-screen fixed z-[-1]' ref={canvasRef}>
+    <div className='w-full h-screen fixed z-[-2]' ref={canvasRef}>
       <Canvas
         shadows
         raycaster={{ params: { Line: { threshold: 0.15 } } }}
@@ -46,8 +46,8 @@ export default function IntroCanvas() {
         <Environment preset='city' />
         <DoorMask />
         <DoorScene />
-        {/* <TunnelScene /> */}
-        <TunnelSceneTest />
+        <TunnelScene />
+        {/* <TunnelSceneTest /> */}
 
         {/* <IntroCamera /> */}
         <IntroCameraFramer />

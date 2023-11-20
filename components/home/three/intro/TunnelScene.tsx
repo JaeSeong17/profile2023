@@ -23,15 +23,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function TunnelScene() {
   const endPoint = -300;
-  const tunnelUnitLength = 80;
+  const tunnelUnitLength = 300;
   const tunnelLightColor = '#0077ff';
   const tubePath = new CatmullRomCurve3([
-    new Vector3(-1, 0, 0),
-    new Vector3(-1 * tunnelUnitLength - 1, 0, 0),
+    new Vector3(-4, 0, 0),
+    new Vector3(-1 * tunnelUnitLength - 4, 0, 0),
   ]);
-  const segments = 14;
-  const tubeRadius = 2.6;
-  const radialSegments = 8;
+  const segments = 26;
+  const tubeRadius = 3.5;
+  const radialSegments = 6;
 
   const tubeRef = useRef<Mesh<TubeGeometry>>(null);
   const tunnelRef = useRef<Group>(null);
@@ -45,10 +45,10 @@ export default function TunnelScene() {
 
   const stencil = useMask(1, true);
 
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const lotationStart = 6500;
-  const lotationEnd = 11200;
-  const [progress, setProgress] = useState(0);
+  // const [scrollPosition, setScrollPosition] = useState(0);
+  // const lotationStart = 6500;
+  // const lotationEnd = 11200;
+  // const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (!tubeRef.current) return;
@@ -66,16 +66,16 @@ export default function TunnelScene() {
         vertices[i * 3 + 1],
         vertices[i * 3 + 2]
       );
-      const size = Math.random() * 1 + 1.4;
+      const size = Math.random() * 1 + 3;
       box.scale.set(size, size, size);
       const rotation = (Math.random() - 0.5) * Math.PI * 4;
       box.rotation.set(rotation, rotation, rotation);
       setBoxGeometries((prevState) => [...prevState, box]);
       setScales((prevState) => [...prevState, size]);
-      setDefaultPositions((prevState) => [
-        ...prevState,
-        [vertices[i * 3], vertices[i * 3 + 1], vertices[i * 3 + 2]],
-      ]);
+      // setDefaultPositions((prevState) => [
+      //   ...prevState,
+      //   [vertices[i * 3], vertices[i * 3 + 1], vertices[i * 3 + 2]],
+      // ]);
       setPositions((prevState) => [
         ...prevState,
         [vertices[i * 3], vertices[i * 3 + 1], vertices[i * 3 + 2]],
@@ -99,45 +99,45 @@ export default function TunnelScene() {
     });
   }, [tunnelRef]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollPosition(window.scrollY);
-    };
-    const throttleHandleScroll = throttle(handleScroll, 100);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrollPosition(window.scrollY);
+  //   };
+  //   const throttleHandleScroll = throttle(handleScroll, 100);
 
-    window.addEventListener('scroll', throttleHandleScroll);
-    return () => {
-      window.removeEventListener('scroll', throttleHandleScroll);
-    };
-  }, []);
+  //   window.addEventListener('scroll', throttleHandleScroll);
+  //   return () => {
+  //     window.removeEventListener('scroll', throttleHandleScroll);
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    if (scrollPosition <= lotationStart) {
-      setProgress(0);
-    } else if (scrollPosition >= lotationEnd) {
-      setProgress(Math.abs(endPoint) / tunnelUnitLength);
-    } else {
-      setProgress(
-        (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
-          Math.abs(endPoint)) /
-          tunnelUnitLength
-      );
-    }
-  }, [endPoint, scrollPosition]);
+  // useEffect(() => {
+  //   if (scrollPosition <= lotationStart) {
+  //     setProgress(0);
+  //   } else if (scrollPosition >= lotationEnd) {
+  //     setProgress(Math.abs(endPoint) / tunnelUnitLength);
+  //   } else {
+  //     setProgress(
+  //       (((scrollPosition - lotationStart) / (lotationEnd - lotationStart)) *
+  //         Math.abs(endPoint)) /
+  //         tunnelUnitLength
+  //     );
+  //   }
+  // }, [endPoint, scrollPosition]);
 
-  useEffect(() => {
-    if (positions.length === 0) return;
-    positions.forEach((position, idx) => {
-      position[0] =
-        defaultPositions[idx][0] +
-        (Math.floor(progress / 1) +
-          (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
-            ? 1
-            : 0)) *
-          -1 *
-          tunnelUnitLength;
-    });
-  }, [defaultPositions, positions, progress]);
+  // useEffect(() => {
+  //   if (positions.length === 0) return;
+  //   positions.forEach((position, idx) => {
+  //     position[0] =
+  //       defaultPositions[idx][0] +
+  //       (Math.floor(progress / 1) +
+  //         (progress % 1 >= (1 / segments) * Math.floor(idx / radialSegments)
+  //           ? 1
+  //           : 0)) *
+  //         -1 *
+  //         tunnelUnitLength;
+  //   });
+  // }, [defaultPositions, positions, progress]);
 
   return (
     <>

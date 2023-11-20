@@ -1,7 +1,9 @@
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
+import { PerspectiveCamera } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
 import { Vector3, Quaternion, Matrix4, Camera } from 'three';
 
 // 카메라 회전각 계산
@@ -55,7 +57,7 @@ function cameraMovement(
 }
 
 export default function FieldCamera() {
-  const camera = useThree(({ camera }) => camera);
+  const camera = useThree((state) => state.camera);
   const cameraPoint1 = {
     position: new Vector3(-200, 0, 80),
     target: new Vector3(0, 0, 0),

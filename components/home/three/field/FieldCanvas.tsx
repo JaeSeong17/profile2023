@@ -1,6 +1,6 @@
 'use client';
 import { Environment, OrbitControls } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import FlareLight from './FlareLight';
 import FieldBoxes from './FieldBoxes';
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
@@ -10,6 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import FieldCamera from './FieldCamera';
 import BoxesWrapper from './BoxesWrapper';
 import CloudWrapper from './CloudWrapper';
+import BackgroundPanel from './BackgroundPanel';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -56,8 +57,8 @@ export default function FieldCanvas() {
         <FlareLight position={[800, 0, 30]} color={'white'} />
         <FieldBoxes />
         <BoxesWrapper />
-        <CloudWrapper />
-
+        {/* <CloudWrapper /> */}
+        {/* <BackgroundPanel /> */}
         <FieldCamera />
       </Canvas>
     </div>
