@@ -2,7 +2,7 @@
 
 import { Environment, OrbitControls, View } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { MutableRefObject, RefObject, useRef } from 'react';
+import { MutableRefObject, RefObject, useEffect, useRef } from 'react';
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,11 +12,13 @@ import DoorMask from './DoorMask';
 import IntroCamera from './IntroCamera';
 import IntroCameraFramer from './IntroCameraFramer';
 import TunnelSceneTest from './TunnelSceneTest';
+import useScreenModeStore from '@/lib/modules/screenMode';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function IntroCanvas() {
   const canvasRef = useRef<HTMLDivElement>(null);
+  const screenMode = useScreenModeStore((state) => state.screenMode);
 
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -46,8 +48,7 @@ export default function IntroCanvas() {
         <Environment preset='city' />
         <DoorMask />
         <DoorScene />
-        <TunnelScene />
-        {/* <TunnelSceneTest /> */}
+        {screenMode === 'PC' ? <TunnelScene /> : <TunnelSceneTest />}
 
         {/* <IntroCamera /> */}
         <IntroCameraFramer />
