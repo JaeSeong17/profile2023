@@ -33,14 +33,14 @@ export default function FieldCanvas() {
   }, [canvasRef.current]);
 
   return (
-    <div className='w-full h-screen fixed z-[-2]' ref={canvasRef}>
+    <div className='w-full h-screen fixed z-[0]' ref={canvasRef}>
       <Canvas
         shadows
         raycaster={{ params: { Line: { threshold: 0.15 } } }}
         camera={{ position: [-100, 0, 300], fov: 20, up: [0, 0, 1] }}
       >
-        <fog attach='fog' args={['#00bffe', 200, 350]} />
-        <color attach='background' args={['#00bffe']} />
+        <fog attach='fog' args={['#dbdbdb', 200, 350]} />
+        <color attach='background' args={['#ffffff']} />
         <ambientLight intensity={0.5} />
         <directionalLight
           castShadow
@@ -54,12 +54,13 @@ export default function FieldCanvas() {
           />
         </directionalLight>
         <Environment preset='city' />
-        <FlareLight position={[800, 0, 30]} color={'white'} />
+        <FlareLight position={[500, 0, 30]} color={'white'} />
         <FieldBoxes />
         <BoxesWrapper />
         {/* <CloudWrapper /> */}
-        {/* <BackgroundPanel /> */}
+        <BackgroundPanel />
         <FieldCamera />
+        {/* <OrbitControls /> */}
       </Canvas>
     </div>
   );
