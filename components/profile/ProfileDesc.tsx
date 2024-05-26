@@ -5,7 +5,6 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import useScreenModeStore from '@/lib/modules/screenMode';
 
 const fadeVarinats: Variants = {
   animOn: {
@@ -35,8 +34,10 @@ export default function ProfileDesc() {
       <motion.div variants={fadeVarinats}>
         <FontAwesomeIcon icon={faEnvelope} size={'1x'} /> : dktmzh6@gmail.com{' '}
         <br />
-        <FontAwesomeIcon icon={faGithub} size={'1x'} /> :
-        https://github.com/JaeSeong17
+        <FontAwesomeIcon icon={faGithub} size={'1x'} /> :{' '}
+        <a href={'https://github.com/JaeSeong17'}>
+          https://github.com/JaeSeong17
+        </a>
       </motion.div>
 
       <div className='flex flex-col gap-4'>

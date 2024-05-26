@@ -37,7 +37,7 @@ export default function FieldBoxes() {
   return (
     <group>
       <mesh position={[0, 0, 0]} rotation={[0, 0, 0]} receiveShadow>
-        <planeGeometry args={[800, 800]} />
+        <planeGeometry args={[750, 750]} />
         <meshStandardMaterial color={'#42bdcb'} />
       </mesh>
 

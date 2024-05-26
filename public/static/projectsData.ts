@@ -3,9 +3,9 @@ export const projectsData = [
     label: 'blogthree',
     title: 'Blog Three',
     titleSub: 'Web Development, Toy Project',
-    desc: '개인 블로그를 직접 개발하면서 웹개발의 전체적인 흐름을 익힙니다.',
+    desc: '게시판을 직접 개발하면서 웹개발의 전체적인 흐름을 익힙니다.',
     github: 'https://github.com/JaeSeong17/blog-three',
-    site: 'https://blog.jsdatabase.site/',
+    site: 'https://web-blog-three-p8xrq2mlfy7lm82.sel3.cloudtype.app/',
     skills: [
       'React',
       'Redux-toolkit',
@@ -19,7 +19,7 @@ export const projectsData = [
       'MongoDB',
     ],
     comment:
-      '블로그를 고민하던 중 직접 만들어 보고 싶어 시작한 개인 프로젝트 입니다. 게시판 형태로 글을 남길 수 있는 블로그 개발을 지향했고 Three.js와 GSAP을 활용해 개성있는 UI로 개발합니다.',
+      '계정을 등록하고 글을 남길 수 있는 게시판 형태의 개인 웹 프로젝트 입니다. Three.js와 GSAP을 활용해 개성있는 UI로 개발했습니다.',
     reviews: [
       {
         title: '과한 애니메이션과 화려한 UI는 사용성을 낮춘다?',
@@ -69,7 +69,7 @@ export const projectsData = [
       'Vercel',
     ],
     comment:
-      '취업 준비중 스터디를 찾아보다 개발자 스터디 플랫폼을 개발해보고자 진행한 프로젝트입니다. Airbnb의 UI를 참고하였으며 Nextjs 적용을 목표로 진행했습니다.',
+      '스터디원 모집과 관리 스터디 기록 및 관리 기능 사용할 수 있는 개발자 스터디 플랫폼 주제의 개인 웹 프로젝트입니다. Airbnb의 UI를 참고하였으며 Nextjs 적용을 목표로 진행했습니다.',
     reviews: [
       {
         title: '최신버전 툴의 안정성',
