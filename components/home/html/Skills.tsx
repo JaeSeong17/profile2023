@@ -4,6 +4,8 @@ import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import { mainSkillsData, subSkillsData } from '@/public/static/homeData';
 import {
   motion,
+  useAnimate,
+  useAnimation,
   useAnimationFrame,
   useMotionValue,
   useScroll,
@@ -13,7 +15,7 @@ import {
   wrap,
 } from 'framer-motion';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 function BeltItems({
   skills,
@@ -85,9 +87,24 @@ function Belt({
   skills: Array<{ name: string; label: string }>;
   baseVelocity: number;
 }) {
-  const scrollPosition = useScrollPositionStore(
-    (state) => state.scrollPosition
-  );
+  const controls = useAnimation();
+  const { scrollY } = useScroll();
+  useEffect(() => {
+    const handleScroll = () => {
+      if (10500 <= scrollY.get() && scrollY.get() <= 13500) {
+        controls.start('on');
+      } else {
+        controls.start('off');
+      }
+    };
+
+    const unsubscribe = scrollY.onChange(handleScroll);
+
+    // 컴포넌트 언마운트 시 리스너 해제
+    return () => {
+      unsubscribe();
+    };
+  });
 
   return (
     <motion.div
@@ -101,9 +118,7 @@ function Belt({
         },
       }}
       initial={'off'}
-      animate={
-        scrollPosition >= 10500 && scrollPosition <= 13500 ? 'on' : 'off'
-      }
+      animate={controls}
     >
       <BeltItems skills={skills} baseVelocity={baseVelocity} />
     </motion.div>

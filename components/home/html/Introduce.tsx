@@ -1,15 +1,31 @@
 'use client';
 
 import useScreenModeStore from '@/lib/modules/screenMode';
-import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import { introduceData } from '@/public/static/homeData';
-import { motion } from 'framer-motion';
+import { motion, useAnimation, useScroll } from 'framer-motion';
+import { useEffect } from 'react';
 
 export default function Introduce() {
   const screenMode = useScreenModeStore((state) => state.screenMode);
-  const scrollPosition = useScrollPositionStore(
-    (state) => state.scrollPosition
-  );
+  const controls = useAnimation();
+  const { scrollY } = useScroll();
+  useEffect(() => {
+    const handleScroll = () => {
+      if (6000 <= scrollY.get() && scrollY.get() <= 9000) {
+        controls.start('textOn');
+      } else {
+        controls.start('textOff');
+      }
+    };
+
+    // 스크롤 이벤트 리스너 등록
+    const unsubscribe = scrollY.onChange(handleScroll);
+
+    // 컴포넌트 언마운트 시 리스너 해제
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollY, controls]);
 
   return (
     <motion.div
@@ -35,9 +51,7 @@ export default function Introduce() {
         },
       }}
       initial='textOff'
-      animate={
-        scrollPosition >= 6000 && scrollPosition <= 9000 ? 'textOn' : 'textOff'
-      }
+      animate={controls}
     >
       {introduceData.map((data, idx) => (
         <motion.div

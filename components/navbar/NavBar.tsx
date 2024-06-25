@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import PCMenu from './PCMenu';
 import MobileMenu from './MobileMenu';
 import useScreenModeStore from '@/lib/modules/screenMode';
@@ -15,9 +15,8 @@ const links = [
 
 export default function NavBar() {
   const screenMode = useScreenModeStore((state) => state.screenMode);
-  const scrollPosition = useScrollPositionStore(
-    (state) => state.scrollPosition
-  );
+  const { scrollY } = useScroll();
+  const rotate = useTransform(scrollY, [0, 25000], [0, 5000]);
 
   return (
     <nav
@@ -29,10 +28,10 @@ export default function NavBar() {
         flex items-center justify-between '
     >
       <Link className='relative no-underline decoration-inherit' href='/'>
-        <div className='flex items-center'>
+        <div className='flex items-center gap-4'>
           <motion.div
             initial={{ rotate: 0 }}
-            animate={{ rotate: scrollPosition * 0.2 }}
+            style={{ rotate }}
             transition={{
               ease: 'linear',
             }}
