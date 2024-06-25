@@ -57,7 +57,7 @@ function Description({
     return () => {
       unsubscribe();
     };
-  }, [scrollY, controls]);
+  }, [scrollY, controls, start, end]);
 
   return (
     <motion.div
