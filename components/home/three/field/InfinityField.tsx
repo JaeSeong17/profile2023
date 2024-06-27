@@ -72,7 +72,8 @@ const InfinityField = () => {
             {...instanceUv}
           />
         </boxGeometry>
-        <CustomInstanceMaterial />
+        {/* <CustomInstanceMaterial /> */}
+        <meshStandardMaterial />
       </instancedMesh>
       {/* <mesh position={[0, 0, 60]} rotation={[Math.PI, 0, 0]}>
         <planeGeometry args={[500, 600]} />
