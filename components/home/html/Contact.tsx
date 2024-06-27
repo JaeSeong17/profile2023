@@ -1,12 +1,12 @@
 'use client';
 
-import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faCode, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Variants, motion } from 'framer-motion';
+import { Variants, motion, useAnimation, useScroll } from 'framer-motion';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 const fadeVariants: Variants = {
   fadeOn: {
@@ -119,17 +119,33 @@ function ContactItem({
 }
 
 export default function Contact() {
-  const scorllPosition = useScrollPositionStore(
-    (state) => state.scrollPosition
-  );
+  const controls = useAnimation();
+  const { scrollY } = useScroll();
   const start = 23000;
+  useEffect(() => {
+    const handleScroll = () => {
+      if (start <= scrollY.get()) {
+        controls.start('fadeOn');
+      } else {
+        controls.start('fadeOff');
+      }
+    };
+
+    // 스크롤 이벤트 리스너 등록
+    const unsubscribe = scrollY.onChange(handleScroll);
+
+    // 컴포넌트 언마운트 시 리스너 해제
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollY, controls]);
 
   return (
     <motion.div
       className='fixed w-screen h-screen bg-neutral-900/80
         flex items-center justify-center text-white p-[30px]'
       initial={'fadeOff'}
-      animate={scorllPosition >= start ? 'fadeOn' : 'fadeOff'}
+      animate={controls}
       variants={fadeVariants}
     >
       <svg className='w-[1px] h-[280px]'>

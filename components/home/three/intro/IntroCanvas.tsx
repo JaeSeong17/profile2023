@@ -51,8 +51,8 @@ export default function IntroCanvas() {
         {/* <TunnelScene /> */}
         <TunnelSceneTest />
 
-        {/* <IntroCamera /> */}
-        <IntroCameraFramer />
+        <IntroCamera />
+        {/* <IntroCameraFramer /> */}
         {/* <OrbitControls /> */}
       </Canvas>
     </div>

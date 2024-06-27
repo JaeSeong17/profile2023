@@ -37,6 +37,8 @@
     "zustand": "^4.4.3"
   },
   "devDependencies": {
-    "@types/react-transition-group": "^4.4.6"
+    "@types/dat.gui": "^0.7.13",
+    "@types/react-transition-group": "^4.4.6",
+    "dat.gui": "^0.7.9"
   }
 }

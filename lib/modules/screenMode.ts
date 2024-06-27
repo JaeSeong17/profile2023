@@ -1,9 +1,14 @@
 import { create } from 'zustand';
 
 interface ScreenModeState {
-  screenMode: 'initial' | 'MobileVertical' | 'MobileHorizontal' | 'PC';
+  screenMode:
+    | 'initial'
+    | 'MobileVertical'
+    | 'MobileHorizontal'
+    | 'PC'
+    | 'Tablet';
   setScreenMode: (
-    currMode: 'MobileVertical' | 'MobileHorizontal' | 'PC'
+    currMode: 'MobileVertical' | 'MobileHorizontal' | 'PC' | 'Tablet'
   ) => void;
 }
 

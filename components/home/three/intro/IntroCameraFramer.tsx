@@ -1,13 +1,20 @@
+'use client';
+
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
-import { useFrame, useThree } from '@react-three/fiber';
+import { ForwardRefComponent } from '@react-three/drei/helpers/ts-utils';
+import { Props, useFrame, useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef, useState } from 'react';
-import { Matrix4, Mesh, Quaternion, Vector3 } from 'three';
+import { MutableRefObject, useRef } from 'react';
+import { Mesh, PerspectiveCamera, Vector3 } from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function IntroCamera() {
+export default function IntroCamera({
+  camera,
+}: {
+  camera: MutableRefObject<PerspectiveCamera | null>;
+}) {
   const initialState = {
     position: new Vector3(20, 10, 10),
     target: new Vector3(0, 0.5, 0.5),
@@ -21,11 +28,13 @@ export default function IntroCamera() {
     target: new Vector3(-300, 0.55, 1),
   };
 
-  const camera = useThree((state) => state.camera);
   const targetRef = useRef<Mesh>(null);
 
   useIsomorphicLayoutEffect(() => {
     if (!targetRef.current) {
+      return;
+    }
+    if (!camera.current) {
       return;
     }
     // 카메라 무브먼트
@@ -33,7 +42,7 @@ export default function IntroCamera() {
       .timeline()
       .to(
         // 카메라 이동
-        camera.position,
+        camera.current.position,
         {
           x: enterState.position.x,
           y: enterState.position.y,
@@ -59,7 +68,7 @@ export default function IntroCamera() {
         y: endState.target.y,
         z: endState.target.z,
       })
-      .to(camera.position, {
+      .to(camera.current.position, {
         x: endState.position.x,
         y: endState.position.y,
         z: endState.position.z,
@@ -76,8 +85,8 @@ export default function IntroCamera() {
   }, [camera]);
 
   useFrame(() => {
-    if (targetRef.current) {
-      camera.lookAt(targetRef.current.position);
+    if (targetRef.current && camera.current) {
+      camera.current.lookAt(targetRef.current.position);
     }
   });
 

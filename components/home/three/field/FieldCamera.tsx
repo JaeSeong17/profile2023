@@ -4,7 +4,13 @@ import { useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
-import { Vector3, Quaternion, Matrix4, Camera } from 'three';
+import {
+  Vector3,
+  Quaternion,
+  Matrix4,
+  Camera,
+  OrthographicCamera,
+} from 'three';
 
 // 카메라 회전각 계산
 function getQuaternion(position: Vector3, target: Vector3): Quaternion {

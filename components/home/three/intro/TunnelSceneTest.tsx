@@ -111,9 +111,9 @@ export default function TunnelScene() {
           frustumCulled={false}
           material={
             new MeshStandardMaterial({
-              color: 'black',
+              emissive: 'black',
               metalness: 1,
-              roughness: 0.6,
+              roughness: 0.8,
               ...stencil,
             })
           }
@@ -176,6 +176,7 @@ export default function TunnelScene() {
         />
       </mesh>
 
+      <pointLight intensity={100} position={[-200, 0, 0]} />
       <pointLight
         color={tunnelLightColor}
         position={[endPoint * 0.97, 0.7, 1]}

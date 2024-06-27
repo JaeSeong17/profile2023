@@ -1,14 +1,8 @@
 'use client';
 
 import useScreenModeStore from '@/lib/modules/screenMode';
-import useScrollPositionStore from '@/lib/modules/scrollPosition';
-import {
-  Variants,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { Variants, motion, useAnimation, useScroll } from 'framer-motion';
+import { useEffect } from 'react';
 
 const verticalTextVariants: Variants = {
   titleOff: {
@@ -63,9 +57,25 @@ const lineVariants: Variants = {
 
 export default function Title() {
   const screenMode = useScreenModeStore((state) => state.screenMode);
-  const scrollPosition = useScrollPositionStore(
-    (state) => state.scrollPosition
-  );
+  const controls = useAnimation();
+  const { scrollY } = useScroll();
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollY.get() <= 2000) {
+        controls.start('titleOn');
+      } else {
+        controls.start('titleOff');
+      }
+    };
+
+    // 스크롤 이벤트 리스너 등록
+    const unsubscribe = scrollY.onChange(handleScroll);
+
+    // 컴포넌트 언마운트 시 리스너 해제
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollY, controls]);
 
   return (
     <motion.div
@@ -75,7 +85,7 @@ export default function Title() {
           flex flex-col justify-between
         '
       initial='textOff'
-      animate={scrollPosition < 2000 ? 'titleOn' : 'titleOff'}
+      animate={controls}
     >
       <div
         className={`text-4xl overflow-hidden mx-[20px] my-[20px]
@@ -103,7 +113,7 @@ export default function Title() {
         `}
       >
         <motion.div variants={horizontalTextVariants}>
-          2023 New Journey
+          2024 New Journey
         </motion.div>
       </div>
 
