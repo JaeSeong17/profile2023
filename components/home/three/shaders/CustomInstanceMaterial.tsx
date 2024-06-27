@@ -11,7 +11,6 @@ export default function CustomInstanceMaterial() {
     ) => {
       shader.uniforms = Object.assign(shader.uniforms, {
         uTime: { value: 0 },
-        uColor_light: { value: new THREE.Color('#eeeeee') },
         uColor_one: { value: new THREE.Color('#0014ad') },
         uColor_two: { value: new THREE.Color('#0172fe') },
         uColor_three: { value: new THREE.Color('#5ab2ef') },
@@ -42,7 +41,6 @@ export default function CustomInstanceMaterial() {
         '#include <common>',
         `
         #include <common>
-        uniform vec3 uColor_light;
         uniform vec3 uColor_one;
         uniform vec3 uColor_two;
         uniform vec3 uColor_three;
@@ -56,7 +54,7 @@ export default function CustomInstanceMaterial() {
         `
         #include <color_fragment>
         vec3 highlight = mix(uColor_three, uColor_four, vHeightUv);
-        diffuseColor.rgb = mix(uColor_one, uColor_two, vHeightUv);
+        diffuseColor.rgb = mix(uColor_one, uColor_two, smoothstep( 0.3, 0.4, vHeight));
         diffuseColor.rgb = mix(diffuseColor.rgb, highlight, smoothstep( 0.5, 0.6, vHeight));
         `
       );

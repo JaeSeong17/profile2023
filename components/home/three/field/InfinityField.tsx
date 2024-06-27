@@ -24,8 +24,8 @@ const InfinityField = () => {
     const temp = [];
     for (let i = 0; i < row; i++) {
       for (let j = 0; j < col; j++) {
-        const x = (i - 4) * (scale + 0.5);
-        const y = (j - Math.floor(col / 2)) * (scale + 0.5);
+        const x = (i - 4) * (scale + 2);
+        const y = (j - Math.floor(col / 2)) * (scale + 2);
         const z = Math.random() * 10;
         temp.push({ x, y, z });
       }
