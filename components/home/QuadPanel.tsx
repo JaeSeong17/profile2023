@@ -30,7 +30,7 @@ const QuadPanel = forwardRef(function QuadPanel(props, ref) {
     minFilter: THREE.LinearFilter,
     magFilter: THREE.LinearFilter,
   });
-  const fieldRenderTarget = useFBO(window.innerWidth, window.innerHeight, {
+  const fieldRenderTarget = useFBO({
     type: THREE.HalfFloatType,
     format: THREE.RGBAFormat,
     encoding: THREE.sRGBEncoding,

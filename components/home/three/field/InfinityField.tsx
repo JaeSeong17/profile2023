@@ -37,16 +37,18 @@ const InfinityField = () => {
     boxes.forEach((box, i) => {
       let { x, y, z } = box;
       dummy.position.set(x, y, 0);
+      dummy.scale.setScalar(30);
       dummy.updateMatrix();
       (imDownRef.current as THREE.InstancedMesh).setMatrixAt(i, dummy.matrix);
-      dummy.position.set(x, y, 100);
-      dummy.updateMatrix();
-      (imUpRef.current as THREE.InstancedMesh).setMatrixAt(i, dummy.matrix);
+      // dummy.position.set(x, y, 100);
+      // dummy.scale.setScalar(scale);
+      // dummy.updateMatrix();
+      // (imUpRef.current as THREE.InstancedMesh).setMatrixAt(i, dummy.matrix);
     });
     (imDownRef.current as THREE.InstancedMesh).instanceMatrix.needsUpdate =
       true;
-    (imUpRef.current as THREE.InstancedMesh).instanceMatrix.needsUpdate = true;
-  }, [boxes, dummy]);
+    // (imUpRef.current as THREE.InstancedMesh).instanceMatrix.needsUpdate = true;
+  }, [dummy, boxes]);
 
   // useFrame(({ clock }) => {
   // boxes.forEach((box, i) => {
@@ -66,7 +68,7 @@ const InfinityField = () => {
         args={[undefined, undefined, row * col]}
         frustumCulled={false}
       >
-        <boxGeometry args={[scale, scale, scale]}>
+        <boxGeometry>
           <instancedBufferAttribute
             attach={'attributes-instanceUv'}
             {...instanceUv}
@@ -91,7 +93,7 @@ const InfinityField = () => {
           reflectorOffset={0} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
         />
       </mesh> */}
-      <instancedMesh
+      {/* <instancedMesh
         ref={imUpRef}
         args={[undefined, undefined, row * col]}
         frustumCulled={false}
@@ -103,7 +105,7 @@ const InfinityField = () => {
           />
         </boxGeometry>
         <CustomInstanceMaterial />
-      </instancedMesh>
+      </instancedMesh> */}
 
       <pointLight position={[100, 0, 40]} intensity={1} distance={500} />
     </>

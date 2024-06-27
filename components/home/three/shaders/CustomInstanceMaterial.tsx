@@ -11,7 +11,6 @@ export default function CustomInstanceMaterial() {
     ) => {
       shader.uniforms = Object.assign(shader.uniforms, {
         uTime: { value: 0 },
-        uProgress: { value: 0.5 },
         uColor_light: { value: new THREE.Color('#eeeeee') },
         uColor_one: { value: new THREE.Color('#0014ad') },
         uColor_two: { value: new THREE.Color('#0172fe') },
@@ -23,12 +22,9 @@ export default function CustomInstanceMaterial() {
         `
         #include <common>
         uniform float uTime;
-        uniform float uProgress;
         attribute vec2 instanceUv;
         varying float vHeight;
         varying float vHeightUv;
-        varying vec4 transition;
-        varying vec2 vUv;
         ${random}
         `
       );
@@ -37,8 +33,7 @@ export default function CustomInstanceMaterial() {
         `
         #include <begin_vertex>
         float random = random(vec2(instanceUv.x, instanceUv.y));
-        transformed.z -= (sin(random*10.+uTime*0.3))*3. + 8.;
-        vUv = uv;
+        transformed.z += (sin(random*10.+uTime*0.3))*0.1;
         vHeight = transformed.z;
         vHeightUv = clamp(position.z*2., 0., 1.);
         `
@@ -52,7 +47,6 @@ export default function CustomInstanceMaterial() {
         uniform vec3 uColor_two;
         uniform vec3 uColor_three;
         uniform vec3 uColor_four;
-        varying vec2 vUv;
         varying float vHeight;
         varying float vHeightUv;
         `
@@ -62,9 +56,8 @@ export default function CustomInstanceMaterial() {
         `
         #include <color_fragment>
         vec3 highlight = mix(uColor_three, uColor_four, vHeightUv);
-        diffuseColor.rgb = uColor_one;
-        diffuseColor.rgb = mix(diffuseColor.rgb, uColor_two, vHeightUv);
-        diffuseColor.rgb = mix(diffuseColor.rgb, highlight, smoothstep( 7., 9., vHeight));
+        diffuseColor.rgb = mix(uColor_one, uColor_two, vHeightUv);
+        diffuseColor.rgb = mix(diffuseColor.rgb, highlight, smoothstep( 0.5, 0.6, vHeight));
         `
       );
 
