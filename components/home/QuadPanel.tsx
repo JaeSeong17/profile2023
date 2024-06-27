@@ -72,7 +72,6 @@ const QuadPanel = forwardRef(function QuadPanel(props, ref) {
     (shaderRef.current as THREE.ShaderMaterial).uniforms.uTexture2.value =
       fieldRenderTarget.texture;
 
-    console.log(window.innerHeight);
     gl.setRenderTarget(null);
   });
   return (

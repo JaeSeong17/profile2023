@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import CustomInstanceMaterial from '../shaders/CustomInstanceMaterial';
 
 const InfinityField = () => {
-  const row = 30;
+  const row = 26;
   const col = 40;
   const scale = 30;
   const imDownRef = useRef<THREE.InstancedMesh>(null);
@@ -23,8 +23,8 @@ const InfinityField = () => {
     const temp = [];
     for (let i = 0; i < row; i++) {
       for (let j = 0; j < col; j++) {
-        const x = (i - 4) * (scale * 1.2);
-        const y = (j - Math.floor(col / 2)) * (scale * 1.2);
+        const x = (i - 4) * (scale * 1.05);
+        const y = (j - Math.floor(col / 2)) * (scale * 1.05);
         const z = Math.random() * 10;
         temp.push({ x, y, z });
       }
@@ -36,11 +36,9 @@ const InfinityField = () => {
     boxes.forEach((box, i) => {
       let { x, y, z } = box;
       dummy.position.set(x, y, 0);
-      dummy.scale.setScalar(scale);
       dummy.updateMatrix();
       (imDownRef.current as THREE.InstancedMesh).setMatrixAt(i, dummy.matrix);
-      dummy.position.set(x, y, 100);
-      dummy.scale.setScalar(scale);
+      dummy.position.set(x, y, 120);
       dummy.updateMatrix();
       (imUpRef.current as THREE.InstancedMesh).setMatrixAt(i, dummy.matrix);
     });
@@ -56,7 +54,7 @@ const InfinityField = () => {
         args={[undefined, undefined, row * col]}
         frustumCulled={false}
       >
-        <boxGeometry>
+        <boxGeometry args={[scale, scale, scale]}>
           <instancedBufferAttribute
             attach={'attributes-instanceUv'}
             {...instanceUv}

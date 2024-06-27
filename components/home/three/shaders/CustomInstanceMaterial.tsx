@@ -31,8 +31,9 @@ export default function CustomInstanceMaterial() {
         '#include <begin_vertex>',
         `
         #include <begin_vertex>
+        float dist = distance(instanceUv, vec2(0.5, instanceUv.y));
         float random = random(vec2(instanceUv.x, instanceUv.y));
-        transformed.z += (sin(random*10.+uTime*0.3))*0.1;
+        transformed.z += (sin(random*10.+uTime*0.3))*pow((dist+1.14), 11.);
         vHeight = transformed.z;
         vHeightUv = clamp(position.z*2., 0., 1.);
         `
@@ -55,7 +56,7 @@ export default function CustomInstanceMaterial() {
         #include <color_fragment>
         vec3 highlight = mix(uColor_three, uColor_four, vHeightUv);
         diffuseColor.rgb = mix(uColor_one, uColor_two, smoothstep( 0.3, 0.4, vHeight));
-        diffuseColor.rgb = mix(diffuseColor.rgb, highlight, smoothstep( 0.5, 0.6, vHeight));
+        diffuseColor.rgb = mix(diffuseColor.rgb, highlight, smoothstep( 13., 20.0, vHeight));
         `
       );
 
