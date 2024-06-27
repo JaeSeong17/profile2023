@@ -3,7 +3,6 @@
 import { mainSkillsData, subSkillsData } from '@/public/static/homeData';
 import {
   motion,
-  useAnimate,
   useAnimation,
   useAnimationFrame,
   useMotionValue,

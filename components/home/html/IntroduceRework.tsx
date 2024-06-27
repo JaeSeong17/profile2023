@@ -56,6 +56,10 @@ export default function IntroduceRework() {
     const ct = gsap.context(() => {
       const tl = gsap
         .timeline({})
+        .to(wrapperRef.current, {
+          opacity: 1,
+          duration: 0,
+        })
         .from(mainIntroRef.current, {
           opacity: 0,
           stagger: 0.1,
@@ -121,14 +125,14 @@ export default function IntroduceRework() {
         end: '+=5000',
         scrub: 1,
       });
-    }, mainIntroRef);
+    }, wrapperRef);
 
     return () => ct.revert();
   }, [screenMode]);
 
   return (
     <div
-      className={`
+      className={`opacity-0
       fixed w-screen sm:w-[calc(100vw-60px)] h-[calc(100vh-60px)] sm:h-screen text-white
       flex md:flex-row items-center justify-center p-[30px] gap-[20px] 
       ${
