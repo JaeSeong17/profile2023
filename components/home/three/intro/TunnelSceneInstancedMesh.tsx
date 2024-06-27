@@ -8,12 +8,10 @@ export default function TunnelSceneInstancedMesh({
   camera,
   count,
   layer = 10,
-  dummy = new Object3D(),
 }: {
   camera: RefObject<PerspectiveCamera>;
   count: number;
   layer?: number;
-  dummy?: Object3D;
 }) {
   const stencil = useMask(1, true);
   const mesh = useRef<InstancedMesh>(null);
@@ -21,6 +19,7 @@ export default function TunnelSceneInstancedMesh({
   const tunnelLightColor = '#0077ff';
   const ringSpan = 10;
   const endPoint = -1 * layer * ringSpan;
+  const dummy = useMemo(() => new Object3D(), []);
   const vertices = useMemo(() => {
     const temp = [];
     for (let i = 0; i < count * layer; i++) {
