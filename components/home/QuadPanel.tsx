@@ -36,7 +36,6 @@ const QuadPanel = forwardRef(function QuadPanel(props, ref) {
     encoding: THREE.sRGBEncoding,
     minFilter: THREE.LinearFilter,
     magFilter: THREE.LinearFilter,
-    generateMipmaps: true,
   });
   const shaderRef = useRef<THREE.ShaderMaterial>(null);
 
@@ -72,10 +71,6 @@ const QuadPanel = forwardRef(function QuadPanel(props, ref) {
       introRenderTarget.texture;
     (shaderRef.current as THREE.ShaderMaterial).uniforms.uTexture2.value =
       fieldRenderTarget.texture;
-
-    // console.log(
-    //   (shaderRef.current as unknown as ShaderMaterial).uniforms.uMode.value
-    // );
 
     gl.setRenderTarget(null);
   });

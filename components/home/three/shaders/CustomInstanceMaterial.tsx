@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { useLayoutEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { random, noise } from './glslfunction';
+import { random } from './glslfunction';
 
 export default function CustomInstanceMaterial() {
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
@@ -29,7 +29,6 @@ export default function CustomInstanceMaterial() {
         varying float vHeightUv;
         varying vec4 transition;
         varying vec2 vUv;
-        ${noise}
         ${random}
         `
       );
@@ -37,7 +36,6 @@ export default function CustomInstanceMaterial() {
         '#include <begin_vertex>',
         `
         #include <begin_vertex>
-        float noise = cnoise(vec3(instanceUv.x, instanceUv.y, uTime*0.5));
         float random = random(vec2(instanceUv.x, instanceUv.y));
         transformed.z -= (sin(random*10.+uTime*0.3))*3. + 8.;
         vUv = uv;
