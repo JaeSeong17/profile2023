@@ -48,16 +48,16 @@ const InfinityField = () => {
     (imUpRef.current as THREE.InstancedMesh).instanceMatrix.needsUpdate = true;
   }, [boxes, dummy]);
 
-  useFrame(({ clock }) => {
-    // boxes.forEach((box, i) => {
-    //   let { x, y, z } = box;
-    //   dummy.position.set(x, y, 0);
-    //   dummy.updateMatrix();
-    //   (imRef.current as THREE.InstancedMesh).setMatrixAt(i, dummy.matrix);
-    // });
-    (imDownRef.current as THREE.InstancedMesh).instanceMatrix.needsUpdate =
-      true;
-  });
+  // useFrame(({ clock }) => {
+  // boxes.forEach((box, i) => {
+  //   let { x, y, z } = box;
+  //   dummy.position.set(x, y, 0);
+  //   dummy.updateMatrix();
+  //   (imRef.current as THREE.InstancedMesh).setMatrixAt(i, dummy.matrix);
+  // });
+  // (imDownRef.current as THREE.InstancedMesh).instanceMatrix.needsUpdate =
+  //   true;
+  // });
 
   return (
     <>
