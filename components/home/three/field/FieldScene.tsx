@@ -24,17 +24,11 @@ const FieldScene = forwardRef(function FieldScene(props, ref) {
   }));
 
   return (
-    <scene
-      ref={sceneRef}
-      fog={new Fog('#303030', 1000, 2000)}
-      background={new Color('#303030')}
-    >
+    <scene ref={sceneRef}>
       <PerspectiveCamera
         ref={cameraRef}
-        // position={[-100, 0, 300]}
         position={[-250, -30, 27]}
         up={[0, 0, 1]}
-        rotation={[0, 0, -Math.PI / 2]}
         fov={20}
         near={0.1}
         far={2000}
@@ -43,16 +37,10 @@ const FieldScene = forwardRef(function FieldScene(props, ref) {
       <ambientLight intensity={0.1} />
       <directionalLight
         castShadow
-        position={[200, 0, 150]}
+        position={[800, 0, 100]}
         intensity={0.5}
-        shadow-mapSize={[5120, 5120]}
-      >
-        <orthographicCamera
-          attach='shadow-camera'
-          args={[-150, 150, -150, 300, 0.1, 400]}
-        />
-      </directionalLight>
-      {/* <FlareLight position={[500, 0, 30]} color={'white'} /> */}
+        shadow-mapSize={[2000, 2000]}
+      />
 
       <ContentCube position={[160, 30, 40]} startScrollY={15000} />
       <ContentCube position={[220, 30, 40]} startScrollY={19000} />
@@ -62,14 +50,6 @@ const FieldScene = forwardRef(function FieldScene(props, ref) {
       <BackgroundPanel />
 
       <FieldCameraFramer camera={cameraRef} />
-      {/* <EffectComposer>
-        <Bloom
-          luminanceThreshold={1}
-          mipmapBlur
-          luminanceSmoothing={0.0}
-          intensity={1}
-        />
-      </EffectComposer> */}
       {/* <OrbitControls /> */}
     </scene>
   );
