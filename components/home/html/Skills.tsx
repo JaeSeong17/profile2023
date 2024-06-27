@@ -1,6 +1,5 @@
 'use client';
 
-import useScrollPositionStore from '@/lib/modules/scrollPosition';
 import { mainSkillsData, subSkillsData } from '@/public/static/homeData';
 import {
   motion,

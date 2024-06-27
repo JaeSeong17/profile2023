@@ -1,28 +1,32 @@
 'use client';
 
+import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
 import useScreenModeStore from '@/lib/modules/screenMode';
-import { useEffect } from 'react';
 
 export default function ScreenModeSetter() {
   const ScreenModeState = useScreenModeStore();
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     ScreenModeState.setScreenMode(
       window.innerWidth < 640
         ? 'MobileVertical'
         : window.innerHeight < 600
         ? 'MobileHorizontal'
+        : window.innerWidth < 768
+        ? 'Tablet'
         : 'PC'
     );
   }, []);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const handleResize = () => {
       ScreenModeState.setScreenMode(
         window.innerWidth < 640
           ? 'MobileVertical'
           : window.innerHeight < 600
           ? 'MobileHorizontal'
+          : window.innerWidth < 768
+          ? 'Tablet'
           : 'PC'
       );
     };

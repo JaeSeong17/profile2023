@@ -2,11 +2,10 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import PCMenu from './PCMenu';
 import MobileMenu from './MobileMenu';
 import useScreenModeStore from '@/lib/modules/screenMode';
-import useScrollPositionStore from '@/lib/modules/scrollPosition';
 
 const links = [
   { href: '/profile', label: 'Profile' },
@@ -16,7 +15,11 @@ const links = [
 export default function NavBar() {
   const screenMode = useScreenModeStore((state) => state.screenMode);
   const { scrollY } = useScroll();
-  const rotate = useTransform(scrollY, [0, 25000], [0, 5000]);
+  const smoothVelocity = useSpring(scrollY, {
+    damping: 50,
+    stiffness: 400,
+  });
+  const rotate = useTransform(smoothVelocity, [0, 25000], [0, 3000]);
 
   return (
     <nav

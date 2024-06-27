@@ -1,11 +1,13 @@
 'use client';
 
+import Gallery from '@/components/projects/Gallery';
 import projectsData from '@/public/static/projectsData';
 import {
   Variants,
   motion,
   useAnimation,
   useScroll,
+  useSpring,
   useTransform,
 } from 'framer-motion';
 import Link from 'next/link';
@@ -40,7 +42,11 @@ function Description({
 }) {
   const controls = useAnimation();
   const { scrollY } = useScroll();
-  const pathLength = useTransform(scrollY, [start, end], [0, 1]);
+  const smoothScrollY = useSpring(scrollY, {
+    damping: 50,
+    stiffness: 400,
+  });
+  const pathLength = useTransform(smoothScrollY, [start, end], [0, 1]);
   useEffect(() => {
     const handleScroll = () => {
       if (start <= scrollY.get() && scrollY.get() <= end) {
@@ -71,6 +77,7 @@ function Description({
       animate={controls}
       variants={fadeVariants}
     >
+      <Gallery label={data.label} />
       <div className='text-5xl flex justify-between'>
         {data.title}
 
