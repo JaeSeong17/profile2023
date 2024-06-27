@@ -6,10 +6,9 @@ import FieldBoxes from './FieldBoxes';
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
 import { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import FieldCamera from './FieldCamera';
 import BoxesWrapper from './BoxesWrapper';
-import CloudWrapper from './CloudWrapper';
 import BackgroundPanel from './BackgroundPanel';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -60,6 +59,7 @@ export default function FieldCanvas() {
         {/* <CloudWrapper /> */}
         <BackgroundPanel />
         <FieldCamera />
+        {/* <FieldCameraFramer /> */}
         {/* <OrbitControls /> */}
       </Canvas>
     </div>

@@ -18,8 +18,9 @@ export default function DoorScene() {
         floor={1.5}
         position={[-10, 0, 0]}
         rotation={[Math.PI / 2, Math.PI / 2, 0]}
+        segments={100}
       >
-        <meshLambertMaterial color='#1a1a1a' {...stencil} />
+        <meshLambertMaterial color='#1d1d1d' dithering={true} {...stencil} />
       </Backdrop>
       <GLTFDoor />
       <Text
