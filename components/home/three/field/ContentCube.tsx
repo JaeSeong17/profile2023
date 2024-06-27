@@ -45,7 +45,7 @@ export default function ContentCube({
       });
     }, ref);
     return () => ctx.revert();
-  }, []);
+  }, [startScrollY]);
 
   return (
     <mesh ref={ref} position={position} frustumCulled={false}>

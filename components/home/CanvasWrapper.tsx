@@ -61,7 +61,7 @@ export default function CanvasWrapper() {
       });
     }, canvasRef);
     return () => ctx.revert();
-  }, [sceneModeRef.current]);
+  }, []);
   return (
     <div className='w-full h-screen fixed z-[-1]'>
       <Canvas

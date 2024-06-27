@@ -7,10 +7,10 @@ const InfinityField = () => {
   const row = 30;
   const col = 40;
   const scale = 30;
-  const dummy = new THREE.Object3D();
   const imDownRef = useRef<THREE.InstancedMesh>(null);
   const imUpRef = useRef<THREE.InstancedMesh>(null);
 
+  const dummy = useMemo(() => new THREE.Object3D(), []);
   const instanceUv = useMemo(() => {
     const temp = new Float32Array(row * col * 2);
     for (let i = 0; i < row; i++) {
@@ -46,7 +46,7 @@ const InfinityField = () => {
     (imDownRef.current as THREE.InstancedMesh).instanceMatrix.needsUpdate =
       true;
     (imUpRef.current as THREE.InstancedMesh).instanceMatrix.needsUpdate = true;
-  }, []);
+  }, [boxes, dummy]);
 
   useFrame(({ clock }) => {
     // boxes.forEach((box, i) => {
