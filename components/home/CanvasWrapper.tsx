@@ -1,15 +1,9 @@
 'use client';
 
-import IntroCanvas from './three/intro/IntroCanvas';
-import FieldCanvas from './three/field/FieldCanvas';
 import { Canvas, ShaderMaterialProps } from '@react-three/fiber';
 import QuadPanel from './QuadPanel';
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from 'gsap/all';
-import { ACESFilmicToneMapping, NoToneMapping, sRGBEncoding } from 'three';
-import InfinityField from './three/field/InfinityField';
-import { OrbitControls } from '@react-three/drei';
-import FieldScene from './three/field/FieldScene';
 gsap.registerPlugin(ScrollTrigger);
 
 declare global {

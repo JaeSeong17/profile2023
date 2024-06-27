@@ -1,22 +1,13 @@
 'use client';
 
-import {
-  Environment,
-  OrbitControls,
-  PerspectiveCamera,
-} from '@react-three/drei';
-import FlareLight from './FlareLight';
-import FieldBoxes from './FieldBoxes';
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
-import BoxesWrapper from './BoxesWrapper';
+import { PerspectiveCamera } from '@react-three/drei';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import BackgroundPanel from './BackgroundPanel';
 import FieldCameraFramer from './FieldCameraFramer';
-import { Color, Fog, Vector3 } from 'three';
+import { Color, Fog } from 'three';
 import InfinityField from './InfinityField';
 import Nucleus from './Nucleus';
-import { Bloom, EffectComposer } from '@react-three/postprocessing';
 import Particles from './Particles';
-import { useFrame } from '@react-three/fiber';
 import ContentCube from './ContentCube';
 
 const FieldScene = forwardRef(function FieldScene(props, ref) {

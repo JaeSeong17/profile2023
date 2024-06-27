@@ -3,14 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MutableRefObject, useRef } from 'react';
-import {
-  Vector3,
-  Quaternion,
-  Matrix4,
-  Camera,
-  PerspectiveCamera,
-  Mesh,
-} from 'three';
+import { Vector3, Camera, PerspectiveCamera, Mesh } from 'three';
 gsap.registerPlugin(ScrollTrigger);
 
 // 카메라 타겟 & 카메라 위치 애니메이션

@@ -1,7 +1,6 @@
 import { useFrame } from '@react-three/fiber';
 import { useLayoutEffect, useRef } from 'react';
 import { TextureLoader } from 'three';
-import { random } from '../shaders/glslfunction';
 
 export default function BackgroundPanel() {
   const materialRef = useRef<THREE.MeshLambertMaterial>(null);

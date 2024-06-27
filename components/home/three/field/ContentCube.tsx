@@ -1,6 +1,6 @@
 import { Mesh } from 'three';
 import CustomCubeMaterial from '../shaders/CustomCubeMaterial';
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 gsap.registerPlugin(ScrollTrigger);

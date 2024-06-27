@@ -1,13 +1,7 @@
-import {
-  GizmoHelper,
-  GizmoViewport,
-  MeshReflectorMaterial,
-} from '@react-three/drei';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import CustomInstanceMaterial from '../shaders/CustomInstanceMaterial';
 import { useFrame } from '@react-three/fiber';
-import ContentCube from './ContentCube';
 
 const InfinityField = () => {
   const row = 30;
@@ -16,7 +10,6 @@ const InfinityField = () => {
   const dummy = new THREE.Object3D();
   const imDownRef = useRef<THREE.InstancedMesh>(null);
   const imUpRef = useRef<THREE.InstancedMesh>(null);
-  const shaderRef = useRef<THREE.MeshStandardMaterial>(null);
 
   const instanceUv = useMemo(() => {
     const temp = new Float32Array(row * col * 2);

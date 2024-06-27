@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  MutableRefObject,
-  Suspense,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import IntroScene from './three/intro/IntroScene';
 import { extend, useFrame, useThree } from '@react-three/fiber';
 import TransitionMaterial from './three/shaders/TransitionMaterial.js';
