@@ -1,7 +1,7 @@
 'use client';
 
 import useScreenModeStore from '@/lib/modules/screenMode';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap, ScrollTrigger } from 'gsap/all';
 gsap.registerPlugin(ScrollTrigger);
 

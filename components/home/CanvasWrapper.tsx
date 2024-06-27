@@ -23,6 +23,7 @@ type SceneMode = {
 
 export default function CanvasWrapper() {
   const canvasRef = useRef(null);
+  const container = useRef<HTMLDivElement>(null);
   const sceneModeRef = useRef<SceneMode>(null);
   useEffect(() => {
     if (!sceneModeRef.current) return;
@@ -62,8 +63,15 @@ export default function CanvasWrapper() {
     }, canvasRef);
     return () => ctx.revert();
   }, [sceneModeRef.current]);
+
+  useEffect(() => {
+    if (!container.current) return;
+    container.current.style.height = `${window.innerHeight}px`;
+    // 초기 높이를 설정한 후에는 resize 이벤트를 더 이상 처리하지 않습니다.
+  }, []);
+
   return (
-    <div className='w-full h-full fixed z-[-1]'>
+    <div ref={container} className='w-full fixed z-[-1]'>
       <Canvas
         ref={canvasRef}
         shadows

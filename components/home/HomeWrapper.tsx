@@ -9,10 +9,10 @@ export default function HomeWrapper() {
   const progress = useProgress((state) => state.progress);
 
   return (
-    <div>
+    <>
       <Loading progress={progress} />
       <CanvasWrapper />
       <HtmlWrapper />
-    </div>
+    </>
   );
 }

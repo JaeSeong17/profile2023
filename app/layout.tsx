@@ -12,6 +12,8 @@ export const metadata = {
   title: "JaeSeong' Profile",
   description: 'JaeSeong, front-end web dev profile page',
   icons: '/favicon.ico',
+  viewport:
+    'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
 };
 
 export default function RootLayout({
