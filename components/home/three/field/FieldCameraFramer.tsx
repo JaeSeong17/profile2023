@@ -47,11 +47,11 @@ export default function FieldCamera({
 }) {
   const cameraPoint1 = {
     position: new Vector3(-150, -20, 27),
-    target: new Vector3(100, 0, 20),
+    target: new Vector3(100, 0, 35),
   };
   const cameraPoint2 = {
-    position: new Vector3(-100, -20, 20),
-    target: new Vector3(100, 0, 15),
+    position: new Vector3(-100, -20, 27),
+    target: new Vector3(100, 0, 35),
   };
   const cameraPoint3 = {
     position: new Vector3(-50, -20, 45),
