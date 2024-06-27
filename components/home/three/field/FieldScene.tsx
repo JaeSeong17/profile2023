@@ -29,6 +29,7 @@ const FieldScene = forwardRef(function FieldScene(props, ref) {
         ref={cameraRef}
         position={[-250, -30, 27]}
         up={[0, 0, 1]}
+        rotation={[0, 0, -Math.PI / 2]}
         fov={20}
         near={0.1}
         far={2000}
@@ -50,7 +51,6 @@ const FieldScene = forwardRef(function FieldScene(props, ref) {
       <BackgroundPanel />
 
       <FieldCameraFramer camera={cameraRef} />
-      {/* <OrbitControls /> */}
     </scene>
   );
 });
