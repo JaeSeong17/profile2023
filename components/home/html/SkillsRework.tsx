@@ -37,6 +37,10 @@ function BeltItems({
             );
           },
         },
+        onReverseComplete: function () {
+          //just jump ahead 100 iterations (or whatever).
+          rotate.totalTime(rotate.duration() * 100).resume();
+        },
       });
 
       ScrollTrigger.create({
@@ -55,7 +59,7 @@ function BeltItems({
       });
     }, beltRef);
 
-    return () => ct.revert();
+    // return () => ct.revert();
   }, [baseVelocity, skills.length]);
 
   return (
