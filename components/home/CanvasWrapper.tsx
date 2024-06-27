@@ -63,7 +63,7 @@ export default function CanvasWrapper() {
     return () => ctx.revert();
   }, [sceneModeRef.current]);
   return (
-    <div className='w-full h-[100vh] fixed z-[-1]'>
+    <div className='w-lvw h-lvh fixed z-[-1]'>
       <Canvas
         ref={canvasRef}
         shadows
