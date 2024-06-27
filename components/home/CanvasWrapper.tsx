@@ -4,6 +4,7 @@ import { Canvas, ShaderMaterialProps } from '@react-three/fiber';
 import QuadPanel from './QuadPanel';
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from 'gsap/all';
+import useScreenModeStore from '@/lib/modules/screenMode';
 gsap.registerPlugin(ScrollTrigger);
 
 declare global {
@@ -22,6 +23,7 @@ type SceneMode = {
 };
 
 export default function CanvasWrapper() {
+  const screenMode = useScreenModeStore((state) => state.screenMode);
   const canvasRef = useRef(null);
   const container = useRef<HTMLDivElement>(null);
   const sceneModeRef = useRef<SceneMode>(null);
@@ -67,11 +69,11 @@ export default function CanvasWrapper() {
   useEffect(() => {
     if (!container.current) return;
     container.current.style.height = `${window.innerHeight + 60}px`;
-    // 초기 높이를 설정한 후에는 resize 이벤트를 더 이상 처리하지 않습니다.
-  }, []);
+    // 모바일에서 초기 높이를 설정한 후에는 resize 이벤트를 더 이상 처리하지 않습니다.
+  }, [screenMode]);
 
   return (
-    <div ref={container} className='w-full fixed z-[-1]'>
+    <div ref={container} className='w-full md:h-screen fixed z-[-1]'>
       <Canvas
         ref={canvasRef}
         shadows

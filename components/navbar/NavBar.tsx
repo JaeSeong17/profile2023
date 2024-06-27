@@ -46,9 +46,11 @@ export default function NavBar() {
               height={50}
             />
           </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            JS&apos;s Portfolio
-          </motion.div>
+          {screenMode !== 'MobileHorizontal' && (
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              JS&apos;s Portfolio
+            </motion.div>
+          )}
         </div>
       </Link>
 
