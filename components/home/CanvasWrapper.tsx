@@ -68,7 +68,7 @@ export default function CanvasWrapper() {
 
   useEffect(() => {
     if (!container.current) return;
-    container.current.style.height = `${window.innerHeight + 60}px`;
+    container.current.style.height = `${window.innerHeight + 70}px`;
     // 모바일에서 초기 높이를 설정한 후에는 resize 이벤트를 더 이상 처리하지 않습니다.
   }, [screenMode]);
 
