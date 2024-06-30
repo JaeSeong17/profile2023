@@ -2,34 +2,11 @@
 
 import Gallery from '@/components/projects/Gallery';
 import projectsData from '@/public/static/projectsData';
-import {
-  Variants,
-  motion,
-  useAnimation,
-  useScroll,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
 import Link from 'next/link';
-import { useEffect } from 'react';
-
-const fadeVariants: Variants = {
-  fadeOn: {
-    opacity: 1,
-    visibility: 'visible',
-    transition: {
-      duration: 0.5,
-    },
-  },
-  fadeOff: {
-    opacity: 0,
-    visibility: 'hidden',
-    transition: {
-      duration: 0.5,
-      visibility: { delay: 0.5 },
-    },
-  },
-};
+import { useEffect, useRef } from 'react';
+import { gsap, ScrollTrigger } from 'gsap/all';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+gsap.registerPlugin(ScrollTrigger);
 
 function Description({
   data,
@@ -40,42 +17,48 @@ function Description({
   start: number;
   end: number;
 }) {
-  const controls = useAnimation();
   const { scrollY } = useScroll();
   const smoothScrollY = useSpring(scrollY, {
     damping: 50,
     stiffness: 400,
   });
   const pathLength = useTransform(smoothScrollY, [start, end], [0, 1]);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const handleScroll = () => {
-      if (start <= scrollY.get() && scrollY.get() <= end) {
-        controls.start('fadeOn');
-      } else {
-        controls.start('fadeOff');
-      }
-    };
-
-    // 스크롤 이벤트 리스너 등록
-    const unsubscribe = scrollY.onChange(handleScroll);
-
-    // 컴포넌트 언마운트 시 리스너 해제
-    return () => {
-      unsubscribe();
-    };
-  }, [scrollY, controls, start, end]);
+    const ct = gsap.context(() => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            start: start,
+            end: end,
+            scrub: 2,
+          },
+        })
+        .to(wrapperRef.current, {
+          opacity: 1,
+          duration: 1,
+        })
+        .to(wrapperRef.current, {
+          duration: 4,
+        })
+        .to(wrapperRef.current, {
+          opacity: 0,
+          duration: 1,
+        });
+    }, wrapperRef);
+    return () => ct.revert();
+  }, [end, start]);
 
   return (
-    <motion.div
-      className='absolute right-[6%] sm:right-[10%] bottom-[10%]
+    <div
+      ref={wrapperRef}
+      className='opacity-0 absolute right-[6%] sm:right-[10%] bottom-[10%]
           w-[88%] sm:w-[80%] max-w-[500px] p-[20px]
           bg-neutral-900/80 rounded-2xl shadow-[0_0_30px_-4px]
           text-white
           flex flex-col gap-5
           '
-      initial={'fadeOff'}
-      animate={controls}
-      variants={fadeVariants}
     >
       <Gallery label={data.label} />
       <div className='text-5xl flex justify-between'>
@@ -118,7 +101,7 @@ function Description({
           자세히
         </Link>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

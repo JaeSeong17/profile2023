@@ -4,7 +4,7 @@ import { Group, InstancedMesh, Object3D, PerspectiveCamera } from 'three';
 import { gsap, ScrollTrigger } from 'gsap/all';
 gsap.registerPlugin(ScrollTrigger);
 
-export default function TunnelSceneInstancedMesh({
+export default function Tunnel({
   camera,
   count,
   layer = 10,

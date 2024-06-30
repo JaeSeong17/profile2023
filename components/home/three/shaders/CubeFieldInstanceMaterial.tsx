@@ -3,7 +3,7 @@ import { useLayoutEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { random } from './glslfunction';
 
-export default function CustomInstanceMaterial() {
+export default function CubeFieldInstanceMaterial() {
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
   useLayoutEffect(() => {
     (materialRef.current as THREE.MeshStandardMaterial).onBeforeCompile = (

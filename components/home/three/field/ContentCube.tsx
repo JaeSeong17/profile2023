@@ -1,5 +1,5 @@
 import { Mesh } from 'three';
-import CustomCubeMaterial from '../shaders/CustomCubeMaterial';
+import ContentCubeMaterial from '../shaders/ContentCubeMaterial';
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
@@ -50,7 +50,7 @@ export default function ContentCube({
   return (
     <mesh ref={ref} position={position} frustumCulled={false}>
       <icosahedronGeometry args={[scale, 20]} />
-      <CustomCubeMaterial />
+      <ContentCubeMaterial />
     </mesh>
   );
 }

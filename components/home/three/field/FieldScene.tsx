@@ -3,9 +3,8 @@
 import { PerspectiveCamera } from '@react-three/drei';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import BackgroundPanel from './BackgroundPanel';
-import FieldCameraFramer from './FieldCameraFramer';
-import { Color, Fog } from 'three';
-import InfinityField from './InfinityField';
+import FieldCamera from './FieldCamera';
+import CubeField from './CubeField';
 import Nucleus from './Nucleus';
 import Particles from './Particles';
 import ContentCube from './ContentCube';
@@ -45,12 +44,12 @@ const FieldScene = forwardRef(function FieldScene(props, ref) {
 
       <ContentCube position={[160, 30, 40]} startScrollY={15000} />
       <ContentCube position={[220, 30, 40]} startScrollY={19000} />
-      <InfinityField />
+      <CubeField />
       <Nucleus position={[800, 0, 30]} radius={100} />
       <Particles />
       <BackgroundPanel />
 
-      <FieldCameraFramer camera={cameraRef} />
+      <FieldCamera camera={cameraRef} />
     </scene>
   );
 });

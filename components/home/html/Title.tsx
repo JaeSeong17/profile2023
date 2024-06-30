@@ -1,103 +1,72 @@
 'use client';
 
 import useScreenModeStore from '@/lib/modules/screenMode';
-import { Variants, motion, useAnimation, useScroll } from 'framer-motion';
-import { useEffect } from 'react';
-
-const verticalTextVariants: Variants = {
-  titleOff: {
-    y: 120,
-    transition: {
-      type: 'tween',
-      duration: 1,
-    },
-  },
-  titleOn: {
-    y: 0,
-    transition: {
-      type: 'tween',
-      duration: 1,
-    },
-  },
-};
-
-const horizontalTextVariants: Variants = {
-  titleOff: {
-    x: -120,
-    transition: {
-      type: 'tween',
-      duration: 1,
-    },
-  },
-  titleOn: {
-    x: 0,
-    transition: {
-      type: 'tween',
-      duration: 1,
-    },
-  },
-};
-
-const lineVariants: Variants = {
-  titleOff: {
-    pathLength: 0,
-    transition: {
-      ease: 'easeOut',
-      duration: 0.6,
-    },
-  },
-  titleOn: {
-    pathLength: 1,
-    transition: {
-      ease: 'easeOut',
-      duration: 0.6,
-    },
-  },
-};
+import { useEffect, useRef, useState } from 'react';
+import { gsap, ScrollTrigger } from 'gsap/all';
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Title() {
   const screenMode = useScreenModeStore((state) => state.screenMode);
-  const controls = useAnimation();
-  const { scrollY } = useScroll();
+  const wrapperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const handleScroll = () => {
-      if (scrollY.get() <= 2000) {
-        controls.start('titleOn');
-      } else {
-        controls.start('titleOff');
-      }
-    };
-
-    // 스크롤 이벤트 리스너 등록
-    const unsubscribe = scrollY.onChange(handleScroll);
-
-    // 컴포넌트 언마운트 시 리스너 해제
-    return () => {
-      unsubscribe();
-    };
-  }, [scrollY, controls]);
+    const ct = gsap.context(() => {
+      const tl = gsap
+        .timeline({
+          scrollTrigger: {
+            toggleActions: 'play reverse play reverse',
+            start: -1,
+            end: 2000,
+          },
+        })
+        .to(
+          '.line-vertical',
+          {
+            y: '+=100%',
+          },
+          'label'
+        )
+        .to(
+          '.line-horizontal',
+          {
+            x: '+=100%',
+          },
+          'label'
+        )
+        .to(
+          '.text-vertical',
+          {
+            y: '-=100%',
+          },
+          'label'
+        )
+        .to(
+          '.text-horizontal',
+          {
+            x: '+=100%',
+          },
+          'label'
+        );
+    }, wrapperRef);
+    return () => ct.revert();
+  }, [screenMode]);
 
   return (
-    <motion.div
+    <div
+      ref={wrapperRef}
       className='
           fixed w-screen sm:w-[calc(100vw-60px)] h-[calc(100vh-60px)] sm:h-screen 
           text-white overflow-hidden   
           flex flex-col justify-between
         '
-      initial='textOff'
-      animate={controls}
     >
       <div
         className={`text-4xl overflow-hidden mx-[20px] my-[20px]
         ${screenMode !== 'MobileHorizontal' && 'sm:mx-[40px]'}
         `}
       >
-        <motion.div
-          className='flex items-center'
-          variants={verticalTextVariants}
-        >
+        <div className='text-vertical translate-y-full flex items-center'>
           Dev Portfolio
-        </motion.div>
+        </div>
       </div>
 
       <div
@@ -112,16 +81,15 @@ export default function Title() {
         }
         `}
       >
-        <motion.div variants={horizontalTextVariants}>
+        <div className='text-horizontal -translate-x-full'>
           2024 New Journey
-        </motion.div>
+        </div>
       </div>
 
-      <div className=''>
-        <div className='w-screen'>
+      <div>
+        <div className='line-horizontal -translate-x-full w-screen'>
           <svg width={'100%'} height={4}>
-            <motion.line
-              variants={lineVariants}
+            <line
               stroke='white'
               strokeWidth={4}
               x1='0'
@@ -145,9 +113,9 @@ export default function Title() {
           }
           `}
           >
-            <motion.div variants={verticalTextVariants}>
+            <div className='text-vertical translate-y-full'>
               Front-end Developer
-            </motion.div>
+            </div>
           </div>
           <div
             className={`overflow-hidden
@@ -158,26 +126,16 @@ export default function Title() {
           }
           `}
           >
-            <motion.div variants={verticalTextVariants}>
-              An Jae-seong
-            </motion.div>
+            <div className='text-vertical translate-y-full'>An Jae-seong</div>
           </div>
         </div>
       </div>
 
-      <div className='absolute h-full top-0 right-[60px]  sm:right-[100px]  '>
+      <div className='line-vertical -translate-y-full absolute h-full top-0 right-[60px]  sm:right-[100px]  '>
         <svg width={4} height={'100%'}>
-          <motion.line
-            variants={lineVariants}
-            stroke='white'
-            strokeWidth={4}
-            x1='0'
-            y1='0'
-            x2='0'
-            y2='1000'
-          />
+          <line stroke='white' strokeWidth={4} x1='0' y1='0' x2='0' y2='1000' />
         </svg>
       </div>
-    </motion.div>
+    </div>
   );
 }

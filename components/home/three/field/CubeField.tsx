@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import CustomInstanceMaterial from '../shaders/CustomInstanceMaterial';
+import CubeFieldInstanceMaterial from '../shaders/CubeFieldInstanceMaterial';
 
-const InfinityField = () => {
+export default function CubeField() {
   const row = 26;
   const col = 40;
   const scale = 30;
@@ -60,7 +60,7 @@ const InfinityField = () => {
             {...instanceUv}
           />
         </boxGeometry>
-        <CustomInstanceMaterial />
+        <CubeFieldInstanceMaterial />
       </instancedMesh>
       <instancedMesh
         ref={imUpRef}
@@ -73,12 +73,10 @@ const InfinityField = () => {
             {...instanceUv}
           />
         </boxGeometry>
-        <CustomInstanceMaterial />
+        <CubeFieldInstanceMaterial />
       </instancedMesh>
 
       <pointLight position={[100, 0, 40]} intensity={1} distance={500} />
     </>
   );
-};
-
-export default InfinityField;
+}

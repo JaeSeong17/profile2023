@@ -1,65 +1,72 @@
+'use client';
+
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
-import { useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Matrix4, Quaternion, Vector3 } from 'three';
+import { MutableRefObject, useRef } from 'react';
+import { Mesh, PerspectiveCamera, Vector3 } from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function IntroCamera() {
-  const camera = useThree(({ camera }) => {
-    camera.lookAt(0, 0.5, 0.5);
-    return camera;
-  });
-  const cameraEnterState = {
+export default function IntroCamera({
+  camera,
+}: {
+  camera: MutableRefObject<PerspectiveCamera | null>;
+}) {
+  const enterState = {
     position: new Vector3(10, 0.55, 1),
     target: new Vector3(0, 0.55, 1),
   };
+  const endState = {
+    position: new Vector3(-280, 0.7, 1),
+    target: new Vector3(-300, 0.55, 1),
+  };
+
+  const targetRef = useRef<Mesh>(null);
 
   useIsomorphicLayoutEffect(() => {
-    // 카메라 회전을 위한 quarternion 계산
-    const cameraQuaternion = new Quaternion();
-    const upDirection = new Vector3(0, 0, 1); // 카메라 상단 방향
-    const cameraRotationMatrix = new Matrix4().lookAt(
-      cameraEnterState.position,
-      cameraEnterState.target,
-      upDirection
-    ); // 카메라위치 좌표, 바라볼 좌표, 카메라 상단 방향으로 바라보는 각도 계산
-    cameraQuaternion.setFromRotationMatrix(cameraRotationMatrix); // quarternion 변환
-    cameraQuaternion.normalize(); // 정규화
-
+    if (!targetRef.current) {
+      return;
+    }
+    if (!camera.current) {
+      return;
+    }
     // 카메라 무브먼트
     const tl = gsap
       .timeline()
       .to(
         // 카메라 이동
-        camera.position,
+        camera.current.position,
         {
-          x: cameraEnterState.position.x,
-          y: cameraEnterState.position.y,
-          z: cameraEnterState.position.z,
+          x: enterState.position.x,
+          y: enterState.position.y,
+          z: enterState.position.z,
           duration: 2,
           ease: 'power1.inOut',
         },
         'camMovement'
       )
       .to(
-        // 카메라 회전
-        camera.quaternion,
+        targetRef.current.position,
         {
-          x: cameraQuaternion.x,
-          y: cameraQuaternion.y,
-          z: cameraQuaternion.z,
-          w: cameraQuaternion.w,
+          x: enterState.target.x,
+          y: enterState.target.y,
+          z: enterState.target.z,
           duration: 2,
           ease: 'power1.inOut',
         },
         'camMovement'
       )
-      .to(camera.position, {
-        x: -280,
-        y: 0.7,
-        z: 1,
+      .to(targetRef.current.position, {
+        x: endState.target.x,
+        y: endState.target.y,
+        z: endState.target.z,
+      })
+      .to(camera.current.position, {
+        x: endState.position.x,
+        y: endState.position.y,
+        z: endState.position.z,
         duration: 15,
         ease: 'power2.in',
       });
@@ -72,5 +79,15 @@ export default function IntroCamera() {
     });
   }, [camera]);
 
-  return <></>;
+  useFrame(() => {
+    if (targetRef.current && camera.current) {
+      camera.current.lookAt(targetRef.current.position);
+    }
+  });
+
+  return (
+    <>
+      <mesh ref={targetRef} position={[0, 0.5, 0.5]} />
+    </>
+  );
 }

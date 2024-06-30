@@ -1,17 +1,17 @@
-import SkillsRework from './html/SkillsRework';
-import DescriptionsRework from './html/DescriptionsRework';
-import IntroduceRework from './html/IntroduceRework';
-import ContactRework from './html/ContactRework';
-import TitleRework from './html/TitleRework';
+import Skills from './html/Skills';
+import Descriptions from './html/Descriptions';
+import Introduce from './html/Introduce';
+import Contact from './html/Contact';
+import Title from './html/Title';
 
 export default function HtmlWrapper() {
   return (
     <div className='h-[25000px]'>
-      <TitleRework />
-      <IntroduceRework />
-      <SkillsRework />
-      <DescriptionsRework />
-      <ContactRework />
+      <Title />
+      <Introduce />
+      <Skills />
+      <Descriptions />
+      <Contact />
     </div>
   );
 }

@@ -1,60 +1,38 @@
 import { useIsomorphicLayoutEffect } from '@/helpers/isomorphicEffect';
-import { PerspectiveCamera } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef } from 'react';
-import {
-  Vector3,
-  Quaternion,
-  Matrix4,
-  Camera,
-  OrthographicCamera,
-} from 'three';
+import { MutableRefObject, useRef } from 'react';
+import { Vector3, Camera, PerspectiveCamera, Mesh } from 'three';
+gsap.registerPlugin(ScrollTrigger);
 
-// 카메라 회전각 계산
-function getQuaternion(position: Vector3, target: Vector3): Quaternion {
-  const cameraQuaternion = new Quaternion();
-  const upDirection = new Vector3(0, 0, 1); // 카메라 상단 방향
-  const cameraRotationMatrix = new Matrix4().lookAt(
-    position,
-    target,
-    upDirection
-  ); // 카메라위치 좌표, 바라볼 좌표, 카메라 상단 방향으로 바라보는 각도 계산
-  cameraQuaternion.setFromRotationMatrix(cameraRotationMatrix); // quarternion 변환
-  cameraQuaternion.normalize(); // 정규화
-  return cameraQuaternion;
-}
-
-// 카메라 무브먼트
-function cameraMovement(
+// 카메라 타겟 & 카메라 위치 애니메이션
+function camAnim(
   camera: Camera,
-  position: Vector3,
-  quaternion: Quaternion,
+  nextCamPos: Vector3,
+  target: Mesh,
+  nextTarPos: Vector3,
   label: string
-): gsap.core.Timeline {
+) {
   return gsap
     .timeline()
     .to(
-      // 카메라 이동
       camera.position,
       {
-        x: position.x,
-        y: position.y,
-        z: position.z,
+        x: nextCamPos.x,
+        y: nextCamPos.y,
+        z: nextCamPos.z,
         duration: 2,
         ease: 'none',
       },
       label
     )
     .to(
-      // 카메라 회전
-      camera.quaternion,
+      target.position,
       {
-        x: quaternion.x,
-        y: quaternion.y,
-        z: quaternion.z,
-        w: quaternion.w,
+        x: nextTarPos.x,
+        y: nextTarPos.y,
+        z: nextTarPos.z,
         duration: 2,
         ease: 'none',
       },
@@ -62,81 +40,88 @@ function cameraMovement(
     );
 }
 
-export default function FieldCamera() {
-  const camera = useThree((state) => state.camera);
+export default function FieldCamera({
+  camera,
+}: {
+  camera: MutableRefObject<PerspectiveCamera | null>;
+}) {
   const cameraPoint1 = {
-    position: new Vector3(-200, 0, 80),
-    target: new Vector3(0, 0, 0),
+    position: new Vector3(-150, -20, 27),
+    target: new Vector3(100, 0, 35),
   };
   const cameraPoint2 = {
-    position: new Vector3(-100, 0, 5),
-    target: new Vector3(5, 0, 2),
+    position: new Vector3(-100, -20, 27),
+    target: new Vector3(100, 0, 35),
   };
   const cameraPoint3 = {
-    position: new Vector3(-15, -3, 3.5),
-    target: new Vector3(2, 4, 2.5),
+    position: new Vector3(-50, -20, 45),
+    target: new Vector3(160, 20, 35),
   };
   const cameraPoint4 = {
-    position: new Vector3(-9, -13, 3.5),
-    target: new Vector3(10, -4, 2.5),
+    position: new Vector3(0, -20, 45),
+    target: new Vector3(220, 20, 35),
   };
   const cameraPoint5 = {
-    position: new Vector3(-50, -4, 8),
-    target: new Vector3(100, 0, 5),
+    position: new Vector3(-150, -4, 27),
+    target: new Vector3(500, 0, 30),
   };
-  const cameraQuaternion1 = getQuaternion(
-    cameraPoint1.position,
-    cameraPoint1.target
-  );
-  const cameraQuaternion2 = getQuaternion(
-    cameraPoint2.position,
-    cameraPoint2.target
-  );
-  const cameraQuaternion3 = getQuaternion(
-    cameraPoint3.position,
-    cameraPoint3.target
-  );
-  const cameraQuaternion4 = getQuaternion(
-    cameraPoint4.position,
-    cameraPoint4.target
-  );
-  const cameraQuaternion5 = getQuaternion(
-    cameraPoint5.position,
-    cameraPoint5.target
-  );
+
+  const target = useRef<Mesh>(null);
 
   useIsomorphicLayoutEffect(() => {
+    if (!camera.current || !target.current) {
+      return;
+    }
     // 카메라 무브먼트
     const tl = gsap
       .timeline()
       .add(
-        cameraMovement(camera, cameraPoint1.position, cameraQuaternion1, 'cam1')
+        camAnim(
+          camera.current,
+          cameraPoint1.position,
+          target.current,
+          cameraPoint1.target,
+          'cam1'
+        )
       )
       .add(
-        cameraMovement(camera, cameraPoint2.position, cameraQuaternion2, 'cam2')
+        camAnim(
+          camera.current,
+          cameraPoint2.position,
+          target.current,
+          cameraPoint2.target,
+          'cam2'
+        )
       )
       .add(
-        cameraMovement(camera, cameraPoint3.position, cameraQuaternion3, 'cam3')
+        camAnim(
+          camera.current,
+          cameraPoint3.position,
+          target.current,
+          cameraPoint3.target,
+          'cam3'
+        )
       )
       .add(
-        cameraMovement(
-          camera,
+        camAnim(
+          camera.current,
           cameraPoint4.position,
-          cameraQuaternion4,
+          target.current,
+          cameraPoint4.target,
           'cam4'
         ),
         '+=4'
       )
       .add(
-        cameraMovement(
-          camera,
+        camAnim(
+          camera.current,
           cameraPoint5.position,
-          cameraQuaternion5,
+          target.current,
+          cameraPoint5.target,
           'cam5'
         ),
         '+=4'
       );
-    // .pause();
 
     ScrollTrigger.create({
       animation: tl,
@@ -145,5 +130,17 @@ export default function FieldCamera() {
       scrub: 2,
     });
   }, [camera]);
-  return <></>;
+
+  useFrame(() => {
+    if (!camera.current || !target.current) return;
+    camera.current.lookAt(target.current.position);
+  });
+  return (
+    <>
+      <mesh position={[100, 0, 40]} ref={target}>
+        {/* <boxGeometry args={[5, 5, 5]} />
+        <meshBasicMaterial color={'red'} /> */}
+      </mesh>
+    </>
+  );
 }
