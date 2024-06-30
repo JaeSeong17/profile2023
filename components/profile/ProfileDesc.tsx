@@ -27,8 +27,8 @@ export default function ProfileDesc() {
     <>
       <motion.div variants={fadeVarinats}>
         시각 효과와 디자인 및 UX/UI에 관심이 많은 프론트엔드 개발자
-        안재성입니다. 매력적인이고 사용성이 높은 디자인으로 사용자들을 사로잡는
-        소프트웨어들을 사랑합니다.
+        안재성입니다. 매력적인 디자인과 높은 사용성으로 사람들을 사로잡는
+        소프트웨어를 사랑합니다.
       </motion.div>
 
       <motion.div variants={fadeVarinats}>
