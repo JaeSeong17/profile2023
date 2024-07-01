@@ -70,7 +70,7 @@ function BeltItems({
             key={idx}
             className={`item absolute
           flex items-center justify-center border-2 border-black rounded-xl
-          w-[${itemWidth}px] py-[10px] gap-5
+          w-[350px] py-[10px] gap-5
         `}
           >
             <div className='relative w-[80px] h-[80px]'>
