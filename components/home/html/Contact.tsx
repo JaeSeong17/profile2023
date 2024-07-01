@@ -15,6 +15,7 @@ function IconButton({ href, icon }: { href?: string; icon: IconProp }) {
       className='text-4xl border-2 border-white 
             w-[54px] h-[46px] rounded-2xl flex items-center justify-center
             transition hover:scale-110 active:scale-100 '
+      prefetch={false}
     >
       <FontAwesomeIcon icon={icon} size={'xl'} />
     </Link>
@@ -65,6 +66,12 @@ export default function Contact() {
           {
             opacity: 1,
             duration: 0.3,
+            onStart: () => {
+              (wrapperRef.current as HTMLDivElement).style.zIndex = '10';
+            },
+            onReverseComplete: () => {
+              (wrapperRef.current as HTMLDivElement).style.zIndex = '-10';
+            },
           },
           'intro'
         )
@@ -113,7 +120,7 @@ export default function Contact() {
     <div
       ref={wrapperRef}
       className='opacity-0 fixed w-screen h-screen bg-neutral-900/80
-        flex items-center justify-center text-white p-[30px]'
+        flex items-center justify-center text-white p-[30px] z-[-10]'
     >
       <svg className='w-[1px] h-[280px]'>
         <defs>
