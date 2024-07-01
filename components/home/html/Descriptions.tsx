@@ -1,6 +1,6 @@
 'use client';
 
-import Gallery from '@/components/projects/Gallery';
+import Image from 'next/image';
 import projectsData from '@/public/static/projectsData';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
@@ -60,7 +60,23 @@ function Description({
           flex flex-col gap-5
           '
     >
-      <Gallery label={data.label} />
+      <div
+        className='relative
+          rounded-xl
+          overflow-hidden
+          shadow-[0_0_20px_0px_white]
+          w-full
+          aspect-[16/9]'
+      >
+        <Image
+          src={`/images/portfolioImages/${data.label}/${data.label}0.png`}
+          alt={`${data.label}0`}
+          priority={true}
+          fill={true}
+          style={{ objectFit: 'cover' }}
+          sizes='(max-width: 768px) 100vw, 50vw'
+        />
+      </div>
       <div className='text-5xl flex justify-between'>
         {data.title}
 
