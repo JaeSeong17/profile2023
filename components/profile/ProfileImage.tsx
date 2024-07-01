@@ -2,6 +2,8 @@
 
 import { Variants, motion } from 'framer-motion';
 import Image from 'next/image';
+import portraitImage from '@/public/images/profileImages/portrait.jpg';
+import logoImage from '@/public/images/profileImages/logo.png';
 
 const fadeVarinats: Variants = {
   animOn: {
@@ -33,18 +35,20 @@ export default function ProfileImage() {
           transition={{ ease: 'linear', duration: 10, repeat: Infinity }}
         >
           <Image
-            src={'/images/profileImages/logo.png'}
+            src={logoImage}
             alt={'logo-image'}
             sizes={'(max-width: 640px) 100px, 150px'}
             fill={true}
+            placeholder='blur'
           />
         </motion.div>
         <Image
-          src={'/images/profileImages/portrait.jpg'}
+          src={portraitImage}
           alt={'profile-image'}
           priority={true}
           width={523}
           height={700}
+          placeholder='blur'
         />
       </motion.div>
     </div>

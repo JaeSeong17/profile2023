@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/home/three/shaders/*.{ts,js}"
+    "components/home/three/shaders/*.{ts,js}",
+    "public/images/**/*.{jpg,png}"
   ],
   "exclude": ["node_modules"]
 }
