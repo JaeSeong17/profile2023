@@ -15,7 +15,7 @@ interface ReviewsParams {
 
 export default function Reviews({ reviews, issues }: ReviewsParams) {
   return (
-    <div className='flex flex-col lg:flex-row p-[30px] sm:p-[50px] min-h-[700px] gap-10'>
+    <div className='flex flex-col lg:flex-row lg:items-stretch p-[30px] sm:p-[50px] gap-10'>
       <div className='relative flex-[1_0_0%] flex flex-col gap-8 overflow-hidden'>
         <div className='text-[2.5rem]'>주요 회고</div>
         {reviews.map((review, idx) => (
@@ -41,26 +41,28 @@ export default function Reviews({ reviews, issues }: ReviewsParams) {
         />
       </div>
 
-      <svg className='w-full lg:w-[2px] h-[2px] lg:min-h-[700px]'>
-        <defs>
-          <linearGradient id='vertical' x1='0%' y1='0%' x2='0%' y2='100%'>
-            <stop offset='0%' stopColor='white' stopOpacity={0} />
-            <stop offset='30%' stopColor='white' stopOpacity={1} />
-            <stop offset='70%' stopColor='white' stopOpacity={1} />
-            <stop offset='100%' stopColor='white' stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        <motion.rect
-          x={0}
-          y={0}
-          width={'100%'}
-          height={'100%'}
-          fill={'url(#vertical)'}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ ease: 'easeOut', duration: 1, delay: 2.2 }}
-        />
-      </svg>
+      <div className='block'>
+        <svg className='w-full lg:w-[2px] h-[2px] lg:h-full'>
+          <defs>
+            <linearGradient id='vertical' x1='0%' y1='0%' x2='0%' y2='100%'>
+              <stop offset='0%' stopColor='white' stopOpacity={0} />
+              <stop offset='30%' stopColor='white' stopOpacity={1} />
+              <stop offset='70%' stopColor='white' stopOpacity={1} />
+              <stop offset='100%' stopColor='white' stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <motion.rect
+            x={0}
+            y={0}
+            width={'100%'}
+            height={'100%'}
+            fill={'url(#vertical)'}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ ease: 'easeOut', duration: 1, delay: 2.2 }}
+          />
+        </svg>
+      </div>
 
       {/* <div className='contour-bottom' /> */}
       <div className='relative flex-[2_1_0%] flex flex-col gap-6 self-end overflow-hidden'>

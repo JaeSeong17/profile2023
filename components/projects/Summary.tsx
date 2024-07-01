@@ -102,7 +102,7 @@ export default function Summary({
         ).map((items) => {
           return (
             items[0] && (
-              <div className='overflow-hidden'>
+              <div key={items[0]} className='overflow-hidden'>
                 <motion.div variants={comeUpVariants}>
                   <div className='flex items-center'>
                     <div className='w-[25px] h-[25px]'>
