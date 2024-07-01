@@ -30,7 +30,12 @@ export default function NavBar() {
         text-4xl font-bold sm:text-5xl
         flex items-center justify-between '
     >
-      <Link className='relative no-underline decoration-inherit' href='/'>
+      <Link
+        className='relative no-underline decoration-inherit'
+        href='/'
+        prefetch={false}
+        scroll={false}
+      >
         <div className='flex items-center gap-4'>
           <motion.div
             initial={{ rotate: 0 }}

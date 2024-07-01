@@ -59,7 +59,9 @@ export const MenuList = ({
             whileTap={{ scale: 0.9 }}
             variants={itemVariants}
           >
-            <Link href={link.href}>{link.label}</Link>
+            <Link href={link.href} prefetch={false}>
+              {link.label}
+            </Link>
           </motion.li>
         ))}
       </motion.ul>

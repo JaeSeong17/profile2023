@@ -97,7 +97,11 @@ function Description({
             transition hover:scale-110
             '
       >
-        <Link href={`/projects/${data.label}`} className='text-2xl'>
+        <Link
+          href={`/projects/${data.label}`}
+          className='text-2xl'
+          prefetch={false}
+        >
           자세히
         </Link>
       </div>
