@@ -36,6 +36,10 @@ function Description({
           },
         })
         .to(wrapperRef.current, {
+          zIndex: 1,
+          duration: 0.1,
+        })
+        .to(wrapperRef.current, {
           opacity: 1,
           duration: 1,
         })
@@ -45,6 +49,10 @@ function Description({
         .to(wrapperRef.current, {
           opacity: 0,
           duration: 1,
+        })
+        .to(wrapperRef.current, {
+          zIndex: -1,
+          duration: 0.1,
         });
     }, wrapperRef);
     return () => ct.revert();
@@ -53,7 +61,7 @@ function Description({
   return (
     <div
       ref={wrapperRef}
-      className='opacity-0 absolute right-[6%] sm:right-[10%] bottom-[10%]
+      className='opacity-0 z-[-1] absolute right-[6%] sm:right-[10%] bottom-[10%]
           w-[88%] sm:w-[80%] max-w-[500px] p-[20px]
           bg-neutral-900/80 rounded-2xl shadow-[0_0_30px_-4px]
           text-white
@@ -129,9 +137,30 @@ export default function Descriptions() {
   const start = 15000;
   const interval = 1000;
   const length = 3000;
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const ct = gsap.context(() => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            toggleActions: 'play reverse play reverse',
+            start: start - 500,
+            end: start + projectsData.length * (length + interval),
+          },
+        })
+        .to(wrapperRef.current, {
+          zIndex: 5,
+          duration: 0,
+        });
+    });
+    return () => ct.revert();
+  }, []);
   return (
-    <div className='fixed w-screen h-screen flex items-end justify-end'>
+    <div
+      ref={wrapperRef}
+      className='fixed z-[-10] w-screen h-screen flex items-end justify-end'
+    >
       {projectsData.map((data, idx) => (
         <Description
           key={idx}
