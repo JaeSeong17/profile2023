@@ -1,10 +1,11 @@
 # Profile Page 2024
 
 ![스크린샷 2024-07-03 100436](https://github.com/JaeSeong17/profile2024/assets/37216958/ed72441f-930a-4bd0-a4e6-ea0a686b93aa)
-<span>
-<img src="https://github.com/JaeSeong17/profile2024/assets/37216958/df640070-dea9-45cc-b976-eb21ea19455b" width="50%" height="50%"/>
-<img src="https://github.com/JaeSeong17/profile2024/assets/37216958/4574bee4-efa8-4b57-a76b-ef7eb3e18e9a" width="50%" height="50%"/>
-</span>
+
+<p float="left">
+  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/df640070-dea9-45cc-b976-eb21ea19455b" width="50%" height="50%"/>
+  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/4574bee4-efa8-4b57-a76b-ef7eb3e18e9a" width="50%" height="50%"/>
+</p>
 <br>
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -22,7 +23,7 @@
 
 ### v0.0.1 -> v1.0.0 화면 전환 방식 수정으로 프레임 드랍 개선
 
-#### v0.0.1: 각 Scene마다 개별 Canvas를 생성, opacity로 전환 효과를 구현합니다.
+#### :pushpin: v0.0.1: 각 Scene마다 개별 Canvas를 생성, opacity로 전환 효과를 구현합니다.
 
 ```C
 const CanvasWrapper = () => {
@@ -56,7 +57,7 @@ const CanvasWrapper = () => {
 - 이 방식은 자원 사용량이 상당히 큰 Canvas를 Scene마다 생성해야 하기 해당 Scene이 보이지 않는 상태에서도 렌더링을 수행하면서 많은 량의 자원이 낭비됩니다.
 - 특히 모바일에서 심각한 프레임 저하를 유발합니다.
 
-#### v.1.0.0: Scene을 WebGLRenderTarget에 각각 렌더링하고, 하나의 Canvas에 있는 panel의 ShaderMaterial에 각 Scene이 그려진 렌더타겟을 texture로 전달하여 전환하는 방식으로 구현합니다.
+#### :pushpin: v.1.0.0: Scene을 WebGLRenderTarget에 각각 렌더링하고, 하나의 Canvas에 있는 panel의 ShaderMaterial에 각 Scene이 그려진 렌더타겟을 texture로 전달하여 전환하는 방식으로 구현합니다.
 
 ```C
 // Scene을 WebGLRenderTarget에 각각 렌더링합니다
@@ -144,7 +145,7 @@ const CustomshaderMaterial = shaderMaterial(
 
 ### v0.0.1 -> v1.0.0 Field의 Cube 생성 및 애니메이션 방식 수정으로 CPU사용량 및 Drawcall 감소
 
-#### v0.0.1: Tunnel Scene과 Field Scene의 Cube를 useFrame 훅 내에서 제어합니다.
+#### :pushpin: v0.0.1: Tunnel Scene과 Field Scene의 Cube를 useFrame 훅 내에서 제어합니다.
 
 ```C
 ...
@@ -190,7 +191,7 @@ return (
 
 - useFrame 훅 내에서 각 인스턴스 위치를 재설정하기 때문에 매 프레임마다 인스턴스 전체를 순회하며 위치를 설정해야 하므로 CPU 사용량이 높아집니다.
 
-#### v1.0.0: Tunnel Scene과 Field Scene의 Cube들을 InstancedMesh로 교체하고 애니메이션을 Shader로 제어합니다
+#### :pushpin: v1.0.0: Tunnel Scene과 Field Scene의 Cube들을 InstancedMesh로 교체하고 애니메이션을 Shader로 제어합니다
 
 ```C
 // Field의 InstancedMesh 구현 방식
@@ -277,8 +278,6 @@ export default function CustomInstancedMaterial() {
 - Shader로 연산을 넘겨주면 CPU가 수행하던 연산을 GPU에 넘겨주면서 CPU 사용량을 줄일 수 있습니다.
 - Shader내에서는 GPU가 각 픽셀 단위로 연산을 병렬로 처리하기 때문에 CPU가 연산 하는 것보다 효율적으로 처리할 수 있습니다.
 - CPU 사용량 9~10% -> 5~6%로 개선
-
-<span>
-  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/09362ad4-2286-4314-8bf3-55931dd14cbe" width="50%" height="50%"/>
-  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/9dd4552f-e626-4f53-8070-82536d8b2043" width="50%" height="50%"/>
-</span>
+  Use CPU (useFrame) | Use GPU (Shader)
+  :-------------------------:|:-------------------------:
+  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/09362ad4-2286-4314-8bf3-55931dd14cbe" width="50%" height="50%"/> | <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/9dd4552f-e626-4f53-8070-82536d8b2043" width="50%" height="50%"/>
