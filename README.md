@@ -2,9 +2,9 @@
 
 ![스크린샷 2024-07-03 100436](https://github.com/JaeSeong17/profile2024/assets/37216958/ed72441f-930a-4bd0-a4e6-ea0a686b93aa)
 
-<p float="left">
-  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/df640070-dea9-45cc-b976-eb21ea19455b" width="50%" height="50%"/>
-  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/4574bee4-efa8-4b57-a76b-ef7eb3e18e9a" width="50%" height="50%"/>
+<p float="middle">
+  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/df640070-dea9-45cc-b976-eb21ea19455b" width="40%" height="50%"/>
+  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/4574bee4-efa8-4b57-a76b-ef7eb3e18e9a" width="40%" height="50%"/>
 </p>
 <br>
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
@@ -280,4 +280,4 @@ export default function CustomInstancedMaterial() {
 - CPU 사용량 9~10% -> 5~6%로 개선
   Use CPU (useFrame) | Use GPU (Shader)
   :-------------------------:|:-------------------------:
-  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/09362ad4-2286-4314-8bf3-55931dd14cbe" width="50%" height="50%"/> | <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/9dd4552f-e626-4f53-8070-82536d8b2043" width="50%" height="50%"/>
+  ![스크린샷 2024-07-03 052300](https://github.com/JaeSeong17/profile2024/assets/37216958/9c625eaa-86c3-4e3c-a050-3ee58ee15483) | ![스크린샷 2024-07-03 052406](https://github.com/JaeSeong17/profile2024/assets/37216958/d46a2b25-9035-4d28-8b8c-716bc93194f4)
