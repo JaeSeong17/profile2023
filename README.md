@@ -7,8 +7,9 @@
 ![Threejs](https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white)
 ![GSAP](https://img.shields.io/badge/greensock-88CE02?style=for-the-badge&logo=greensock&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-
 <br>
+Three.js를 활용한 프로필 페이지를 개발합니다 <br>
+프로젝트 배포 주소 : https://jsprofile2024.vercel.app/ <br>
 
 - [Scene Transition](#scene-transition)
 - [InstancedMesh & Shader](#instancedmesh-&-shader)
