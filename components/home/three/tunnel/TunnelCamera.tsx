@@ -9,7 +9,7 @@ import { Mesh, PerspectiveCamera, Vector3 } from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function IntroCamera({
+export default function TunnelCamera({
   camera,
 }: {
   camera: MutableRefObject<PerspectiveCamera | null>;

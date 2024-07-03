@@ -1,7 +1,8 @@
 import { Backdrop, Text, useMask } from '@react-three/drei';
 import GLTFDoor from './GLTFDoor';
+import DoorMask from './DoorMask';
 
-export default function DoorScene() {
+export default function DoorWrapper() {
   const stencil = useMask(1);
   return (
     <>
@@ -37,6 +38,7 @@ export default function DoorScene() {
         distance={10}
         intensity={2}
       />
+      <DoorMask />
     </>
   );
 }

@@ -2,16 +2,15 @@
 
 import { PerspectiveCamera } from '@react-three/drei';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
-import DoorMask from './DoorMask';
-import DoorScene from './DoorScene';
-import IntroCamera from './IntroCamera';
+import TunnelCamera from './TunnelCamera';
 import * as THREE from 'three';
 import Tunnel from './Tunnel';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import DoorWrapper from './DoorWrapper';
 gsap.registerPlugin(ScrollTrigger);
 
-const IntroScene = forwardRef(function IntroScene(props, ref) {
+const TunnelScene = forwardRef(function TunnelScene(props, ref) {
   const sceneRef = useRef<THREE.Scene>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
 
@@ -38,13 +37,12 @@ const IntroScene = forwardRef(function IntroScene(props, ref) {
         near={0.1}
         far={1000}
       />
-      <IntroCamera camera={cameraRef} />
+      <TunnelCamera camera={cameraRef} />
       <ambientLight intensity={1} />
-      <DoorMask />
-      <DoorScene />
+      <DoorWrapper />
       <Tunnel count={10} layer={25} camera={cameraRef} />
     </scene>
   );
 });
 
-export default IntroScene;
+export default TunnelScene;
