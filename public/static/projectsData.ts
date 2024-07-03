@@ -14,9 +14,6 @@ export const projectsData = [
       'Three.js',
       'React-three-fiber/drei',
       'gsap',
-      'Node.js',
-      'koa',
-      'MongoDB',
     ],
     comment:
       '계정을 등록하고 글을 남길 수 있는 게시판 형태의 개인 웹 프로젝트 입니다. Three.js와 GSAP을 활용해 개성있는 UI로 개발했습니다.',
@@ -41,7 +38,7 @@ export const projectsData = [
     ],
     issues: [
       {
-        title: 'Threejs와 Redux',
+        title: 'Threejs의 3D요소 상태관리와 Redux 연동',
         content:
           'React-three-fiber는 Three.js를 React에서 선언형으로 사용하기 쉽게 만든 라이브러리입니다. \
             React의 컴포넌트가 DOM트리로 연결되듯 Three.js의 구성요소도 DOM트리에 연결 된다고 판단했습니다. 하지만 3D\
@@ -50,7 +47,7 @@ export const projectsData = [
             Three.js를 렌더링하는 화면 내 구성요소는 화면 외부 DOM 트리와는 별도로 관리됩니다. \
             Three.js Scene 내부의 HTML 요소도 마찬가지로 외부 DOM트리와는 분리되어 있기 때문에 \
             Scene 외부에서 처리된 비동기 데이터들을 Scene 내부의 HTML 요소에 전달하기 위해서는 \
-            직접 props로 전달해 주거나 Redux Provider 처럼 Context API기반이 아닌 다른 방식을 사용해야 합니다.',
+            직접 props로 전달해 주거나 Context API기반의 상태관리 라이브러리가 아닌 다른 방식을 사용해야 합니다.',
       },
       {
         title: '프론트와 백엔드의 연결 및 네트워크',
@@ -61,7 +58,7 @@ export const projectsData = [
           웹페이지 재접근 시 자동 로그인을 수행하도록 구현했습니다.',
       },
       {
-        title: '최적화를 위한 시도',
+        title: 'JS 번들 최적화로 초기 페이지 로딩 3.4초 → 2.4초로 단축',
         content:
           '최적화를 위해 Lighthouse 분석 지표를 활용했습니다. 초기 페이지 렌더링 속도를 단축시키기 위해서 첫 화면에 보이지 않는\
            3D요소와 UI에 lazy loading을 적용했습니다. 또한 3D화면의 프레임 저하를 방지하기 위해 화면상에 보이지 않지만 재생되고 있는\
@@ -80,12 +77,10 @@ export const projectsData = [
     skills: [
       'Nextjs',
       'TypeScript',
+      'Zustand',
       'ReactQuery',
       'ReactHookForm',
       'Tailwind',
-      'Prisma',
-      'MongoDB',
-      'Vercel',
     ],
     comment:
       '스터디원 모집과 관리 스터디 기록 및 관리 기능 사용할 수 있는 개발자 스터디 플랫폼 주제의 개인 웹 프로젝트입니다. Airbnb의 UI를 참고하였으며 Nextjs 적용을 목표로 개발했습니다.',
@@ -120,7 +115,7 @@ export const projectsData = [
           동적 반응이 필요한 곳에 클라이언트 컴포넌트를 사용해 CSR과 SSR을 적절히 배치할 수 있는 Nextjs의 이점을 활용했습니다.',
       },
       {
-        title: 'Zustand와 React-Query',
+        title: 'Zustand와 React-Query로 코드량 감소',
         content:
           '이전 프로젝트에서 Redux와 Redux-saga로 비동기 데이터의 상태관리시 사용하는 기능에 비해 코드가 너무 \
           길어지는 점에 불만을 느껴 Zustand와 React-query를 사용했습니다. 클로저 기반의 Zustand는 스토어 \
