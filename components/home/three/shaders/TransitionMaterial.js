@@ -40,8 +40,6 @@ const TransitionMaterial = shaderMaterial(
       }
      
       gl_FragColor = finalTexture;
-      // gl_FragColor = mix(t1, t2, step(1.-uProgress, uv.x));
-      // gl_FragColor = t1;
     }`
 );
 

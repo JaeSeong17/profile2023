@@ -1,7 +1,7 @@
 'use client';
 
 import { forwardRef, useImperativeHandle, useRef } from 'react';
-import IntroScene from './three/intro/IntroScene';
+import TunnelScene from './three/tunnel/TunnelScene';
 import { extend, useFrame, useThree } from '@react-three/fiber';
 import TransitionMaterial from './three/shaders/TransitionMaterial.js';
 import { useFBO } from '@react-three/drei';
@@ -20,9 +20,9 @@ type SceneInfo = {
 
 const QuadPanel = forwardRef(function QuadPanel(props, ref) {
   const viewport = useThree((state) => state.viewport);
-  const introSceneInfo = useRef<SceneInfo>(null);
+  const tunnelSceneInfo = useRef<SceneInfo>(null);
   const fieldSceneInfo = useRef<SceneInfo>(null);
-  const introRenderTarget = useFBO({
+  const tunnelRenderTarget = useFBO({
     stencilBuffer: true,
     type: THREE.HalfFloatType,
     format: THREE.RGBAFormat,
@@ -46,16 +46,16 @@ const QuadPanel = forwardRef(function QuadPanel(props, ref) {
   }));
 
   useFrame(({ gl }) => {
-    (introSceneInfo.current as SceneInfo).scene.visible = true;
+    (tunnelSceneInfo.current as SceneInfo).scene.visible = true;
     (fieldSceneInfo.current as SceneInfo).scene.visible = false;
 
-    gl.setRenderTarget(introRenderTarget);
+    gl.setRenderTarget(tunnelRenderTarget);
     gl.render(
-      (introSceneInfo.current as SceneInfo).scene,
-      (introSceneInfo.current as SceneInfo).camera
+      (tunnelSceneInfo.current as SceneInfo).scene,
+      (tunnelSceneInfo.current as SceneInfo).camera
     );
 
-    (introSceneInfo.current as SceneInfo).scene.visible = false;
+    (tunnelSceneInfo.current as SceneInfo).scene.visible = false;
     (fieldSceneInfo.current as SceneInfo).scene.visible = true;
 
     gl.setRenderTarget(fieldRenderTarget);
@@ -64,11 +64,11 @@ const QuadPanel = forwardRef(function QuadPanel(props, ref) {
       (fieldSceneInfo.current as SceneInfo).camera
     );
 
-    (introSceneInfo.current as SceneInfo).scene.visible = false;
+    (tunnelSceneInfo.current as SceneInfo).scene.visible = false;
     (fieldSceneInfo.current as SceneInfo).scene.visible = false;
 
     (shaderRef.current as THREE.ShaderMaterial).uniforms.uTexture1.value =
-      introRenderTarget.texture;
+      tunnelRenderTarget.texture;
     (shaderRef.current as THREE.ShaderMaterial).uniforms.uTexture2.value =
       fieldRenderTarget.texture;
 
@@ -80,7 +80,7 @@ const QuadPanel = forwardRef(function QuadPanel(props, ref) {
         <planeGeometry args={[viewport.width, viewport.height]} />
         <transitionMaterial ref={shaderRef} />
       </mesh>
-      <IntroScene ref={introSceneInfo} />
+      <TunnelScene ref={tunnelSceneInfo} />
       {/* <Suspense> */}
       <FieldScene ref={fieldSceneInfo} />
       {/* </Suspense> */}
