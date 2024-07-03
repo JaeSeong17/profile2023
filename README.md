@@ -1,11 +1,14 @@
 # Profile Page 2024
 
 ![스크린샷 2024-07-03 100436](https://github.com/JaeSeong17/profile2024/assets/37216958/ed72441f-930a-4bd0-a4e6-ea0a686b93aa)
+![스크린샷 2024-07-03 100522](https://github.com/JaeSeong17/profile2024/assets/37216958/a563d5b3-9b80-4c6c-a4ba-c3f20c0925a6){: width="50%" height="50%"}
+![스크린샷 2024-07-03 100612](https://github.com/JaeSeong17/profile2024/assets/37216958/6d9ce8e8-519e-4ac1-a029-8644884a83f9){: width="50%" height="50%"}
 
 <p float="middle">
-  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/df640070-dea9-45cc-b976-eb21ea19455b" width="40%" height="50%"/>
-  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/4574bee4-efa8-4b57-a76b-ef7eb3e18e9a" width="40%" height="50%"/>
+  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/df640070-dea9-45cc-b976-eb21ea19455b" width="49.5%" height="50%"/>
+  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/4574bee4-efa8-4b57-a76b-ef7eb3e18e9a" width="49.5%" height="50%"/>
 </p>
+
 <br>
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
