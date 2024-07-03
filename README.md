@@ -54,7 +54,7 @@ const CanvasWrapper = () => {
 - 이 방식은 자원 사용량이 상당히 큰 Canvas를 Scene마다 생성해야 하기 해당 Scene이 보이지 않는 상태에서도 렌더링을 수행하면서 많은 량의 자원이 낭비됩니다.
 - 특히 모바일에서 심각한 프레임 저하를 유발합니다.
 
-#### :pushpin: v.1.0.0: Scene을 WebGLRenderTarget에 각각 렌더링하고, 하나의 Canvas에 있는 panel의 ShaderMaterial에 각 Scene이 그려진 렌더타겟을 texture로 전달하여 전환하는 방식으로 구현합니다.
+#### :pushpin: v.1.0.0: Scene을 WebGLRenderTarget에 각각 렌더링하고, Panel의 ShaderMaterial에 RenderTarget.texture를 전달하여 장면을 전환하도록 구현합니다.
 
 ```C
 // Scene을 WebGLRenderTarget에 각각 렌더링합니다
@@ -131,8 +131,8 @@ const CustomshaderMaterial = shaderMaterial(
 )
 ```
 
-- 해당 방식으로 자원 소모가 큰 캔버스 수를 장면 수만큼 생성하지 않고 전환이 가능합니다.
-- 해당 프로젝트에서 구현한 페이드 아웃/인 방식 이외에도 와이프, 디졸브 등의 다른 전환 방식으로 구현 할 수 있습니다.
+- 해당 방식은 자원 소모가 큰 캔버스를 장면 수만큼 생성하지 않습니다.
+- 해당 프로젝트에서 구현한 페이드 아웃/인 방식 이외에도 와이프, 디졸브 등 다른 전환 방식으로 구현 할 수 있습니다.
 - 전체적인 프레임 및 화면 전환 시 프레임 드랍이 개선되었습니다.
   <video src="https://github.com/JaeSeong17/profile2024/assets/37216958/b746ec9e-8b7d-47ad-83f3-25ab0316fdd7" width="50%" height="50%" autoplay loop muted/>
 
@@ -272,9 +272,8 @@ export default function CustomInstancedMaterial() {
 
 ```
 
-- Shader로 연산을 넘겨주면 CPU가 수행하던 연산을 GPU에 넘겨주면서 CPU 사용량을 줄일 수 있습니다.
-- Shader내에서는 GPU가 각 픽셀 단위로 연산을 병렬로 처리하기 때문에 CPU가 연산 하는 것보다 효율적으로 처리할 수 있습니다.
-- CPU 사용량 9~10% -> 5~6%로 개선되었습니다.
+- Shader내에서는 GPU가 각 픽셀마다 연산을 병렬로 처리하기 때문에 CPU보다 효율적으로 처리할 수 있습니다.
+- CPU가 수행하던 연산을 GPU에 넘겨주면서 CPU 사용량을 줄입니다. (CPU 사용량 9&#126;10% &rarr; 5&#126;6%로 개선)
   Use CPU (useFrame) | Use GPU (Shader)
   :-------------------------:|:-------------------------:
   ![스크린샷 2024-07-03 052300](https://github.com/JaeSeong17/profile2024/assets/37216958/9c625eaa-86c3-4e3c-a050-3ee58ee15483) | ![스크린샷 2024-07-03 052406](https://github.com/JaeSeong17/profile2024/assets/37216958/d46a2b25-9035-4d28-8b8c-716bc93194f4)
