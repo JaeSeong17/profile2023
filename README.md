@@ -1,13 +1,7 @@
 # Profile Page 2024
 
 ![스크린샷 2024-07-03 100436](https://github.com/JaeSeong17/profile2024/assets/37216958/ed72441f-930a-4bd0-a4e6-ea0a686b93aa)
-![스크린샷 2024-07-03 100522](https://github.com/JaeSeong17/profile2024/assets/37216958/a563d5b3-9b80-4c6c-a4ba-c3f20c0925a6){: width="50%" height="50%"}
-![스크린샷 2024-07-03 100612](https://github.com/JaeSeong17/profile2024/assets/37216958/6d9ce8e8-519e-4ac1-a029-8644884a83f9){: width="50%" height="50%"}
-
-<p float="middle">
-  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/df640070-dea9-45cc-b976-eb21ea19455b" width="49.5%" height="50%"/>
-  <img src="https://github.com/JaeSeong17/profile2024/assets/37216958/4574bee4-efa8-4b57-a76b-ef7eb3e18e9a" width="49.5%" height="50%"/>
-</p>
+![스크린샷 2024-07-03 100612](https://github.com/JaeSeong17/profile2024/assets/37216958/6d9ce8e8-519e-4ac1-a029-8644884a83f9)
 
 <br>
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
@@ -139,7 +133,7 @@ const CustomshaderMaterial = shaderMaterial(
 
 - 해당 방식으로 자원 소모가 큰 캔버스 수를 장면 수만큼 생성하지 않고 전환이 가능합니다.
 - 해당 프로젝트에서 구현한 페이드 아웃/인 방식 이외에도 와이프, 디졸브 등의 다른 전환 방식으로 구현 할 수 있습니다.
-- 전체적인 프레임 및 화면 전환 시 프레임 드랍 개선
+- 전체적인 프레임 및 화면 전환 시 프레임 드랍이 개선되었습니다.
   <video src="https://github.com/JaeSeong17/profile2024/assets/37216958/b746ec9e-8b7d-47ad-83f3-25ab0316fdd7" width="50%" height="50%" autoplay loop muted/>
 
 ---
@@ -194,7 +188,7 @@ return (
 
 - useFrame 훅 내에서 각 인스턴스 위치를 재설정하기 때문에 매 프레임마다 인스턴스 전체를 순회하며 위치를 설정해야 하므로 CPU 사용량이 높아집니다.
 
-#### :pushpin: v1.0.0: Tunnel Scene과 Field Scene의 Cube들을 InstancedMesh로 교체하고 애니메이션을 Shader로 제어합니다
+#### :pushpin: v1.0.0: Tunnel Scene과 Field Scene의 Cube들을 InstancedMesh로 교체하고 애니메이션을 Shader로 제어합니다.
 
 ```C
 // Field의 InstancedMesh 구현 방식
@@ -280,7 +274,7 @@ export default function CustomInstancedMaterial() {
 
 - Shader로 연산을 넘겨주면 CPU가 수행하던 연산을 GPU에 넘겨주면서 CPU 사용량을 줄일 수 있습니다.
 - Shader내에서는 GPU가 각 픽셀 단위로 연산을 병렬로 처리하기 때문에 CPU가 연산 하는 것보다 효율적으로 처리할 수 있습니다.
-- CPU 사용량 9~10% -> 5~6%로 개선
+- CPU 사용량 9~10% -> 5~6%로 개선되었습니다.
   Use CPU (useFrame) | Use GPU (Shader)
   :-------------------------:|:-------------------------:
   ![스크린샷 2024-07-03 052300](https://github.com/JaeSeong17/profile2024/assets/37216958/9c625eaa-86c3-4e3c-a050-3ee58ee15483) | ![스크린샷 2024-07-03 052406](https://github.com/JaeSeong17/profile2024/assets/37216958/d46a2b25-9035-4d28-8b8c-716bc93194f4)
