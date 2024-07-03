@@ -128,8 +128,7 @@ const CustomshaderMaterial = shaderMaterial(
 
 - 해당 방식으로 자원 소모가 큰 캔버스 수를 장면 수만큼 생성하지 않고 전환이 가능합니다.
 - 해당 프로젝트에서 구현한 페이드 아웃/인 방식 이외에도 와이프, 디졸브 등의 다른 전환 방식으로 구현 할 수 있습니다.
-- 모바일에서 프레임 저하 현상이 개선되었습니다.
-  (프레임 드랍 개선 gif 첨부)
+  <video src="https://github.com/JaeSeong17/profile2024/assets/37216958/b746ec9e-8b7d-47ad-83f3-25ab0316fdd7" width="50%" height="50%" autoplay loop muted/>
 
 # InstancedMesh & Shader
 
@@ -267,4 +266,7 @@ export default function CustomInstancedMaterial() {
 
 - Shader로 연산을 넘겨주면 CPU가 수행하던 연산을 GPU에 넘겨주면서 CPU 사용량을 줄일 수 있습니다.
 - Shader내에서는 GPU가 각 픽셀 단위로 연산을 병렬로 처리하기 때문에 CPU가 연산 하는 것보다 효율적으로 처리할 수 있습니다.
-- Shader로 개선된 CPU 사용량 (사진 첨부)
+- CPU 사용량 9~10% -> 5~6%로 개선
+
+<img src="https://github.com/JaeSeong17/profile2024/assets/37216958/09362ad4-2286-4314-8bf3-55931dd14cbe" width="50%" height="50%"/>
+<img src="https://github.com/JaeSeong17/profile2024/assets/37216958/9dd4552f-e626-4f53-8070-82536d8b2043" width="50%" height="50%"/>
